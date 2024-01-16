@@ -12,6 +12,9 @@ class Siswa extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'siswa';
+    protected $primaryKey = 'nis';
+
     /**
      * The attributes that are mass assignable.
      *

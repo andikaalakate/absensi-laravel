@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/login', function () {
-//     return view('auth.login');
-// });
+Route::get('/login', function () {
+    return view('auth.login');
+});
 
 Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::post('/proseslogin', [App\Http\Controllers\AuthController::class, 'proseslogin']);
