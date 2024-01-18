@@ -7,9 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function home()
+    public function flogin()
     {
         return redirect('/login');
+    }
+    public function tlogin()
+    {
+        return redirect('/siswa/dashboard');
     }
     public function index()
     {

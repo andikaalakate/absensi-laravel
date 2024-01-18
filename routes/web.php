@@ -20,13 +20,14 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware('guest')->group(function () {
-    Route::get('/', [AuthController::class, 'home']);
+    Route::get('/', [AuthController::class, 'flogin']);
     Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
 });
 
 Route::middleware('auth:siswa')->group(function () {
+    Route::get('/', [AuthController::class, 'tlogin']);
     Route::get('/siswa/dashboard', [SiswaController::class, 'index']);
-    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
