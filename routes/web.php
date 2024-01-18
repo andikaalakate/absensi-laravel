@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', function () {
-    return view('auth.login');
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// });
+
+Route::middleware('guest')->group(function () {
+    Route::get('/', [AuthController::class, 'home']);
+    Route::get('/login', [AuthController::class, 'index'])->name('login');
+    Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
 });
 
-Route::get('/welcome', function () {
-    return view('welcome');
+Route::middleware('auth:siswa')->group(function () {
+    Route::get('/siswa/dashboard', [SiswaController::class, 'index']);
+    Route::get('/logout', [AuthController::class, 'logout']);
 });
 
-Route::post('/proseslogin', [App\Http\Controllers\AuthController::class, 'proseslogin']);
