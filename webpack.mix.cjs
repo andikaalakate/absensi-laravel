@@ -11,8 +11,9 @@ mix
     "resources/css/tailwind.css", // File masukan (input file)
     "public/css", // Folder keluaran (output folder)
     [tailwindcss("tailwind.config.js")] // Plugin Tailwind CSS
-)
-.css(
+);
+
+mix.css(
     "resources/assets/login/css/style.css",
     "public/assets/login/css"
 )
