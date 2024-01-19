@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login RPL</title>
     <!-- Style -->
-    <link rel="stylesheet" href="{{ asset('css/sytle.css') }}" />
+    <link rel="stylesheet" href="{{ mix('css/style.css') }}" />
 
     <script src="{{ asset('js/main.js') }}"></script>
 
