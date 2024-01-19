@@ -40,6 +40,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/dashboard/css/style.css":
+/*!**************************************************!*\
+  !*** ./resources/assets/dashboard/css/style.css ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/assets/login/js/main.js":
 /*!*******************************************!*\
   !*** ./resources/assets/login/js/main.js ***!
@@ -161,6 +174,7 @@ for (i = 0; i < close.length; i++) {
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/assets/login/js/main": 0,
+/******/ 			"assets/dashboard/css/style": 0,
 /******/ 			"assets/login/css/style": 0,
 /******/ 			"css/tailwind": 0,
 /******/ 			"css/app": 0
@@ -213,10 +227,11 @@ for (i = 0; i < close.length; i++) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/login/js/main.js")))
-/******/ 	__webpack_require__.O(undefined, ["assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/css/tailwind.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/login/css/style.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/login/js/main.js")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/css/tailwind.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/login/css/style.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/dashboard/css/style.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
