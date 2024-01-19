@@ -1,5 +1,7 @@
 {
     "/assets/login/js/main.js": "/assets/login/js/main.js",
+    "/assets/dashboard/js/main.js": "/assets/dashboard/js/main.js",
+    "/assets/dashboard/css/style.css": "/assets/dashboard/css/style.css",
     "/assets/login/css/style.css": "/assets/login/css/style.css",
     "/css/tailwind.css": "/css/tailwind.css",
     "/css/app.css": "/css/app.css"

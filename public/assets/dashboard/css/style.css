@@ -1,0 +1,231 @@
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Nunito+Sans:wght@200;300;400;500;600;700;800;900;1000&family=Oswald:wght@200;300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap);
+* {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+    transition: .5s;
+}
+
+/* body {
+    overflow: hidden;
+} */
+
+.container {
+    height:100vh;
+    background-color: #cecece;
+    width: 100%;
+    display: grid;
+    grid-template-areas:"sidebar main";
+    grid-template-columns: 300px auto;
+    gap: 5px;
+    overflow: hidden;
+}
+
+/* Sidebar */
+aside.sidebar {
+    grid-area: sidebar;
+    background-color: rgb(57, 110, 224);
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0 5px 5px 0;
+    padding: 10px 0;
+    box-shadow: 0 0 4px #0004;
+    overflow-y: auto;
+    position: fixed;
+    width: 300px;
+}
+
+aside.sidebar * {
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.button-page {
+    display: grid;
+    grid-template-areas:"panah"
+                        "logo"
+                        "sidelink"
+                        "exitLink";
+    grid-template-rows: 10px 50px auto 50px;
+    gap: 5px;
+    height: 100%;
+}
+
+.logo {
+
+    grid-area: logo;
+}
+
+.exit-link {
+    grid-area: exitLink;
+}
+
+.exit-link, .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding:5px 10px;
+    font-size: 20px;
+    color:#000;
+}
+
+.sidebar-head {
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.sidebutton {
+    display: block;
+}
+
+.sidelink:hover,
+.exit-link:hover {
+    background-color: rgb(33, 82, 187);
+}
+
+.sidelink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding:5px 10px;
+    font-size: 20px;
+}
+
+.bukaTutupSidebar {
+    grid-area: panah;
+    background-color: #000;
+    width: 100%;
+}
+
+.panah-sidebar {
+    /* position: absolute; */
+    z-index: 2;
+    /* top: 7px;
+    left: 270px; */
+    font-size: 20px;
+    transform:rotate(-180deg);
+    cursor: pointer;
+    filter: drop-shadow(0 0 4px #0004);
+}
+
+/* Dashboard */
+.dash {
+    grid-area: main;
+    padding: 10px;
+}
+
+.dash-content {
+    background-color: #F5f5f5;
+    box-shadow: 0 0 8px #0004;
+    padding:20px 5px 20px 20px;
+    display: flex;
+    border-radius: 10px;
+    height: 100%;
+    max-height:calc(100vh - 20px);
+    overflow-y: scroll;
+    /* overflow: hidden; */
+    max-height: 100%;
+    position: fixed;
+    width:100% ;
+    max-width:calc(100% - 330px) ;
+
+}
+
+
+.profil-card {
+    display: grid;
+    grid-template-areas: "image data waktu";
+    grid-template-columns: 200px auto 150px;
+    grid-template-rows: 200px;
+    height: 200px;
+    background-color: red;
+    border-radius: 5px;
+    width: 100%;
+    overflow: hidden;
+    gap:5px;
+}
+
+.img-profil {
+    grid-area: image;
+    overflow: hidden;
+    padding: 10px;
+    height: 100%;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+}
+
+.img-profil img{
+    width: 100%;
+    max-width: 180px;
+}
+
+.data-profil {
+    background-color: green;
+    grid-area: data;
+}
+
+.waktu-profil {
+    grid-area: waktu;
+    background-color: blue;
+}
+
+@media screen and (width <= 1024px) {
+    .profil-card {
+        grid-template-areas: "image waktu"
+                            "data data";
+        width: 100%;
+        grid-template-columns: 200px auto;
+        height: 100vh;
+        grid-template-rows:200px auto;
+
+    }
+    .dash-content {
+        padding:20px 20px 20px 20px;
+
+    }
+}
+
+@media screen and (width <= 768px) {
+    .container {
+        grid-template-columns: 40px auto;
+        gap: 0px;
+    }
+
+    aside.sidebar {
+        width: 40px;
+    }
+
+    .dash {
+        padding: 5px;
+    }
+
+    .panah-sidebar {
+        visibility: hidden;
+        opacity: 0;
+        left: 30px;
+    }
+
+    .dash-content {
+        width:100% ;
+        max-width:calc(100% - 50px) ;
+    }
+}
+
+
+    @media screen and (width <= 512px) {
+        .profil-card {
+            grid-template-areas:"image"
+                                "data"
+                                "waktu";
+            grid-template-columns:auto;
+            grid-template-rows: 200px auto 100px;
+            width: 100%;
+            height: 650px;
+        }
+    }
+

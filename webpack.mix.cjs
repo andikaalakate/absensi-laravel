@@ -20,5 +20,13 @@ mix
     "resources/assets/login/js/main.js",
     "public/assets/login/js"
 )
+.css(
+    "resources/assets/dashboard/css/style.css",
+    "public/assets/dashboard/css"
+)
+.js(
+    "resources/assets/dashboard/js/main.js",
+    "public/assets/dashboard/js"
+)
 ;
 
