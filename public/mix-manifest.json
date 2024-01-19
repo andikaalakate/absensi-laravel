@@ -1,4 +1,6 @@
 {
-    "/css/app.css": "/css/app.css",
-    "/css/style.css": "/css/style.css"
+    "/assets/login/js/main.js": "/assets/login/js/main.js",
+    "/assets/login/css/style.css": "/assets/login/css/style.css",
+    "/css/tailwind.css": "/css/tailwind.css",
+    "/css/app.css": "/css/app.css"
 }
