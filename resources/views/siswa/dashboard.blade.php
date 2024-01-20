@@ -16,8 +16,8 @@
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="button-page">
-                <div class="bukaTutupSidebar">
-                    <i class='bx bxs-chevron-right-circle panah-sidebar' id="panah-sidebar" onclick="bukaTutupSidebar()"></i>
+                <div class="bukaTutupSidebar" onclick="bukaTutupSidebar()" id="bukaTutupSidebar">
+                    <i class='bx bxs-chevron-right-circle panah-sidebar' id="panah-sidebar" ></i>
                 </div>
                 <a href="#" class="logo"><i class='bx bxs-dashboard'></i><h1 class="sidebar-head">Dashboard</h1></a>
                 <ul class="sidebutton">
