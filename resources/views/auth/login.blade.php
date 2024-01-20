@@ -8,7 +8,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="{{ mix('assets/login/css/style.css') }}" />
 
-    <script src="{{ mix('assets/login/js/main.js') }}"></script>
+    <script src="{{ mix('assets/login/js/main.js') }}" defer></script>
 
     <!-- BoxIcons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
@@ -33,7 +33,7 @@
             <div class="nisInput-login">
                 <label for="nis">NIS :</label>
                 <label class="input-nis" for="nis">
-                    <input type="text" id="nis" name="nis" oninput="validateNumberInput(this)" required />
+                    <input type="text" id="nis" name="nis" required />
                     <i class="bx bxs-key"></i>
                 </label>
             </div>
