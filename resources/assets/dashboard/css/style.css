@@ -16,11 +16,11 @@
 } */
 
 .container {
-    height:100vh;
+    height: 100vh;
     background-color: #cecece;
     width: 100%;
     display: grid;
-    grid-template-areas:"sidebar main";
+    grid-template-areas: "sidebar main";
     grid-template-columns: 300px auto;
     gap: 5px;
     overflow: hidden;
@@ -47,10 +47,10 @@ aside.sidebar * {
 
 .button-page {
     display: grid;
-    grid-template-areas:"panah"
-                        "logo"
-                        "sidelink"
-                        "exitLink";
+    grid-template-areas: "panah"
+        "logo"
+        "sidelink"
+        "exitLink";
     grid-template-rows: 30px 50px auto 50px;
     gap: 5px;
     height: 100%;
@@ -65,13 +65,14 @@ aside.sidebar * {
     grid-area: exitLink;
 }
 
-.exit-link, .logo {
+.exit-link,
+.logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding:5px 10px;
+    padding: 5px 10px;
     font-size: 20px;
-    color:#000;
+    color: #000;
 }
 
 .sidebar-head {
@@ -84,7 +85,7 @@ aside.sidebar * {
     display: block;
 }
 
-.sidebutton > .list-link:nth-child(6) {
+.sidebutton>.list-link:nth-child(6) {
     height: 40px;
     overflow: hidden;
 
@@ -99,7 +100,7 @@ aside.sidebar * {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding:5px 10px;
+    padding: 5px 10px;
     font-size: 20px;
 }
 
@@ -108,7 +109,7 @@ aside.sidebar * {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     padding: 10px;
 }
 
@@ -118,7 +119,7 @@ aside.sidebar * {
     /* top: 7px;
     left: 270px; */
     font-size: 20px;
-    transform:rotate(-180deg);
+    transform: rotate(-180deg);
     cursor: pointer;
     filter: drop-shadow(0 0 4px #0004);
 }
@@ -132,16 +133,16 @@ aside.sidebar * {
 .dash-content {
     background-color: #F5f5f5;
     box-shadow: 0 0 8px #0004;
-    padding:20px 5px 20px 20px;
+    padding: 20px 5px 20px 20px;
     display: flex;
     border-radius: 10px;
     height: 100%;
-    max-height:calc(100vh - 20px);
+    max-height: calc(100vh - 20px);
     overflow-y: scroll;
     overflow-x: hidden;
     position: fixed;
-    width:100% ;
-    max-width:calc(100% - 330px) ;
+    width: 100%;
+    max-width: calc(100% - 330px);
 }
 
 
@@ -155,7 +156,7 @@ aside.sidebar * {
     border-radius: 5px;
     width: 100%;
     overflow: hidden;
-    gap:5px;
+    gap: 5px;
 }
 
 .img-profil {
@@ -168,7 +169,7 @@ aside.sidebar * {
     justify-content: center;
 }
 
-.img-profil img{
+.img-profil img {
     width: 100%;
     max-width: 180px;
 }
@@ -195,7 +196,7 @@ aside.sidebar * {
     display: none;
     align-items: center;
     justify-content: center;
-    color:#fff;
+    color: #fff;
     font-size: 20px;
 }
 
@@ -232,13 +233,13 @@ aside.sidebar * {
     display: none;
 }
 
-#bounce-button:checked ~ .bounce-menu {
+#bounce-button:checked~.bounce-menu {
     visibility: visible;
     opacity: 1;
     bottom: 70px;
 }
 
-.bounceButton > i {
+.bounceButton>i {
     background-color: rgb(33, 82, 187);
     width: 100%;
     height: 100%;
@@ -250,28 +251,29 @@ aside.sidebar * {
     transition: transform 1s, font-size 1s;
 }
 
-#bounce-button:checked ~ i {
+#bounce-button:checked~i {
     font-size: 30px;
     transform: rotate(360deg);
 }
 
-@media screen and (width <= 1024px) {
+@media screen and (max-width: 1024px) {
     .profil-card {
         grid-template-areas: "image waktu"
-                            "data data";
+            "data data";
         width: 100%;
         grid-template-columns: 200px auto;
         height: 400px;
-        grid-template-rows:200px auto;
+        grid-template-rows: 200px auto;
 
     }
+
     .dash-content {
-        padding:20px 20px 20px 20px;
+        padding: 20px 20px 20px 20px;
 
     }
 }
 
-@media screen and (width <= 768px) {
+@media screen and (max-width: 768px) {
     .container {
         grid-template-columns: 0px auto;
         gap: 0px;
@@ -293,13 +295,13 @@ aside.sidebar * {
     .panah-sidebar {
         visibility: hidden;
         opacity: 0;
-        left: 30px;
+        left: 40px;
     }
 
     .dash-content {
-        width:100% ;
+        width: 100%;
         height: 100%;
-        max-width:calc(100% - 10px) ;
+        max-width: calc(100% - 10px);
     }
 
     .bounceButton {
@@ -308,14 +310,14 @@ aside.sidebar * {
 }
 
 
-    @media screen and (width <= 512px) {
-        .profil-card {
-            grid-template-areas:"image"
-                                "data"
-                                "waktu";
-            grid-template-columns:auto;
-            grid-template-rows: 200px auto 100px;
-            width: 100%;
-            height: 550px;
-        }
+@media screen and (max-width: 512px) {
+    .profil-card {
+        grid-template-areas: "image"
+            "data"
+            "waktu";
+        grid-template-columns: auto;
+        grid-template-rows: 200px auto 100px;
+        width: 100%;
+        height: 550px;
     }
+}

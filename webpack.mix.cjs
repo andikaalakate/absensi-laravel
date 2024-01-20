@@ -32,3 +32,4 @@ mix.css(
 .setPublicPath('public');
 ;
 
+mix.disableSuccessNotifications();

@@ -1,11 +1,14 @@
 {
     "private": true,
-    "type": "commonjs",
+    "type": "module",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
         "tail": "tailwindcss -i ./resources/css/app.css -o ./public/css/app.css --watch",
-        "watch": "mix watch"
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "production": "mix --production"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.16",

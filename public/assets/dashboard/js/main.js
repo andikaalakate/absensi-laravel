@@ -1,13 +1,34 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
 var __webpack_exports__ = {};
 /*!***********************************************!*\
   !*** ./resources/assets/dashboard/js/main.js ***!
   \***********************************************/
+__webpack_require__.r(__webpack_exports__);
+var bukaTutupSidebar = document.getElementById("bukaTutupSidebar");
+if (bukaTutupSidebar) {
+  bukaTutupSidebar.addEventListener("click", bukaSidebar);
+}
 function bukaSidebar() {
   var sidebar = document.getElementById("container");
   var aside = document.getElementById("sidebar");
   var tandaPanah = document.getElementById("panah-sidebar");
-  var bukaTutupSidebar = document.getElementById("bukaTutupSidebar");
   var dashContent = document.getElementById("dashContent");
   if (sidebar.style.gridTemplateColumns == "300px auto") {
     bukaTutupSidebar.style.width = "40px";

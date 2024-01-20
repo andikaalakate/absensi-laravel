@@ -1,8 +1,11 @@
+let bukaTutupSidebar = document.getElementById("bukaTutupSidebar");
+if (bukaTutupSidebar) {
+    bukaTutupSidebar.addEventListener("click", bukaSidebar);
+}
 function bukaSidebar() {
     let sidebar = document.getElementById("container");
     let aside = document.getElementById("sidebar");
     let tandaPanah = document.getElementById("panah-sidebar");
-    let bukaTutupSidebar = document.getElementById("bukaTutupSidebar");
     let dashContent = document.getElementById("dashContent");
 
     if (sidebar.style.gridTemplateColumns == "300px auto") {
@@ -21,7 +24,7 @@ function bukaSidebar() {
 }
 
 function dropdownSetting() {
-    if(document.getElementById("dropdownSetting").style.height == "40px") {
+    if (document.getElementById("dropdownSetting").style.height == "40px") {
         document.getElementById("dropdownSetting").style.height = "auto";
     } else {
         document.getElementById("dropdownSetting").style.height = "40px";
