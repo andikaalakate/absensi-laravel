@@ -2,6 +2,54 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./resources/assets/dashboard/css/leaderboard.css":
+/*!********************************************************!*\
+  !*** ./resources/assets/dashboard/css/leaderboard.css ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/assets/dashboard/css/profilSiswa.css":
+/*!********************************************************!*\
+  !*** ./resources/assets/dashboard/css/profilSiswa.css ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/assets/dashboard/css/scan-qr.css":
+/*!****************************************************!*\
+  !*** ./resources/assets/dashboard/css/scan-qr.css ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/assets/dashboard/css/tentang.css":
+/*!****************************************************!*\
+  !*** ./resources/assets/dashboard/css/tentang.css ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/app.css":
 /*!*******************************!*\
   !*** ./resources/css/app.css ***!
@@ -42,6 +90,18 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************!*\
   !*** ./resources/assets/dashboard/css/style.css ***!
   \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/assets/dashboard/css/keamanan.css":
+/*!*****************************************************!*\
+  !*** ./resources/assets/dashboard/css/keamanan.css ***!
+  \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -158,8 +218,13 @@ function validateNumberInput() {
 /******/ 			"/assets/login/js/main": 0,
 /******/ 			"assets/dashboard/css/style": 0,
 /******/ 			"assets/login/css/style": 0,
+/******/ 			"assets/dashboard/css/keamanan": 0,
 /******/ 			"css/tailwind": 0,
-/******/ 			"css/app": 0
+/******/ 			"css/app": 0,
+/******/ 			"assets/dashboard/css/tentang": 0,
+/******/ 			"assets/dashboard/css/scan-qr": 0,
+/******/ 			"assets/dashboard/css/profilSiswa": 0,
+/******/ 			"assets/dashboard/css/leaderboard": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -209,11 +274,16 @@ function validateNumberInput() {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/login/js/main.js")))
-/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/css/tailwind.css")))
-/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/login/css/style.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/dashboard/css/style.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/login/js/main.js")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/css/tailwind.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/login/css/style.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/style.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/keamanan.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/leaderboard.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/profilSiswa.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/scan-qr.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/tentang.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

@@ -25,8 +25,32 @@ mix.css(
     "resources/assets/dashboard/css/style.css",
     "assets/dashboard/css"
 )
+.css(
+    "resources/assets/dashboard/css/keamanan.css",
+    "assets/dashboard/css"
+)
+.css(
+    "resources/assets/dashboard/css/leaderboard.css",
+    "assets/dashboard/css"
+)
+.css(
+    "resources/assets/dashboard/css/profilSiswa.css",
+    "assets/dashboard/css"
+)
+.css(
+    "resources/assets/dashboard/css/scan-qr.css",
+    "assets/dashboard/css"
+)
+.css(
+    "resources/assets/dashboard/css/tentang.css",
+    "assets/dashboard/css"
+)
 .js(
     "resources/assets/dashboard/js/main.js",
+    "assets/dashboard/js"
+)
+.js(
+    "resources/assets/dashboard/js/qrCodeScanner.js",
     "assets/dashboard/js"
 )
 .setPublicPath('public');

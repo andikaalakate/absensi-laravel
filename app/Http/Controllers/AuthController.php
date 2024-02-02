@@ -8,13 +8,17 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function home()
+    {
+        return redirect('/welcome');
+    }
     public function flogin()
     {
         return redirect('/login');
     }
     public function tlogin()
     {
-        return redirect('/siswa/dashboard');
+        return redirect('/siswa/profil');
     }
     public function index()
     {
@@ -23,7 +27,7 @@ class AuthController extends Controller
     public function proseslogin(Request $request)
     {
         if (Auth::guard('siswa')->attempt(['nis' => $request->nis, 'password' => $request->password])) {
-            return redirect('/siswa/dashboard');
+            return redirect('/siswa/profil');
         } else {
             return redirect('/login')->with('warning', 'NIS / Password Salah!');
         }

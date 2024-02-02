@@ -16,18 +16,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/welcome', function () {
-    return view('welcome');
+    return view('landing.home');
 });
 
 Route::middleware('guest')->group(function () {
-    Route::get('/', [AuthController::class, 'flogin']);
+    Route::get('/', [AuthController::class, 'home']);
     Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
 });
 
 Route::middleware('auth:siswa')->group(function () {
-    Route::get('/', [AuthController::class, 'tlogin']);
-    Route::get('/siswa/dashboard', [SiswaController::class, 'index']);
+    Route::get('/', [AuthController::class, 'home']);
+    Route::get('/siswa/profil', [SiswaController::class, 'index']);
+    Route::get('/siswa/tentang', [SiswaController::class, 'tentang']);
+    Route::get('/siswa/keamanan', [SiswaController::class, 'keamanan']);
+    Route::get('/siswa/peringkat', [SiswaController::class, 'peringkat']);
+    Route::get('/siswa/statistik', [SiswaController::class, 'statistik']);
+    Route::get('/siswa/tampilan', [SiswaController::class, 'tampilan']);
+    Route::get('/siswa/pindai-qr', [SiswaController::class, 'pindaiqr']);
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
-
