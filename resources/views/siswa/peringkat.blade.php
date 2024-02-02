@@ -26,7 +26,18 @@
                         <th>Kelas</th>
                         <th>Urutan</th>
                     </tr>
-                    <tr>
+                    @foreach ($siswas as $siswa)
+                        <tr>
+                            <td class="td-nomor">{{ $loop->iteration }}.</td>
+                            <td class="td-nama">
+                                <p class="nama-siswa">{{ $siswa->nama }}</p>
+                                <small>95 Hadir, 5 Sakit, 3 Izin, 3 Absen</small>
+                            </td>
+                            <td class="td-kelas">XI RPL</td>
+                            <td class="td-peringkat"><i class='bx bxs-medal'></i></td>
+                        </tr>
+                    @endforeach
+                    {{-- <tr>
                         <td class="td-nomor">1.</td>
                         <td class="td-nama">
                             <p class="nama-siswa">M. Gilang Chandrawinata</p>
@@ -116,7 +127,7 @@
                         </td>
                         <td class="td-kelas">XI RPL</td>
                         <td class="td-peringkat">#10</td>
-                    </tr>
+                    </tr> --}}
                 </table>
             </div>
         </div>

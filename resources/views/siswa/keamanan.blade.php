@@ -45,7 +45,7 @@
                 </div>
                 <div class="nama-profil profile-secure">
                     <label for="nama">Nama :</label>
-                    <input type="text" placeholder="M. Gilang Chandrawinata" readonly class="input-secure" id="nama"
+                    <input type="text" placeholder="{{ auth()->user()->nama }}" readonly class="input-secure" id="nama"
                         name="nama" />
                 </div>
                 <div class="jKelamin-profil profile-secure">
@@ -71,11 +71,11 @@
                 </div>
                 <div class="nis-profil profile-secure">
                     <label for="nis">Nis :</label>
-                    <input type="text" placeholder="123456" readonly class="input-secure" id="nis" name="nis" />
+                    <input type="text" placeholder="{{ auth()->user()->nis }}" readonly class="input-secure" id="nis" name="nis" />
                 </div>
                 <div class="no-hp-profil profile-secure">
                     <label for="noHp">Nomor Hp :</label>
-                    <input type="text" class="input-secure" id="noHp" name="nomor-hp" />
+                    <input type="text" class="input-secure" id="noHp" name="nomor-hp" value="{{ auth()->user()->no_telp }}" />
                 </div>
                 <div class="password-profil profile-secure">
                     <label for="password">Password :</label>
@@ -87,7 +87,7 @@
                 </div>
                 <div class="alamat-profil profile-secure">
                     <label for="alamat">Alamat :</label>
-                    <textarea name="alamat" id="alamat" cols="30" rows="10"></textarea>
+                    <textarea name="alamat" id="alamat" cols="30" rows="10">{{ auth()->user()->alamat }}</textarea>
                 </div>
                 <div class="button-confirm">
                     <button class="resetButton" type="reset">Batal</button>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiswaController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,23 +17,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/welcome', function () {
-    return view('landing.home');
+  return view('landing.home');
+});
+
+Route::get('/clear-cache', function () {
+  Artisan::call('cache:clear');
+  return "Cache is cleared";
 });
 
 Route::middleware('guest')->group(function () {
-    Route::get('/', [AuthController::class, 'home']);
-    Route::get('/login', [AuthController::class, 'index'])->name('login');
-    Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
+  Route::get('/', [AuthController::class, 'home']);
+  Route::get('/login', [AuthController::class, 'index'])->name('login');
+  Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
 });
 
-Route::middleware('auth:siswa')->group(function () {
-    Route::get('/', [AuthController::class, 'home']);
-    Route::get('/siswa/profil', [SiswaController::class, 'index']);
-    Route::get('/siswa/tentang', [SiswaController::class, 'tentang']);
-    Route::get('/siswa/keamanan', [SiswaController::class, 'keamanan']);
-    Route::get('/siswa/peringkat', [SiswaController::class, 'peringkat']);
-    Route::get('/siswa/statistik', [SiswaController::class, 'statistik']);
-    Route::get('/siswa/tampilan', [SiswaController::class, 'tampilan']);
-    Route::get('/siswa/pindai-qr', [SiswaController::class, 'pindaiqr']);
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware(['auth:siswa', 'auth.session'])->group(function () {
+  Route::get('/', [AuthController::class, 'home']);
+  Route::get('/siswa/profil', [SiswaController::class, 'index']);
+  Route::get('/siswa/tentang', [SiswaController::class, 'tentang']);
+  Route::get('/siswa/keamanan', [SiswaController::class, 'keamanan']);
+  Route::get('/siswa/peringkat', [SiswaController::class, 'peringkat']);
+  Route::get('/siswa/statistik', [SiswaController::class, 'statistik']);
+  Route::get('/siswa/tampilan', [SiswaController::class, 'tampilan']);
+  Route::get('/siswa/pindai-qr', [SiswaController::class, 'pindaiqr']);
+  Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

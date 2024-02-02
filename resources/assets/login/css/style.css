@@ -1,170 +1,121 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Nunito+Sans:wght@200;300;400;500;600;700;800;900;1000&family=Oswald:wght@200;300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Ubuntu:wght@300;400;500;700&display=swap');
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
-    text-decoration: none;
-    list-style-type: none;
+    font-family: 'Ubuntu', sans-serif;
 }
 
-body {
+.login-container {
+    background-color: whitesmoke;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url("../img/background.jpg");
-    background-position: bottom;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 5px;
-    border-image: fill 0 linear-gradient(#0006, #0001);
-}
-
-.login--container {
-    border-radius: 10px;
-    background: linear-gradient(100deg, #ffffff40, #fff2);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 0 16px #fff4;
-    height: 400px;
-    width: 400px;
-    padding: 5px;
-}
-
-.login--head {
-    text-transform: uppercase;
-    text-align: center;
-    color: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    margin-top: 1rem;
-}
-
-.login--head::selection {
-    background-color: transparent;
-    text-shadow: 0 0 8px #0008;
-}
-
-.login--head span {
-    display: block;
-    height: 5px;
-    width: 10%;
-    border-radius: 5px;
-    background-color: #fff8;
-    filter: blur(3px);
 }
 
 .form-login {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 300px;
+    padding: 5px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    box-shadow: 0 16px 16px rgba(2, 113, 187, 0.533);
+    border-radius: 5px;
+}
+
+.login-head {
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.input {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.input > label::after {
+    content: ":";
+    margin: 10px;
+    opacity: 0.6;
+}
+
+.login-input {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     padding: 10px;
 }
 
-.nisInput-login,
-.passwordInput-login {
+.login-input > div {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    font-weight: 600;
-    color: #f5f5f5;
 }
 
-.input-nis:focus-within,
-.input-password:focus-within {
-    background-color: #eeeeee;
-}
-
-.input-nis:focus-within input,
-.input-password:focus-within input,
-.input-nis:focus-within .bx,
-.input-password:focus-within .bx {
-    color: black;
-}
-
-.input-nis,
-.input-password {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0px 5px;
-    border-bottom: 1px solid #0008;
-    border-radius: 5px;
-    transition: 0.3s;
-    box-shadow: 0 4px 4px #0004;
-}
-
-input {
-    background-color: transparent;
+.login-input input {
+    /* width: 100%; */
+    padding: 3px 5px;
+    font-size: 18px;
     outline: none;
     border: none;
-    padding: 5px 5px;
-    font-size: 20px;
-    width: 90%;
-    color: #f5f5f5;
-}
-
-input::selection {
     background-color: transparent;
-    color: #09f;
 }
 
-.button {
+.input-text {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid #0005;
+
+}
+
+.input-text > label {
     display: flex;
     align-items: center;
+    font-size:20px;
     justify-content: center;
-    padding: 10px 0;
 }
 
-.cssbuttons-io {
-    position: relative;
-    font-family: inherit;
-    font-weight: 500;
-    font-size: 18px;
-    letter-spacing: 0.05em;
-    border-radius: 0.8em;
+.button-login {
+    background-color: rgba(2, 113, 187, 1);
     cursor: pointer;
     border: none;
-    background: linear-gradient(to right, #8e2de2, #4a00e0);
-    color: ghostwhite;
-    overflow: hidden;
-    box-shadow: 0 0 8px #0004;
+    padding: 7px 5px;
+    border-radius: 50px;
+    margin: 20px 5px ;
+    color:white ;
+    transition: .3s;
 }
 
-.cssbuttons-io span {
-    position: relative;
-    z-index: 10;
-    transition: color 0.4s;
-    display: inline-flex;
-    align-items: center;
-    padding: 0.8em 1.2em 0.8em 1.05em;
+.button-login:hover {
+    background-color: rgb(1, 85, 141);
+
 }
 
-.cssbuttons-io::before,
-.cssbuttons-io::after {
+.creator {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    bottom: 10px;
+    left: 10px;
+    height: 50px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.creator hr {
     height: 100%;
-    z-index: 0;
 }
 
-.cssbuttons-io::before {
-    content: "";
-    background: #000;
-    width: 120%;
-    left: -10%;
-    transform: skew(30deg);
-    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+.creator img {
+    height: 100%;
 }
 
-.cssbuttons-io:hover::before {
-    transform: translate3d(100%, 0, 0);
-}
-
-.cssbuttons-io:active {
-    transform: scale(0.95);
+.detail-creator {
+    font-size: 16px;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class SiswaController extends Controller
@@ -28,7 +29,8 @@ class SiswaController extends Controller
     public function peringkat()
     {
         return view('siswa.peringkat', [
-            'title' => "Peringkat"
+            'title' => "Peringkat",
+            'siswas' => Siswa::all()
         ]);
     }
     public function statistik()

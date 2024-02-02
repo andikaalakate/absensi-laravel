@@ -26,17 +26,26 @@ class AuthController extends Controller
     }
     public function proseslogin(Request $request)
     {
-        if (Auth::guard('siswa')->attempt(['nis' => $request->nis, 'password' => $request->password])) {
-            return redirect('/siswa/profil');
+        $credentials = $request->validate([
+            'nis' => 'required',
+            'password' => 'required'
+        ]);
+
+        if (Auth::guard('siswa')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/siswa/profil');
         } else {
-            return redirect('/login')->with('warning', 'NIS / Password Salah!');
+            return redirect()->intended('/login')->with('warning', 'NIS / Password Salah!');
         }
     }
-    public function logout()
+    public function logout(Request $request)
     {
         if (Auth::guard('siswa')->check()) {
             Auth::guard('siswa')->logout();
-            return redirect('/login');
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+            return redirect()->intended('/login');
         }
     }
 }

@@ -89,7 +89,12 @@ aside.sidebar * {
 .sidebutton>.list-link:nth-child(5) {
     height: 40px;
     overflow: hidden;
+}
 
+.exit-link {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
 }
 
 .sidelink:hover,
@@ -145,7 +150,7 @@ aside.sidebar * {
     width: 100%;
     max-width: calc(100% - 330px);
     padding-bottom: 75px;
-    transition:0s;
+    transition: 0s;
 }
 
 .dash-content::-webkit-scrollbar {
@@ -361,4 +366,13 @@ aside.sidebar * {
     }
 }
 
+.btnExit {
+    background-color: transparent;
+    width: 100%;
+    cursor: pointer;
+    border: none;
+}
 
+.exit-link {
+    padding: 0;
+}

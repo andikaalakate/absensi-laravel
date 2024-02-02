@@ -14,7 +14,7 @@
                 <img src="{{ asset('images/avatar1.webp') }}" alt="Avatar 1" />
             </div>
             <div class="data-profil">
-                <h1 class="nama-profil">{{ $nama }}</h1>
+                <h1 class="nama-profil">{{ auth()->user()->nama }}</h1>
                 <table border="1" class="tabel-profile">
                     <tr>
                         <th>Kelas</th>
