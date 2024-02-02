@@ -1,0 +1,165 @@
+.content-head {
+    color: #1A1A1A;
+}
+
+/* Form Ubah */
+.secure-form {
+    color: #1A1A1A;
+    font-size: 20px;
+    max-width: 1000px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.secure-form p,
+.secure-form label {
+    font-weight: 600;
+}
+
+.ubah-profilePic img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.profile-img {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.ubah-profilePic {
+    gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-secure {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profile-secure textarea {
+    padding: 2px 5px;
+    transition: 0s;
+    width: 100%;
+    max-width: 980px;
+}
+
+.profile-secure label {
+    cursor: pointer;
+    
+}
+
+.input-secure {
+    width: 100%;
+    padding: 2px 5px;
+    outline: none;
+}
+
+.input-secure:focus-within {
+    outline:#000 ;
+}
+
+.input-secure:-moz-read-only {
+    cursor: pointer;
+    border: 1px solid #0005;
+}
+
+.input-secure:read-only,
+.input-secure:disabled {
+    cursor: pointer;
+    border: 1px solid #0005;
+}
+
+/* Tombol Ubah */
+.tombolUbah {
+    padding: 3px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #d3d0d080;
+    border-radius: 3px;
+    transition: all .3s;
+    font-family: 'Oswald', sans-serif;
+}
+
+.tombolUbah:hover {
+    background-color: #d3d0d0;
+    box-shadow: 0 0 8px #0006;
+}
+
+.button-confirm {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+.button-confirm > * {
+    cursor: pointer;
+    color:#000;
+}
+
+.button-confirm button {
+    font-size: 18px;
+    border: none;
+    background-color: transparent;
+    text-transform: uppercase;
+}
+
+/* popup konfirmasi */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#confirmationPopup {
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    gap: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    text-align: center;
+}
+
+.buttonConfirmation {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.buttonConfirmation button,
+.buttonConfirmation p {
+    background-color: rgb(206, 46, 46);
+    padding:2px 5px;
+    border: 1px solid #0005;
+    color:#f5f5f5;
+    cursor: pointer;
+    width: 100px;
+    font-size: 18px;
+}
+
+.buttonConfirmation button:nth-child(2) {
+    background-color: rgb(56, 156, 54);
+}
