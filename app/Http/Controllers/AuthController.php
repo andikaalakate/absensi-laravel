@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     public function home()
     {
-        return redirect('/welcome');
+        return redirect('/siswa/profil');
     }
     public function flogin()
     {

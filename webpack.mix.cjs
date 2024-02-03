@@ -38,6 +38,10 @@ mix.css(
     "assets/dashboard/css"
 )
 .css(
+    "resources/assets/dashboard/css/statistik.css",
+    "assets/dashboard/css"
+)
+.css(
     "resources/assets/dashboard/css/scan-qr.css",
     "assets/dashboard/css"
 )

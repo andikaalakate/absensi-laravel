@@ -9,6 +9,7 @@
     "/css/app.css": "/css/app.css",
     "/assets/dashboard/css/tentang.css": "/assets/dashboard/css/tentang.css",
     "/assets/dashboard/css/scan-qr.css": "/assets/dashboard/css/scan-qr.css",
+    "/assets/dashboard/css/statistik.css": "/assets/dashboard/css/statistik.css",
     "/assets/dashboard/css/profilSiswa.css": "/assets/dashboard/css/profilSiswa.css",
     "/assets/dashboard/css/leaderboard.css": "/assets/dashboard/css/leaderboard.css"
 }
