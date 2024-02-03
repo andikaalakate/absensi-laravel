@@ -30,10 +30,10 @@
                         <tr>
                             <td class="td-nomor">{{ $loop->iteration }}.</td>
                             <td class="td-nama">
-                                <p class="nama-siswa">{{ $siswa->nama }}</p>
+                                <p class="nama-siswa">{{ $siswa->nama_lengkap }}</p>
                                 <small>95 Hadir, 5 Sakit, 3 Izin, 3 Absen</small>
                             </td>
-                            <td class="td-kelas">XI RPL</td>
+                            <td class="td-kelas">{{ $siswa->kelas }}</td>
                             <td class="td-peringkat"><i class='bx bxs-medal'></i></td>
                         </tr>
                     @endforeach

@@ -18,7 +18,7 @@
 
 <body>
     <div class="login-container">
-        <form action="/proseslogin" method="POST" class="form-login">
+        <form action="/proseslogin" method="POST" class="form-login" autocomplete="off">
             @csrf
             <h1 class="login-head">
                 Login Absensi

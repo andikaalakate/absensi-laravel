@@ -75,6 +75,7 @@
     </li>
     <li class="bounce-list">
       <form action="/logout" class="bounce-link">
+        @csrf
         <button type="submit" class="bounce-link"><i class="bx bxs-exit"></i>Keluar</button>
       </form>
     </li>

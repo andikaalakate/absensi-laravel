@@ -150,7 +150,6 @@ aside.sidebar * {
     width: 100%;
     max-width: calc(100% - 330px);
     padding-bottom: 75px;
-    transition: 0s;
 }
 
 .dash-content::-webkit-scrollbar {
@@ -296,7 +295,21 @@ aside.sidebar * {
     bottom: 70px;
     align-items: center;
     gap: 5px;
+    font-size: 20px;
     background-color: rgb(33, 82, 187);
+}
+
+form.bounce-link {
+    padding: 0;
+}
+
+button.bounce-link {
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 

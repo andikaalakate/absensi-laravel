@@ -35,7 +35,7 @@
                 @csrf
                 <div class="ubah-profilePic">
                     <div class="profile-img">
-                        <img src="{{ asset('images/avatar1.webp') }}" alt="Agus Setiawan"
+                        <img src="{{ asset($siswass->siswaBio->image) }}" alt="Agus Setiawan"
                             aria-label="profile-picture" />
                         <p>Ubah Foto Profil</p>
                     </div>
@@ -51,14 +51,14 @@
                 <div class="jKelamin-profil profile-secure">
                     <label for="jenis-kelamin">Jenis Kelamin :</label>
                     <select class="input-secure" id="jenis-kelamin" name="jenis-kelamin" disabled>
-                        <option value="laki-laki">Laki-laki</option>
+                        <option value="{{ $siswas->siswaData->jenis_kelamin }}">{{ $siswas->siswaData->jenis_kelamin }}</option>
                         <option value="perempuan">Perempuan</option>
                     </select>
                 </div>
                 <div class="jurusan profile-secure">
                     <label for="jurusan">Jurusan :</label>
                     <select class="input-secure" id="jurusan" name="jurusan" disabled>
-                        <option value="rpl">Rekayasa Perangkat Lunak</option>
+                        <option value="rpl">{{ $siswas->siswaData->jurusan }}</option>
                         <option value="pm">Pemasaran</option>
                         <option value="akl">Akuntansi dan Keuangan Lembaga</option>
                         <option value="mplb">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="alamat-profil profile-secure">
                     <label for="alamat">Alamat :</label>
-                    <textarea name="alamat" id="alamat" cols="30" rows="10">{{ auth()->user()->alamat }}</textarea>
+                    <textarea name="alamat" id="alamat" cols="30" rows="10">{{ $siswass->siswaBio->alamat }}</textarea>
                 </div>
                 <div class="button-confirm">
                     <button class="resetButton" type="reset">Batal</button>

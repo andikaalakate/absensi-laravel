@@ -11,7 +11,7 @@
     <div class="dash-content" id="dashContent">
         <div class="profil-card">
             <div class="img-profil">
-                <img src="{{ asset('images/avatar1.webp') }}" alt="Avatar 1" />
+                <img src="{{ asset($siswass->siswaBio->image) }}" alt="Avatar 1" />
             </div>
             <div class="data-profil">
                 <h1 class="nama-profil">{{ auth()->user()->nama }}</h1>
@@ -19,12 +19,12 @@
                     <tr>
                         <th>Kelas</th>
                         <th>:</th>
-                        <th>XI RPl</th>
+                        <th>{{ $siswas->siswaData->kelas }}</th>
                     </tr>
                     <tr>
                         <th>Jurusan</th>
                         <th>:</th>
-                        <th>Rekayasa Perangkat Lunak</th>
+                        <th>{{ $siswas->siswaData->jurusan }}</th>
                     </tr>
                 </table>
             </div>
