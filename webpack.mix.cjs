@@ -61,6 +61,10 @@ mix.css(
     "resources/assets/dashboard/js/instascan.min.js",
     "assets/dashboard/js"
 )
+.js(
+    "node_modules/html5-qrcode/html5-qrcode.min.js",
+    "assets/dashboard/js"
+)
 .setPublicPath('public');
 ;
 
