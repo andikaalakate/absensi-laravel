@@ -16,6 +16,10 @@
     background-color: transparent;
 }
 
+body {
+    background-color: #cecece;
+}
+
 .container {
     height: 100vh;
     background-color: #cecece;

@@ -60,8 +60,13 @@ class SiswaController extends Controller
     }
     public function pindaiqr()
     {
+        $siswaData = SiswaLogin::with('siswaData')->where('nis', Auth::user()->nis)->first();
+        $siswaBio = SiswaLogin::with('siswaBio')->where('nis', Auth::user()->nis)->first();
+
         return view('siswa.pindaiqr', [
-            'title' => "Pindai QR"
+            'title' => "Pindai QR",
+            'siswas' => $siswaData,
+            'siswass' => $siswaBio
         ]);
     }
 }

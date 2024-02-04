@@ -110,6 +110,7 @@
         "postcss-selector-parser": "^6.0.15",
         "postcss-value-parser": "^4.2.0",
         "proxy-from-env": "^1.1.0",
+        "qrcode": "^1.4.4",
         "queue-microtask": "^1.2.3",
         "read-cache": "^1.0.0",
         "readdirp": "^3.6.0",

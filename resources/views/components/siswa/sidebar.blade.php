@@ -1,3 +1,4 @@
+@if(auth('siswa')->check())
 <aside class="sidebar" id="sidebar">
   <div class="button-page">
     <div class="bukaTutupSidebar" id="bukaTutupSidebar">
@@ -43,8 +44,8 @@
       </li>
     </ul>
     <form action="/logout">
-      <button type="submit" class="sidelink btnExit"><i class="bx bxs-exit"></i>Keluar</button>
       @csrf
+      <button type="submit" class="sidelink btnExit"><i class="bx bxs-exit"></i>Keluar</button>
     </form>
   </div>
 </aside>
@@ -81,3 +82,4 @@
     </li>
   </ul>
 </label>
+@endif
