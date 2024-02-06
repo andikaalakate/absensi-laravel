@@ -10,6 +10,15 @@ class SiswaLogin extends Model
     use HasFactory;
 
     protected $table = 'siswa_login';
+    protected $primaryKey = 'nis';
+    public $incrementing = false;
+
+    protected $fillable = [
+        'nis',
+        'email',
+        'no_telp',
+        'password'
+    ];
 
     public function siswaData()
     {

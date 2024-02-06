@@ -4,6 +4,7 @@
     <title>Siswa - {{ $title }}</title>
     <link rel="stylesheet" href="{{ mix('assets/dashboard/css/scan-qr.css') }}">
     <link rel="stylesheet" href="{{ mix('css/app.css') . "?id=" . Str::random(16) }}">
+    <script src="{{ mix('assets/dashboard/js/checkLocation.js') . "?id=" . Str::random(16) }}"></script>
 @endsection
 
 @section('content')
@@ -19,9 +20,9 @@
             <div id="qrCodeReader" class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md lg:w-[50rem] items center justify-center mx-auto text-center bg-center self-center flex w-full image-full" width="800px" style="display: none;">
             </div>
             <div class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md p-5" id="qrcodeContainer">
-              <div id="qrcode"></div>
+              <div id="qrcode" title="QRCode"></div>
             </div>
-            <input type="text" id="inputQR" value="https://absensi-laravel/siswa/{{ $siswas->siswaData->nis }}" hidden />
+            <input type="text" id="inputQR" value="https://absensi-laravel/siswa/{{ $siswas->siswaData->nis }}" readonly disabled hidden />
           </div>
         </div>
         {{-- <div id="swapCamera" onclick="swapKamera()"><i class='bx bxs-camera'></i></div> --}}
@@ -43,54 +44,6 @@
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H
     });
-
-  </script>
-  <script>
-    let html5QrcodeScanner = null;
-
-    function startScanner() {
-      if (!html5QrcodeScanner) {
-        html5QrcodeScanner = new Html5QrcodeScanner('qrCodeReader', { 
-          fps: 10,
-          qrbox: 250,
-          aspectRatio: 1.0,
-          rememberLastUsedCamera: true,
-          supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
-        });
-        html5QrcodeScanner.render(onScanSuccess, onScanError);
-      }
-    }
-
-    function stopScanner() {
-      if (html5QrcodeScanner) {
-        html5QrcodeScanner.clear();
-        html5QrcodeScanner = null;
-      }
-    }
-
-    function onScanSuccess(qrCodeMessage) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        showConfirmButton: false,
-        timer: 5000
-      });
-
-      stopScanner();
-      setTimeout(() => {
-        location.reload();
-      }, 2000);
-    }
-
-    function onScanError(errorMessage) {
-      // You can handle scan errors here
-    }
-
-    // Start the scanner when the page loads
-    document.addEventListener('DOMContentLoaded', startScanner);
-
-    // Cleanup the scanner when the page is unloaded
-    window.addEventListener('beforeunload', stopScanner);
   </script>
   <script src="{{ mix('assets/dashboard/js/qrCodeScanner.js') . "?id=" . Str::random(16) }}" defer></script>
 @endsection

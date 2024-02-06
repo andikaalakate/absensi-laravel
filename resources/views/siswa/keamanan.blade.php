@@ -45,7 +45,7 @@
                 </div>
                 <div class="nama-profil profile-secure">
                     <label for="nama">Nama :</label>
-                    <input type="text" placeholder="{{ auth()->user()->nama }}" readonly class="input-secure" id="nama"
+                    <input type="text" placeholder="{{ $siswas->siswaData->nama_lengkap }}" readonly class="input-secure" id="nama"
                         name="nama" />
                 </div>
                 <div class="jKelamin-profil profile-secure">

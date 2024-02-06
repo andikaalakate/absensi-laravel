@@ -3,6 +3,7 @@
     "/assets/dashboard/js/main.js": "/assets/dashboard/js/main.js",
     "/assets/dashboard/js/qrCodeScanner.js": "/assets/dashboard/js/qrCodeScanner.js",
     "/assets/dashboard/js/instascan.min.js": "/assets/dashboard/js/instascan.min.js",
+    "/assets/dashboard/js/checkLocation.js": "/assets/dashboard/js/checkLocation.js",
     "/assets/dashboard/js/html5-qrcode.min.js": "/assets/dashboard/js/html5-qrcode.min.js",
     "/assets/dashboard/css/style.css": "/assets/dashboard/css/style.css",
     "/assets/login/css/style.css": "/assets/login/css/style.css",

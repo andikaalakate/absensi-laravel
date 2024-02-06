@@ -62,6 +62,10 @@ mix.css(
     "assets/dashboard/js"
 )
 .js(
+    "resources/assets/dashboard/js/checkLocation.js",
+    "assets/dashboard/js"
+)
+.js(
     "node_modules/html5-qrcode/html5-qrcode.min.js",
     "assets/dashboard/js"
 )

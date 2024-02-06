@@ -10,4 +10,23 @@ class SiswaBio extends Model
     use HasFactory;
 
     protected $table = 'siswa_bio';
+    protected $primaryKey = 'nis';
+    public $incrementing = false;
+
+    protected $fillable = [
+        'nis',
+        'alamat',
+        'biografi',
+        'hobi',
+        'image',
+    ];
+
+    public function siswaData()
+    {
+        return $this->hasOne(SiswaData::class, 'nis', 'nis');
+    }
+    public function siswaLogin()
+    {
+        return $this->hasOne(SiswaLogin::class, 'nis', 'nis');
+    }
 }

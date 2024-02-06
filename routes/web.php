@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\api\SiswaDataApiController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,11 @@ Route::middleware(['auth:siswa', 'auth.session'])->group(function () {
   Route::get('/siswa/tampilan', [SiswaController::class, 'tampilan']);
   Route::get('/siswa/pindai-qr', [SiswaController::class, 'pindaiqr']);
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+Route::middleware('api')->group(function () {
+  Route::get('/api/siswa', [SiswaDataApiController::class, 'index']);
+  Route::get('/api/siswa/{nis}', [SiswaDataApiController::class, 'show']);
+  Route::post('/api/siswa', [SiswaDataApiController::class, 'store'])->name('siswa.store');
+  Route::get('/siswa/create', [SiswaDataApiController::class, 'create'])->name('siswa.create');
+  // Route::apiResource('api/siswa', SiswaDataApiController::class);
 });
