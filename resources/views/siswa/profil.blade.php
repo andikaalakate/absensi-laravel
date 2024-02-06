@@ -11,7 +11,7 @@
     <div class="dash-content" id="dashContent">
         <div class="profil-card">
             <div class="img-profil">
-                <img src="{{ asset($siswass->siswaBio->image) }}" alt="Avatar 1" />
+                <img src="{{ asset($siswas->siswaBio->image) }}" alt="Avatar 1" />
             </div>
             <div class="data-profil">
                 <h1 class="nama-profil">{{ $siswas->siswaData->nama_lengkap }}</h1>
@@ -29,8 +29,21 @@
                 </table>
             </div>
             <div class="waktu-profil">
-                <div class="waktu-masuk">Masuk - 07.15</div>
-                <div class="waktu-pulang">Pulang - 14.00</div>
+                <div class="waktu-masuk">
+                    @if ($siswaAbsensi['data']['status'] == 'Hadir')
+                        Masuk - {{ \Carbon\Carbon::parse($siswaAbsensi['data']['jam_masuk'])->format('H:i') }}
+                    @else
+                        Tidak Masuk
+                    @endif
+                </div>
+
+                <div class="waktu-pulang">
+                    @if ($siswaAbsensi['data']['status'] == 'Hadir')
+                        Pulang - {{ \Carbon\Carbon::parse($siswaAbsensi['data']['jam_pulang'])->format('H:i') }}
+                    @else
+                        Tidak Pulang
+                    @endif
+                </div>
             </div>
         </div>
     </div>

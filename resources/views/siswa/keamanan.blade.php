@@ -35,7 +35,7 @@
                 @csrf
                 <div class="ubah-profilePic">
                     <div class="profile-img">
-                        <img src="{{ asset($siswass->siswaBio->image) }}" alt="Agus Setiawan"
+                        <img src="{{ asset($siswas->siswaBio->image) }}" alt="Agus Setiawan"
                             aria-label="profile-picture" />
                         <p>Ubah Foto Profil</p>
                     </div>
@@ -87,7 +87,7 @@
                 </div>
                 <div class="alamat-profil profile-secure">
                     <label for="alamat">Alamat :</label>
-                    <textarea name="alamat" id="alamat" cols="30" rows="10">{{ $siswass->siswaBio->alamat }}</textarea>
+                    <textarea name="alamat" id="alamat" cols="30" rows="10">{{ $siswas->siswaBio->alamat }}</textarea>
                 </div>
                 <div class="button-confirm">
                     <button class="resetButton" type="reset">Batal</button>

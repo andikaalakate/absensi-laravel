@@ -4,7 +4,7 @@
     <title>Siswa - {{ $title }}</title>
     <link rel="stylesheet" href="{{ mix('assets/dashboard/css/scan-qr.css') }}">
     <link rel="stylesheet" href="{{ mix('css/app.css') . "?id=" . Str::random(16) }}">
-    <script src="{{ mix('assets/dashboard/js/checkLocation.js') . "?id=" . Str::random(16) }}"></script>
+    <script src="{{ mix('assets/dashboard/js/checkLocation.js') . "?id=" . Str::random(16) }}" defer></script>
 @endsection
 
 @section('content')

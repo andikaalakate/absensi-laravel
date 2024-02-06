@@ -17,9 +17,9 @@ class SiswaDataApiController extends Controller
      */
     public function index()
     {
-        $siswaData = SiswaData::all();
-        $siswaBio = SiswaBio::all();
-        $siswaLogin = SiswaLogin::all();
+        $siswaData = SiswaData::all()->paginate(5);
+        $siswaBio = SiswaBio::all()->paginate(5);
+        $siswaLogin = SiswaLogin::all()->paginate(5);
 
         if (!$siswaData || !$siswaBio || !$siswaLogin) {
             return response()->json([

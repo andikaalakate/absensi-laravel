@@ -26,7 +26,7 @@
                         <th>Kelas</th>
                         <th>Urutan</th>
                     </tr>
-                    @foreach ($siswas as $siswa)
+                    @foreach ($siswas->take(10) as $siswa)
                         <tr>
                             <td class="td-nomor">{{ $loop->iteration }}.</td>
                             <td class="td-nama">

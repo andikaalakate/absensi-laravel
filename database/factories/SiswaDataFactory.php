@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\SiswaAbsensi;
 use App\Models\SiswaBio;
 use App\Models\SiswaData;
 use App\Models\SiswaLogin;
@@ -35,6 +36,7 @@ class SiswaDataFactory extends Factory
             $nis = $siswaData->nis;
             SiswaBio::factory()->create(['nis' => $nis]);
             SiswaLogin::factory()->create(['nis' => $nis]);
+            SiswaAbsensi::factory()->create(['nis' => $nis]);
 
             $kelasJurusanMapping = [
                 'XI RPL' => 'Rekayasa Perangkat Lunak',

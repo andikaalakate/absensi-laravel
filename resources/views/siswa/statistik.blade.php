@@ -18,25 +18,34 @@
                     <tr>
                         <th>No.</th>
                         <th>Tanggal</th>
+                        <th>Jam Masuk</th>
+                        <th>Jam Pulang</th>
                         <th>Hadir</th>
                         <th>Sakit</th>
                         <th>Izin</th>
                         <th>Absen</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <!-- nomor -->
-                        <td>01/01/2023</td>
-                        <!-- tanggal-->
-                        <td>Hadir</td>
-                        <!-- hadir -->
-                        <td>-</td>
-                        <!-- sakit -->
-                        <td>-</td>
-                        <!-- izin -->
-                        <td>-</td>
-                        <!-- absen -->
-                    </tr>
+                    @foreach ($siswaAbsensi['data'] as $siswa)
+                        <tr>
+                            <!-- nomor -->
+                            <td>{{ $loop->iteration }}.</td>
+                            {{-- <td>1.</td> --}}
+                            <!-- tanggal -->
+                            <td>{{ \Carbon\Carbon::parse($siswa['created_at'])->format('Y-m-d') }}</td>
+                            <!-- jam masuk -->
+                            <td>{{ \Carbon\Carbon::parse($siswa['jam_masuk'])->format('H:i') }}</td>
+                            <!-- jam pulang -->
+                            <td>{{ \Carbon\Carbon::parse($siswa['jam_pulang'])->format('H:i') }}</td>
+                            <!-- hadir -->
+                            <td>{{ $siswa['status'] === 'Hadir' ? 'Hadir' : '-' }}</td>
+                            <!-- sakit -->
+                            <td>{{ $siswa['status'] === 'Sakit' ? 'Sakit' : '-' }}</td>
+                            <!-- izin -->
+                            <td>{{ $siswa['status'] === 'Izin' ? 'Izin' : '-' }}</td>
+                            <!-- absen -->
+                            <td>{{ $siswa['status'] === 'Alpha' ? 'Alpha' : '-' }}</td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
             <div class="page-navigation">

@@ -23,8 +23,9 @@ class DatabaseSeeder extends Seeder
             JurusanSeeder::class,
             KelasSeeder::class,
             SiswaDataSeeder::class,
-            SiswaLoginSeeder::class,
             SiswaBioSeeder::class,
+            SiswaLoginSeeder::class,
+            SiswaAbsensiSeeder::class,
         ]);
     }
 }
