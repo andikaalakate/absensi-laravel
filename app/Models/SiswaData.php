@@ -28,6 +28,11 @@ class SiswaData extends Model
         return $this->hasOne(SiswaData::class, 'nis', 'nis');
     }
 
+    public function siswaJurusan()
+    {
+        return $this->hasOne(Jurusan::class, 'nama_jurusan', 'jurusan');
+    }
+
     public function siswaAbsensi()
     {
         return $this->hasOne(SiswaAbsensi::class, 'nis', 'nis');

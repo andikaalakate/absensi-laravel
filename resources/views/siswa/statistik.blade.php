@@ -22,7 +22,7 @@
                         <th>Jam Pulang</th>
                         <th>Keterangan</th>
                     </tr>
-                    @foreach (array_reverse($siswaAbsensi['data']) as $siswa)
+                    @foreach ($siswaAbsensi['data'] as $siswa)
                         <tr>
                             <!-- nomor -->
                             <td>{{ $loop->iteration }}.</td>

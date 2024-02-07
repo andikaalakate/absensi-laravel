@@ -1,0 +1,72 @@
+.content-head span {
+    color: #999;
+}
+
+.detail-leaderboard {
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+    overflow: auto ;
+}
+
+.filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.filter input, .filter select, .filter option {
+    padding: 3px 5px;
+}
+
+.tabel-leaderboard {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+
+}
+
+.tabel-leaderboard small {
+    font-size: 12px;
+    color: #0009;
+}
+
+.tabel-leaderboard tr th {
+    background-color: rgb(57, 110, 224);
+    color: white;
+}
+
+.tabel-leaderboard th, .tabel-leaderboard td {
+    padding: 5px 10px;
+}
+
+.td-nama .nama-siswa {
+    text-transform: uppercase;
+}
+
+.td-nama {text-align: left;}
+
+.td-nomor, .td-peringkat {
+    width: 50px;
+}
+
+.td-peringkat {
+    font-size: 24px;
+    background-color: rgb(33, 82, 187);
+    color: #f5f5f5;
+}
+
+.tabel-leaderboard tr:nth-child(2) .td-peringkat {
+    color: #1D1D1D;
+    background-color: #D6AF36;
+}
+.tabel-leaderboard tr:nth-child(3) .td-peringkat {
+    color: #1D1D1D;
+    background-color: #D7D7D7;
+}
+.tabel-leaderboard tr:nth-child(4) .td-peringkat {
+    color: #1D1D1D;
+    background-color: #A77044;
+}

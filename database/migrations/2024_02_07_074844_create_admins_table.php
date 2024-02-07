@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('no_telp', 18);
             $table->string('password');
+            $table->enum('role', ['admin', 'operator', 'kepala_sekolah']);
             $table->rememberToken();
             $table->timestamps();
         });

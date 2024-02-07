@@ -85,10 +85,10 @@
       </a>
       <ul class="sidebutton">
         <li class="list-link">
-          <a href="/admin/siswa/" class="sidelink {{ Request::is('admin/dashboard') ? 'active' : '' }}"><i class="bx bxs-group"></i>Siswa</a>
+          <a href="/admin/siswa/" class="sidelink {{ Request::is('admin/siswa') ? 'active' : '' }}"><i class="bx bxs-group"></i>Siswa</a>
         </li>
         <li class="list-link">
-          <a href="/admin/jurusan/" class="sidelink {{ Request::is('admin/dashboard') ? 'active' : '' }}"><i class="bx bxs-category"></i>Jurusan</a>
+          <a href="/admin/jurusan/" class="sidelink {{ Request::is('admin/jurusan') ? 'active' : '' }}"><i class="bx bxs-category"></i>Jurusan</a>
         </li>
         <li class="list-link">
           <a href="/admin/kelas/" class="sidelink {{ Request::is('admin/kelas') ? 'active' : '' }}"><i class="bx bxs-chalkboard"></i>Kelas</a>
@@ -103,7 +103,7 @@
           <a href="/admin/laporan/" class="sidelink {{ Request::is('admin/laporan') ? 'active' : '' }}"><i class="bx bx-stats"></i>Laporan</a>
         </li>
       </ul>
-      <form action="/logout">
+      <form action="/admin/logout">
         @csrf
         <button type="submit" class="sidelink btnExit">
           <i class="bx bxs-exit"></i>Keluar
@@ -116,7 +116,10 @@
     <i class="bx bxs-cog"></i>
     <ul class="bounce-menu">
       <li class="bounce-list">
-        <a href="/admin/dashboard/" class="bounce-link"><i class="bx bxs-group"></i>Siswa</a>
+        <a href="/admin/dashboard/" class="bounce-link"><i class="bx bxs-dashboard"></i>Dashboard</a>
+      </li>
+      <li class="bounce-list">
+        <a href="/admin/siswa/" class="bounce-link"><i class="bx bxs-group"></i>Siswa</a>
       </li>
       <li class="bounce-list">
         <a href="/admin/jurusan/" class="bounce-link"><i class="bx bxs-category"></i>Jurusan</a>
@@ -133,12 +136,12 @@
       <li class="bounce-list">
         <a href="/admin/laporan/" class="bounce-link"><i class="bx bx-stats"></i>Laporan</a>
       </li>
-      <form action="/logout" class="bounce-list">
-        @csrf
-        <button type="submit" class="bounce-link">
-            <i class="bx bxs-exit"></i>Keluar
-        </button>
-      </form>
+      <li class="bounce-list">
+        <form action="/admin/logout" class="bounce-link">
+          @csrf
+          <button type="submit" class="bounce-link"><i class="bx bxs-exit"></i>Keluar</button>
+        </form>
+      </li>
     </ul>
   </label>
 @endif

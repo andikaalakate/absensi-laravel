@@ -27,17 +27,19 @@ class SiswaController extends Controller
         // $response = $client->request('GET', $url, $options);
         // $siswaAbsensi = $response->getBody()->getContents();
 
-        
-        $url = route('siswa.absensi.show', Auth::user()->nis);
-        $response = Http::withoutVerifying()->acceptJson()->get($url);
-        
-        $siswaAbsensi = $response->json();
-        
+
+        // $url = route('siswa.absensi.show', Auth::user()->nis);
+        // $response = Http::withoutVerifying()->timeout(120)->async()->acceptJson()->get($url);
+
+        // $siswaAbsensi = $response->json();
+
         // dd($siswaAbsensi);
 
-        // ini_set('max_execution_time', 120);
-        $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->where('nis', Auth::user()->nis)->first();
-        // $siswaAbsensi = Http::withoutVerifying()->timeout(30)->get(route('siswa.absensi.show2', Auth::user()->nis))->json();
+        ini_set('max_execution_time', 120);
+        $theUrl     = config('app.guzzle_test_url').'/api/absensi2/siswa/'.Auth::user()->nis;
+        $siswaAbsensi   = Http::get($theUrl)->json();
+        $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaJurusan')->where('nis', Auth::user()->nis)->first();
+        // $siswaAbsensi = Http::withoutVerifying()->acceptJson()->get(route('siswa.absensi.show2', Auth::user()->nis))->json();
 
         return view('siswa.profil', [
             'title' => "Profil",
@@ -54,7 +56,8 @@ class SiswaController extends Controller
     public function keamanan()
     {
         $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->where('nis', Auth::user()->nis)->first();
-        $siswaAbsensi = Http::withoutVerifying()->get(route('siswa.absensi.index'))->json();
+        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/';
+        $siswaAbsensi   = Http::get($theUrl)->json();
 
         return view('siswa.keamanan', [
             'title' => "Keamanan",
@@ -64,15 +67,16 @@ class SiswaController extends Controller
     }
     public function peringkat()
     {
-        $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->get();
-        $siswaAbsensi = Http::withoutVerifying()->get(route('siswa.absensi.index'))->json();
+        $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->paginate(10);
+        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/';
+        $siswaAbsensi   = Http::get($theUrl)->json();
 
         $hadirCount = 0;
         $sakitCount = 0;
         $izinCount = 0;
         $alphaCount = 0;
 
-        // dd($siswaAbsensi);
+        // dd($siswas);
 
         foreach ($siswaAbsensi['data']['data'] as $record) {
             switch ($record['status']) {
@@ -105,7 +109,8 @@ class SiswaController extends Controller
     }
     public function statistik()
     {
-        $siswaAbsensi = Http::withoutVerifying()->get(route('siswa.absensi.show', Auth::user()->nis))->json();
+        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/'.Auth::user()->nis;
+        $siswaAbsensi   = Http::get($theUrl)->json();
 
         $hadirCount = 0;
         $sakitCount = 0;
@@ -154,8 +159,10 @@ class SiswaController extends Controller
     public function pindaiqr()
     {
         $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->where('nis', Auth::user()->nis)->first();
-        $siswaAbsensi = Http::withoutVerifying()->get(route('siswa.absensi.index'))->json();
+        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/'.Auth::user()->nis;
+        $siswaAbsensi   = Http::get($theUrl)->json();
 
+        // dd($siswaAbsensi);
         return view('siswa.pindaiqr', [
             'title' => "Pindai QR",
             'siswas' => $siswas,

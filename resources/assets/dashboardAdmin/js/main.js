@@ -47,7 +47,7 @@ document.getElementById("cari").addEventListener("keyup", function (event) {
 //Fungsi Input Angka
 var alertShown = false;
 
-var nisInputs = document.querySelectorAll('#nis');
+var nisInputs = document.querySelectorAll('.nis');
 nisInputs.forEach(function (input) {
     input.addEventListener('input', function (event) {
         if (!/^\d*$/.test(event.target.value)) {
@@ -65,18 +65,8 @@ nisInputs.forEach(function (input) {
     });
 });
 
-function showToastAlert(message) {
-    Toastify({
-        text: message,
-        duration: 3000,
-        gravity: "top",
-        position: "center",
-        backgroundColor: "red",
-    }).showToast();
-}
-
 // Fungsi Input Nama
-var namaInputs = document.querySelectorAll('[id^="nama"]');
+var namaInputs = document.querySelectorAll('.nama');
 namaInputs.forEach(function (input) {
     input.addEventListener('input', function (event) {
         if (!/^[a-zA-Z\s\.']+$/g.test(event.target.value)) {
@@ -139,14 +129,10 @@ function confirmation() {
     return true;
 }
 
-function confirmation() {
-    if (validateForm()) {
-        console.log("Formulir telah divalidasi, lanjutkan dengan penambahan data.");
-    }
-}
 
 // Konfirmasi Tambah Siswa
-document.getElementById("buttonFormCon").addEventListener("click", function () {
+var buttonFormCon = document.getElementById("buttonFormCon");
+buttonFormCon.addEventListener("click", function () {
     // Mengambil nilai input password dan konfirmasi password
     var password = document.getElementById("password").value;
     var conPassword = document.getElementById("conPassword").value;

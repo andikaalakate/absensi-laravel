@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('jurusan', function (Blueprint $table) {
             $table->string('id_jurusan', 5)->primary();
             $table->string('nama_jurusan', 50)->index();
-            $table->string('kepala_jurusan', 50)->index();
+            $table->string('alias_jurusan', 50)->index();
+            $table->string('kepala_jurusan', 50)->nullable();
             $table->timestamps();
         });
     }

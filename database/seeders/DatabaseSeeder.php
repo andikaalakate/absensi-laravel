@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             SiswaBioSeeder::class,
             SiswaLoginSeeder::class,
             SiswaAbsensiSeeder::class,
+            AdminSeeder::class
         ]);
     }
 }

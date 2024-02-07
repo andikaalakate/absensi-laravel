@@ -18,17 +18,17 @@
 
 <body>
     <div class="login-container">
-        <form action="/proseslogin" method="POST" class="form-login" autocomplete="off">
+        <form action="{{ Request::is('admin/login') ? '/admin/proseslogin' : '/proseslogin' }}" method="POST" class="form-login" autocomplete="off">
             @csrf
             <h1 class="login-head">
                 Login Absensi
             </h1>
             <div class="login-input">
                 <div class="nis-input input">
-                    <label for="nis">NIS</label>
+                    <label for="{{ Request::is('admin/login') ? 'username' : 'nis' }}">{{ Request::is('admin/login') ? 'Username' : 'NIS' }}</label>
                     <div class="input-text">
-                        <input type="text" placeholder="Masukkan NIS Anda..." id="nis" name="nis" required>
-                        <label for="nis">
+                        <input type="text" placeholder="{{ Request::is('admin/login') ? 'Masukkan Username...' : 'Masukkan NIS...' }}" id="{{ Request::is('admin/login') ? 'username' : 'nis' }}" name="{{ Request::is('admin/login') ? 'username' : 'nis' }}" required>
+                        <label for="{{ Request::is('admin/login') ? 'username' : 'nis' }}">
                             <i class='bx bx-user-circle'></i>
                         </label>
                     </div>
@@ -36,7 +36,7 @@
                 <div class="password-input input">
                     <label for="password">Password</label>
                     <div class="input-text">
-                        <input type="password" placeholder="Masukkan Password Anda..." id="password" name="password" required>
+                        <input type="password" placeholder="Masukkan Password..." id="password" name="password" required>
                         <label for="password">
                             <i class='bx bx-lock-alt'></i> </label>
                     </div>
@@ -51,10 +51,10 @@
         <img src="{{ asset('images/icon.png') }}" alt="GADAK Studio">
         <hr>
         <h1 class="detail-creator">
-            Made by <a href="#">GADAK Studio</a>
+            Made by <a href="https://gadakstd.my.id/">GADAK Studio</a>
         </h1>
     </div>
-    <script src="{{ mix('assets/login/js/main.js') }}" defer></script>
+    <script src="{{ mix('assets/login/js/main.js') . "?id=" . Str::random(16) }}" defer></script>
 </body>
 
 </html>
