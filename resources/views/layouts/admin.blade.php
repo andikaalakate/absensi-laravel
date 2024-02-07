@@ -17,9 +17,9 @@
 </head>
 
 <body>
-    @include('components.siswa.sidebar')
+    @include('components.sidebar')
     @yield('content')
-    @include('components.siswa.preload')
+    @include('components.preload')
     <!-- Script -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="{{ mix('assets/dashboard/js/main.js') }}" defer></script>

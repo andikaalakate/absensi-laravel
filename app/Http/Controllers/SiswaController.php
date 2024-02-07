@@ -110,7 +110,7 @@ class SiswaController extends Controller
         $hadirCount = 0;
         $sakitCount = 0;
         $izinCount = 0;
-        $absenCount = 0;
+        $alphaCount = 0;
 
         foreach ($siswaAbsensi['data'] as $record) {
             switch ($record['status']) {
@@ -124,7 +124,7 @@ class SiswaController extends Controller
                     $izinCount++;
                     break;
                 case 'Alpha':
-                    $absenCount++;
+                    $alphaCount++;
                     break;
                 default:
                     break;
@@ -139,7 +139,7 @@ class SiswaController extends Controller
             'hadirCount' => $hadirCount,
             'sakitCount' => $sakitCount,
             'izinCount' => $izinCount,
-            'absenCount' => $absenCount,
+            'alphaCount' => $alphaCount,
         ]);
 
     }

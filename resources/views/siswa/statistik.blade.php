@@ -58,13 +58,13 @@
     let hadirCount = {{ $hadirCount }};
     let sakitCount = {{ $sakitCount }};
     let izinCount = {{ $izinCount }};
-    let absenCount = {{ $absenCount }};
+    let alphaCount = {{ $alphaCount }};
 
     var data = {
-        labels: ["Hadir", "Sakit", "Izin", "Absen"],
+        labels: ["Hadir", "Sakit", "Izin", "Alpha"],
         datasets: [
             {
-                data: [hadirCount, sakitCount, izinCount, absenCount],
+                data: [hadirCount, sakitCount, izinCount, alphaCount],
                 backgroundColor: [
                     "rgba(75, 192, 192, 0.7)",
                     "rgba(255, 99, 132, 0.7)",

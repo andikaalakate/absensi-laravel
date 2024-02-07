@@ -18,10 +18,10 @@
 
 <body>
     <div class="container" id="container">
-        @include('components.siswa.sidebar')
+        @include('components.sidebar')
         @yield('content')
     </div>
-    @include('components.siswa.preload')
+    @include('components.preload')
     <!-- Script -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

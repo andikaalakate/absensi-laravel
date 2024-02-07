@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\api\SiswaDataApiController;
@@ -29,6 +30,7 @@ Route::get('/clear-cache', function () {
 Route::middleware('guest')->group(function () {
   Route::get('/', [AuthController::class, 'home']);
   Route::get('/login', [AuthController::class, 'index'])->name('login');
+  Route::get('/admin/login', [AdminController::class, 'index'])->name('login');
   Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
 });
 
@@ -42,6 +44,12 @@ Route::middleware(['auth:siswa', 'auth.session'])->group(function () {
   Route::get('/siswa/tampilan', [SiswaController::class, 'tampilan']);
   Route::get('/siswa/pindai-qr', [SiswaController::class, 'pindaiqr']);
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+Route::middleware(['auth:admin', 'auth.session'])->group(function () {
+  Route::get('/', [AdminController::class, 'home']);
+  Route::get('/admin/dashboard', [AdminController::class, 'index']);
+  Route::get('/admin/logout', [AdminController::class, 'logout'])->name('logout');
 });
 
 Route::get('/siswa/create', [SiswaDataApiController::class, 'create'])->name('siswa.create');
