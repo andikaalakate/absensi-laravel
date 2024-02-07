@@ -28,11 +28,11 @@ if (noHp) {
 function validateNumberInput() {
   noHp.value = noHp.value.replace(/\D/g, "");
 }
-window.addEventListener('load', function () {
-  var preload = document.getElementById('preload');
+window.addEventListener("load", function () {
+  var preload = document.getElementById("preload");
   preload.style.opacity = "0";
   preload.style.zIndex = "-9999";
-  document.body.style.overflow = 'visible';
+  document.body.style.overflow = "visible";
 });
 var bukaTutupSidebar = document.getElementById("bukaTutupSidebar");
 if (bukaTutupSidebar) {
@@ -72,7 +72,7 @@ function dropdownSetting() {
 // script.js
 var currentPage = 1;
 var rowsPerPage = 10;
-var tableRows = document.querySelectorAll('.tabel-data tbody tr');
+var tableRows = document.querySelectorAll(".tabel-data tbody tr");
 var prevBtn = document.getElementById("prevBtn");
 if (prevBtn) {
   prevBtn.addEventListener("click", changePage(-1));
@@ -86,9 +86,9 @@ function showPage(page) {
   var endIndex = startIndex + rowsPerPage;
   tableRows.forEach(function (row, index) {
     if (index >= startIndex && index < endIndex) {
-      row.style.display = 'table-row';
+      row.style.display = "table-row";
     } else {
-      row.style.display = 'none';
+      row.style.display = "none";
     }
   });
 }
@@ -104,29 +104,33 @@ function changePage(delta) {
   showPage(currentPage);
 }
 showPage(currentPage);
-var submitButton = document.getElementById('submitButton');
+var submitButton = document.getElementById("submitButton");
 if (submitButton) {
   submitButton.addEventListener("click", showConfirmation);
 }
 // simpan perubahan
 function showConfirmation() {
-  document.getElementById('overlay').style.display = 'flex';
-  document.getElementById('confirmationPopup').style.display = 'flex';
+  document.getElementById("overlay").style.display = "flex";
+  document.getElementById("confirmationPopup").style.display = "flex";
 }
 var cancelButton = document.getElementById("cancelButton");
 if (cancelButton) {
   cancelButton.addEventListener("click", hideConfirmation);
 }
 function hideConfirmation() {
-  document.getElementById('overlay').style.display = 'none';
-  document.getElementById('confirmationPopup').style.display = 'none';
+  document.getElementById("overlay").style.display = "none";
+  document.getElementById("confirmationPopup").style.display = "none";
 }
 var confirmButton = document.getElementById("confirmButton");
 if (confirmButton) {
   confirmButton.addEventListener("click", saveChanges);
 }
 function saveChanges() {
-  alert('Perubahan disimpan!');
+  Swal.fire({
+    title: "Perubahan Disimpan!",
+    icon: "success",
+    timer: 3000
+  });
   hideConfirmation();
 }
 /******/ })()

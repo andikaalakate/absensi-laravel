@@ -21,9 +21,12 @@ class SiswaDataFactory extends Factory
     protected $model = SiswaData::class;
     public function definition(): array
     {
+        $nis = $this->faker->unique()->randomNumber(5);
+
         return [
-            'nis' => $this->faker->unique()->randomNumber(5),
+            'nis' => $nis,
             'nama_lengkap' => $this->faker->name,
+            'qr_code' => '/api/siswa/absensi/' . $nis,
             'jenis_kelamin' => $this->faker->randomElement(['Laki-Laki', 'Perempuan']),
             'jurusan' => $this->faker->randomElement(['Rekayasa Perangkat Lunak', 'Teknik Komputer dan Jaringan']),
             'kelas' => $this->faker->randomElement(['XI RPL', 'XI TKJ']),
@@ -34,6 +37,7 @@ class SiswaDataFactory extends Factory
     {
         return $this->afterCreating(function ($siswaData) {
             $nis = $siswaData->nis;
+
             SiswaBio::factory()->create(['nis' => $nis]);
             SiswaLogin::factory()->create(['nis' => $nis]);
             SiswaAbsensi::factory()->create(['nis' => $nis]);

@@ -21,6 +21,10 @@ class SiswaBio extends Model
         'image',
     ];
 
+    public function siswaBio()
+    {
+        return $this->hasOne(SiswaBio::class, 'nis', 'nis');
+    }
     public function siswaData()
     {
         return $this->hasOne(SiswaData::class, 'nis', 'nis');

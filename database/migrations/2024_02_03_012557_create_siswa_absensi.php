@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('siswa_absensi', function (Blueprint $table) {
             $table->string('nis', 20)->index();
-            $table->string('qr_code');
             $table->enum('status', ['Hadir', 'Alpha', 'Sakit', 'Izin']);
-            $table->time('jam_masuk');
+            $table->time('jam_masuk')->unique();
             $table->time('jam_pulang')->nullable();
             $table->string('lokasi_masuk');
             $table->timestamps();

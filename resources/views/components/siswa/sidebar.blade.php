@@ -24,19 +24,8 @@
         <a href="/siswa/peringkat/" class="sidelink {{ Request::is('siswa/peringkat') ? 'active' : '' }}"><i
             class="bx bxs-trophy"></i>Peringkat</a>
       </li>
-      <li class="list-link" id="dropdownSetting">
-        <a href="#" class="sidelink {{ Request::is('siswa/tampilan') ? 'active' : '' }} {{ Request::is('siswa/keamanan')  ? 'active'
-          : '' }}"><i class="bx bxs-cog"></i>Pengaturan</a>
-        <ul class="setting-dropdown">
-          <li class="list-setting-dropdown">
-            <a href="/siswa/tampilan/" class="link-setting-dropdown sidelink {{ Request::is('siswa/tampilan') ? 'active' : ''
-              }}"><i class="bx bxs-palette"></i>Tampilan</a>
-          </li>
-          <li class="list-setting-dropdown">
-            <a href="/siswa/keamanan/" class="link-setting-dropdown sidelink {{ Request::is('siswa/keamanan') ? 'active' : ''
-              }}"><i class="bx bx-shield-quarter"></i>Keamanan</a>
-          </li>
-        </ul>
+      <li class="list-link">
+        <a href="/siswa/keamanan/" class="sidelink {{ Request::is('siswa/keamanan') ? 'active' : '' }}"><i class="bx bx-shield-quarter"></i>Keamanan</a>
       </li>
       <li class="list-link">
         <a href="/siswa/tentang/" class="sidelink {{ Request::is('siswa/tentang') ? 'active' : '' }}"><i
@@ -65,9 +54,9 @@
     <li class="bounce-list">
       <a href="/siswa/peringkat/" class="bounce-link"><i class="bx bxs-trophy"></i>Peringkat</a>
     </li>
-    <li class="bounce-list">
+    {{-- <li class="bounce-list">
       <a href="/siswa/tampilan/" class="bounce-link"><i class="bx bxs-palette"></i>Tampilan</a>
-    </li>
+    </li> --}}
     <li class="bounce-list">
       <a href="/siswa/keamanan/" class="bounce-link"><i class="bx bx-shield-quarter"></i>Keamanan</a>
     </li>

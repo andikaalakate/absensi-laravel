@@ -19,13 +19,13 @@ class SiswaAbsensiFactory extends Factory
     protected $model = SiswaAbsensi::class;
     public function definition(): array
     {
+        $nis = $this->faker->unique()->randomNumber(5);
+
         return [
-            'nis' => $this->faker->unique()->randomNumber(5),
+            'nis' => $nis,
             'jam_masuk' => $this->faker->time(),
             'jam_pulang' => $this->faker->time(),
             'lokasi_masuk' => $this->faker->address,
-            'qr_code' => '/api/siswa/absensi/' . 'nis',
-            'status' => $this->faker->randomElement(['Hadir', 'Alpha', 'Sakit', 'Izin'])
         ];
     }
     public function configure()

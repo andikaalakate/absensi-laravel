@@ -11,7 +11,7 @@
     <div class="dash-content" id="dashContent">
         <div class="profil-card">
             <div class="img-profil">
-                <img src="{{ asset($siswas->siswaBio->image) }}" alt="Avatar 1" />
+                <img src="{{ asset($siswas->siswaBio->image) }}" alt="{{ asset('images/avatar1.webp') }}" />
             </div>
             <div class="data-profil">
                 <h1 class="nama-profil">{{ $siswas->siswaData->nama_lengkap }}</h1>
@@ -29,19 +29,26 @@
                 </table>
             </div>
             <div class="waktu-profil">
+                @php
+                    $latestAttendance = collect($siswaAbsensi['data'])
+                        ->where('nis', $siswas->siswaData->nis)
+                        ->sortByDesc('created_at')
+                        ->first();
+                @endphp
+
                 <div class="waktu-masuk">
-                    @if ($siswaAbsensi['data']['status'] == 'Hadir')
-                        Masuk - {{ \Carbon\Carbon::parse($siswaAbsensi['data']['jam_masuk'])->format('H:i') }}
+                    @if ($latestAttendance && $latestAttendance['status'] == 'Hadir')
+                        Masuk - {{ \Carbon\Carbon::parse($latestAttendance['jam_masuk'])->format('H:i') }}
                     @else
                         Tidak Masuk
                     @endif
                 </div>
 
                 <div class="waktu-pulang">
-                    @if ($siswaAbsensi['data']['status'] == 'Hadir')
-                        Pulang - {{ \Carbon\Carbon::parse($siswaAbsensi['data']['jam_pulang'])->format('H:i') }}
+                    @if ($latestAttendance && $latestAttendance['status'] == 'Hadir')
+                        Pulang - {{ \Carbon\Carbon::parse($latestAttendance['jam_pulang'])->format('H:i') }}
                     @else
-                        Tidak Pulang
+                        Belum Pulang
                     @endif
                 </div>
             </div>

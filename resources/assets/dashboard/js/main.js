@@ -6,17 +6,17 @@ function validateNumberInput() {
     noHp.value = noHp.value.replace(/\D/g, "");
 }
 
-window.addEventListener('load', function () {
-    let preload = document.getElementById('preload');
+window.addEventListener("load", function () {
+    let preload = document.getElementById("preload");
 
-    preload.style.opacity = "0"
+    preload.style.opacity = "0";
     preload.style.zIndex = "-9999";
-    document.body.style.overflow = 'visible';
+    document.body.style.overflow = "visible";
 });
 
 let bukaTutupSidebar = document.getElementById("bukaTutupSidebar");
 if (bukaTutupSidebar) {
-    bukaTutupSidebar.addEventListener("click", bukaSidebar)
+    bukaTutupSidebar.addEventListener("click", bukaSidebar);
 }
 function bukaSidebar() {
     let sidebar = document.getElementById("container");
@@ -39,9 +39,9 @@ function bukaSidebar() {
     }
 }
 
-let dropdownMenu = document.getElementById("dropdownSetting")
+let dropdownMenu = document.getElementById("dropdownSetting");
 if (dropdownMenu) {
-    dropdownMenu.addEventListener("click", dropdownSetting)
+    dropdownMenu.addEventListener("click", dropdownSetting);
 }
 function dropdownSetting() {
     if (document.getElementById("dropdownSetting").style.height == "40px") {
@@ -54,15 +54,15 @@ function dropdownSetting() {
 // script.js
 var currentPage = 1;
 var rowsPerPage = 10;
-var tableRows = document.querySelectorAll('.tabel-data tbody tr');
+var tableRows = document.querySelectorAll(".tabel-data tbody tr");
 
-let prevBtn = document.getElementById("prevBtn")
+let prevBtn = document.getElementById("prevBtn");
 if (prevBtn) {
-    prevBtn.addEventListener("click", changePage(-1))
+    prevBtn.addEventListener("click", changePage(-1));
 }
-let nextBtn = document.getElementById("nextBtn")
+let nextBtn = document.getElementById("nextBtn");
 if (nextBtn) {
-    nextBtn.addEventListener("click", changePage(1))
+    nextBtn.addEventListener("click", changePage(1));
 }
 
 function showPage(page) {
@@ -71,9 +71,9 @@ function showPage(page) {
 
     tableRows.forEach(function (row, index) {
         if (index >= startIndex && index < endIndex) {
-            row.style.display = 'table-row';
+            row.style.display = "table-row";
         } else {
-            row.style.display = 'none';
+            row.style.display = "none";
         }
     });
 }
@@ -92,31 +92,34 @@ function changePage(delta) {
 }
 
 showPage(currentPage);
-
-let submitButton = document.getElementById('submitButton')
+let submitButton = document.getElementById("submitButton");
 if (submitButton) {
-    submitButton.addEventListener("click", showConfirmation)
+    submitButton.addEventListener("click", showConfirmation);
 }
 // simpan perubahan
 function showConfirmation() {
-    document.getElementById('overlay').style.display = 'flex';
-    document.getElementById('confirmationPopup').style.display = 'flex';
+    document.getElementById("overlay").style.display = "flex";
+    document.getElementById("confirmationPopup").style.display = "flex";
 }
 
-let cancelButton = document.getElementById("cancelButton")
+let cancelButton = document.getElementById("cancelButton");
 if (cancelButton) {
-    cancelButton.addEventListener("click", hideConfirmation)
+    cancelButton.addEventListener("click", hideConfirmation);
 }
 function hideConfirmation() {
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('confirmationPopup').style.display = 'none';
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("confirmationPopup").style.display = "none";
 }
 
-let confirmButton = document.getElementById("confirmButton")
+let confirmButton = document.getElementById("confirmButton");
 if (confirmButton) {
-    confirmButton.addEventListener("click", saveChanges)
+    confirmButton.addEventListener("click", saveChanges);
 }
 function saveChanges() {
-    alert('Perubahan disimpan!');
+    Swal.fire({
+        title: "Perubahan Disimpan!",
+        icon: "success",
+        timer: 3000,
+    });
     hideConfirmation();
 }

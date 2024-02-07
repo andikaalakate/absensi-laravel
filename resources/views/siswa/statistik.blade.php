@@ -20,12 +20,9 @@
                         <th>Tanggal</th>
                         <th>Jam Masuk</th>
                         <th>Jam Pulang</th>
-                        <th>Hadir</th>
-                        <th>Sakit</th>
-                        <th>Izin</th>
-                        <th>Absen</th>
+                        <th>Keterangan</th>
                     </tr>
-                    @foreach ($siswaAbsensi['data'] as $siswa)
+                    @foreach (array_reverse($siswaAbsensi['data']) as $siswa)
                         <tr>
                             <!-- nomor -->
                             <td>{{ $loop->iteration }}.</td>
@@ -36,14 +33,10 @@
                             <td>{{ \Carbon\Carbon::parse($siswa['jam_masuk'])->format('H:i') }}</td>
                             <!-- jam pulang -->
                             <td>{{ \Carbon\Carbon::parse($siswa['jam_pulang'])->format('H:i') }}</td>
-                            <!-- hadir -->
-                            <td>{{ $siswa['status'] === 'Hadir' ? 'Hadir' : '-' }}</td>
-                            <!-- sakit -->
-                            <td>{{ $siswa['status'] === 'Sakit' ? 'Sakit' : '-' }}</td>
-                            <!-- izin -->
-                            <td>{{ $siswa['status'] === 'Izin' ? 'Izin' : '-' }}</td>
-                            <!-- absen -->
-                            <td>{{ $siswa['status'] === 'Alpha' ? 'Alpha' : '-' }}</td>
+                            <!-- keterangan -->
+                            <td>
+                                {{ $siswa['status'] === 'Hadir' ? 'Hadir' : ($siswa['status'] === 'Sakit' ? 'Sakit' : ($siswa['status'] === 'Izin' ? 'Izin' : ($siswa['status'] === 'Alpha' ? 'Alpha' : '-'))) }}
+                            </td>
                         </tr>
                     @endforeach
                 </table>
@@ -62,11 +55,16 @@
 <script defer>
     var ctx = document.getElementById("myDoughnutChart").getContext("2d");
 
+    let hadirCount = {{ $hadirCount }};
+    let sakitCount = {{ $sakitCount }};
+    let izinCount = {{ $izinCount }};
+    let absenCount = {{ $absenCount }};
+
     var data = {
         labels: ["Hadir", "Sakit", "Izin", "Absen"],
         datasets: [
             {
-                data: [100, 5, 0, 1], //100 = Hadir, 5 = Sakit, 0 = Izin, 1 = Absen
+                data: [hadirCount, sakitCount, izinCount, absenCount],
                 backgroundColor: [
                     "rgba(75, 192, 192, 0.7)",
                     "rgba(255, 99, 132, 0.7)",

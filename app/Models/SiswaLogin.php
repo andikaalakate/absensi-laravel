@@ -20,6 +20,10 @@ class SiswaLogin extends Model
         'password'
     ];
 
+    public function siswaLogin()
+    {
+        return $this->hasOne(SiswaLogin::class, 'nis', 'nis');
+    }
     public function siswaData()
     {
         return $this->hasOne(SiswaData::class, 'nis', 'nis');

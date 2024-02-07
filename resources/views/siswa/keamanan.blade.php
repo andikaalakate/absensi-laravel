@@ -3,7 +3,7 @@
 @section('head')
     <title>Siswa - {{ $title }}</title>
     <link rel="stylesheet" href="{{ mix('assets/dashboard/css/keamanan.css') }}">
-    <script defer>
+    {{-- <script defer>
         document.addEventListener('DOMContentLoaded', function () {
             let formModified = false;
             const formElements = document.querySelectorAll('.input-secure, textarea');
@@ -23,7 +23,7 @@
                 formModified = false;
             };
         });
-    </script>
+    </script> --}}
 @endsection
 
 @section('content')
@@ -31,26 +31,28 @@
     <div class="dash" id="dashBoard">
         <div class="dash-content" id="dashContent">
             <h1 class="content-head">Keamanan</h1>
-            <form action="#" class="secure-form" method="post" autocomplete="off">
+            <form action="{{ route('siswa.update', ['nis' => $siswas->siswaData->nis]) }}" class="secure-form" method="PUT" autocomplete="off" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
+
                 <div class="ubah-profilePic">
                     <div class="profile-img">
-                        <img src="{{ asset($siswas->siswaBio->image) }}" alt="Agus Setiawan"
+                        <img src="{{ asset($siswas->siswaBio->image) }}" alt="{{ asset('images/avatar1.webp') }}"
                             aria-label="profile-picture" />
                         <p>Ubah Foto Profil</p>
                     </div>
                     <label for="changeProfile" class="tombolUbah">Ubah</label>
-                    <input type="file" name="profile-picture" id="changeProfile" style="display: none"
+                    <input type="file" name="image" id="changeProfile" multiple style="display: none"
                         accept="image/*" />
                 </div>
                 <div class="nama-profil profile-secure">
                     <label for="nama">Nama :</label>
-                    <input type="text" placeholder="{{ $siswas->siswaData->nama_lengkap }}" readonly class="input-secure" id="nama"
-                        name="nama" />
+                    <input type="text" value="{{ $siswas->siswaData->nama_lengkap }}" readonly disabled class="input-secure" id="nama"
+                        name="nama_lengkap" />
                 </div>
                 <div class="jKelamin-profil profile-secure">
                     <label for="jenis-kelamin">Jenis Kelamin :</label>
-                    <select class="input-secure" id="jenis-kelamin" name="jenis-kelamin" disabled>
+                    <select class="input-secure" id="jenis-kelamin" name="jenis_kelamin" disabled>
                         <option value="{{ $siswas->siswaData->jenis_kelamin }}">{{ $siswas->siswaData->jenis_kelamin }}</option>
                         <option value="perempuan">Perempuan</option>
                     </select>
@@ -71,11 +73,15 @@
                 </div>
                 <div class="nis-profil profile-secure">
                     <label for="nis">Nis :</label>
-                    <input type="text" placeholder="{{ auth()->user()->nis }}" readonly class="input-secure" id="nis" name="nis" />
+                    <input type="text" value="{{ $siswas->siswaData->nis }}" readonly disabled class="input-secure" id="nis" name="nis" />
                 </div>
                 <div class="no-hp-profil profile-secure">
                     <label for="noHp">Nomor Hp :</label>
-                    <input type="text" class="input-secure" id="noHp" name="nomor-hp" value="{{ auth()->user()->no_telp }}" />
+                    <input type="text" class="input-secure" id="noHp" name="no_telp" value="{{ $siswas->siswaLogin->no_telp }}" />
+                </div>
+                <div class="no-hp-profil profile-secure">
+                    <label for="eMail">Email :</label>
+                    <input type="email" class="input-secure" id="eMail" name="email" value="{{ $siswas->siswaLogin->email }}" />
                 </div>
                 <div class="password-profil profile-secure">
                     <label for="password">Password :</label>
@@ -102,6 +108,13 @@
                         <button id="confirmButton" type="submit">Ya</button>
                     </div>
                 </div>
+                @if ($errors->any())
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
             </form>
         </div>
     </div>

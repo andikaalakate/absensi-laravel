@@ -22,7 +22,7 @@
             <div class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md p-5" id="qrcodeContainer">
               <div id="qrcode" title="QRCode"></div>
             </div>
-            <input type="text" id="inputQR" value="https://absensi-laravel/siswa/{{ $siswas->siswaData->nis }}" readonly disabled hidden />
+            <input type="text" id="inputQR" value="{{ route('siswa.index') }}/{{ $siswas->siswaData->nis }}" readonly disabled hidden />
           </div>
         </div>
         {{-- <div id="swapCamera" onclick="swapKamera()"><i class='bx bxs-camera'></i></div> --}}
@@ -31,7 +31,6 @@
 @endsection
 
 @section('script')
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js" integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
   <script type="text/javascript">

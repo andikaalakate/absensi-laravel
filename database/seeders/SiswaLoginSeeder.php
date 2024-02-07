@@ -17,7 +17,7 @@ class SiswaLoginSeeder extends Seeder
             'nis' => '46710',
             'password' => bcrypt('mraouart'),
             'email' => 'andikaalakate@gmail.com',
-            'no_telp' => '089505722187'
+            'no_telp' => '+6289505722187'
         ]);
 
         SiswaLogin::factory()->noId()->count(10)->create();
