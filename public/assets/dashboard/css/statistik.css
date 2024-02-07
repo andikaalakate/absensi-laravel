@@ -1,0 +1,65 @@
+/* Chart CDNJS */
+.chart {
+
+    width: 100%;
+    display: flex;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.detail-data {
+    overflow: auto;
+    display: flex;
+    justify-content: flex-start;
+    /* border: 1px solid rgb(57, 110, 224); */
+    border-radius: 5px;
+    /* overflow: hidden; */
+    overflow-x: auto;
+    flex-direction: column;
+}
+
+.tabel-data {
+    border: 1px solid rgb(57, 110, 224);
+    border-collapse: collapse;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.tabel-data th {
+    background-color: rgb(57, 110, 224);
+    color: #f5f5f5;
+}
+
+.tabel-data tr:nth-child(even) {
+    background-color: #c5c3c3;
+}
+
+.tabel-data th,
+.tabel-data td {
+    padding: 10px;
+    text-align: center;
+}
+
+.tabel-data tr td:first-child,
+.tabel-data tr th:first-child {
+    width: 50px;
+}
+
+.tabel-data td {
+    border: 1px solid rgb(57, 110, 224);
+}
+
+.page-navigation {
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 5px;
+    display: flex;
+}
+
+.page-navigation button {
+    padding: 2px 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}

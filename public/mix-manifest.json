@@ -1,8 +1,18 @@
 {
     "/assets/login/js/main.js": "/assets/login/js/main.js",
     "/assets/dashboard/js/main.js": "/assets/dashboard/js/main.js",
+    "/assets/dashboard/js/qrCodeScanner.js": "/assets/dashboard/js/qrCodeScanner.js",
+    "/assets/dashboard/js/instascan.min.js": "/assets/dashboard/js/instascan.min.js",
+    "/assets/dashboard/js/checkLocation.js": "/assets/dashboard/js/checkLocation.js",
+    "/assets/dashboard/js/html5-qrcode.min.js": "/assets/dashboard/js/html5-qrcode.min.js",
     "/assets/dashboard/css/style.css": "/assets/dashboard/css/style.css",
     "/assets/login/css/style.css": "/assets/login/css/style.css",
+    "/assets/dashboard/css/keamanan.css": "/assets/dashboard/css/keamanan.css",
     "/css/tailwind.css": "/css/tailwind.css",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/assets/dashboard/css/tentang.css": "/assets/dashboard/css/tentang.css",
+    "/assets/dashboard/css/scan-qr.css": "/assets/dashboard/css/scan-qr.css",
+    "/assets/dashboard/css/statistik.css": "/assets/dashboard/css/statistik.css",
+    "/assets/dashboard/css/profilSiswa.css": "/assets/dashboard/css/profilSiswa.css",
+    "/assets/dashboard/css/leaderboard.css": "/assets/dashboard/css/leaderboard.css"
 }

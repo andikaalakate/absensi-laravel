@@ -2,6 +2,66 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./resources/assets/dashboard/css/leaderboard.css":
+/*!********************************************************!*\
+  !*** ./resources/assets/dashboard/css/leaderboard.css ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/assets/dashboard/css/profilSiswa.css":
+/*!********************************************************!*\
+  !*** ./resources/assets/dashboard/css/profilSiswa.css ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/assets/dashboard/css/statistik.css":
+/*!******************************************************!*\
+  !*** ./resources/assets/dashboard/css/statistik.css ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/assets/dashboard/css/scan-qr.css":
+/*!****************************************************!*\
+  !*** ./resources/assets/dashboard/css/scan-qr.css ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/assets/dashboard/css/tentang.css":
+/*!****************************************************!*\
+  !*** ./resources/assets/dashboard/css/tentang.css ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/app.css":
 /*!*******************************!*\
   !*** ./resources/css/app.css ***!
@@ -50,6 +110,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/dashboard/css/keamanan.css":
+/*!*****************************************************!*\
+  !*** ./resources/assets/dashboard/css/keamanan.css ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/assets/login/js/main.js":
 /*!*******************************************!*\
   !*** ./resources/assets/login/js/main.js ***!
@@ -57,15 +129,37 @@ __webpack_require__.r(__webpack_exports__);
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-var nis = document.getElementById("nis");
-if (nis) {
-  nis.addEventListener("input", validateNumberInput);
+var alertShown = false; // Variabel penanda apakah alert telah ditampilkan
+
+document.getElementById('nis').addEventListener('input', function (event) {
+  // Memeriksa apakah input adalah angka
+  if (!/^\d*$/.test(event.target.value)) {
+    // Jika bukan angka dan alert belum ditampilkan, tampilkan toast alert
+    if (!alertShown) {
+      showToastAlert("Input tidak valid !");
+      alertShown = true; // Set alertShown menjadi true agar alert hanya muncul sekali
+      setTimeout(function () {
+        alertShown = false; // Setelah 3 detik, reset alertShown sehingga alert dapat muncul lagi
+      }, 3000);
+    }
+    // Menghapus karakter selain angka dari input
+    event.target.value = event.target.value.replace(/[^\d]/g, '');
+  } else {
+    alertShown = false; // Reset alertShown jika input valid
+  }
+});
+function showToastAlert(message) {
+  Toastify({
+    text: message,
+    duration: 3000,
+    gravity: "top",
+    // Posisi toast alert, bisa diganti dengan "bottom"
+    position: 'left',
+    // Posisi toast alert, bisa diganti dengan "right"
+    backgroundColor: "#0099ff",
+    stopOnFocus: true // Menghentikan durasi toast saat fokus ke input
+  }).showToast();
 }
-;
-function validateNumberInput() {
-  nis.value = nis.value.replace(/\D/g, '');
-}
-;
 
 /***/ })
 
@@ -158,8 +252,14 @@ function validateNumberInput() {
 /******/ 			"/assets/login/js/main": 0,
 /******/ 			"assets/dashboard/css/style": 0,
 /******/ 			"assets/login/css/style": 0,
+/******/ 			"assets/dashboard/css/keamanan": 0,
 /******/ 			"css/tailwind": 0,
-/******/ 			"css/app": 0
+/******/ 			"css/app": 0,
+/******/ 			"assets/dashboard/css/tentang": 0,
+/******/ 			"assets/dashboard/css/scan-qr": 0,
+/******/ 			"assets/dashboard/css/statistik": 0,
+/******/ 			"assets/dashboard/css/profilSiswa": 0,
+/******/ 			"assets/dashboard/css/leaderboard": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -209,11 +309,17 @@ function validateNumberInput() {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/login/js/main.js")))
-/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/css/tailwind.css")))
-/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/login/css/style.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","css/tailwind","css/app"], () => (__webpack_require__("./resources/assets/dashboard/css/style.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/login/js/main.js")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/css/tailwind.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/login/css/style.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/style.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/keamanan.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/leaderboard.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/profilSiswa.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/statistik.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/scan-qr.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["assets/dashboard/css/style","assets/login/css/style","assets/dashboard/css/keamanan","css/tailwind","css/app","assets/dashboard/css/tentang","assets/dashboard/css/scan-qr","assets/dashboard/css/statistik","assets/dashboard/css/profilSiswa","assets/dashboard/css/leaderboard"], () => (__webpack_require__("./resources/assets/dashboard/css/tentang.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
