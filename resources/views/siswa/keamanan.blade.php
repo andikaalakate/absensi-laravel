@@ -51,33 +51,27 @@
                 </div>
                 <div class="nama-profil profile-secure">
                     <label for="nama">Nama :</label>
-                    <input type="text" value="{{ $siswas->siswaData->nama_lengkap }}" readonly class="input-secure" id="nama"
+                    <input type="text" value="{{ $siswas->siswaData->nama_lengkap }}" disabled class="input-secure" id="nama"
                         name="nama_lengkap" />
                 </div>
                 <div class="jKelamin-profil profile-secure">
                     <label for="jenis-kelamin">Jenis Kelamin :</label>
-                    <select class="input-secure" id="jenis-kelamin" name="jenis_kelamin" readonly>
+                    <select class="input-secure" id="jenis-kelamin" name="jenis_kelamin" disabled>
                         <option value="{{ $siswas->siswaData->jenis_kelamin }}">{{ $siswas->siswaData->jenis_kelamin }}</option>
                         <option value="perempuan">Perempuan</option>
                     </select>
                 </div>
                 <div class="jurusan profile-secure">
                     <label for="jurusan">Kelas :</label>
-                    <select class="input-secure" id="jurusan" name="kelas" @readonly(true)>
+                    <select class="input-secure" id="kelas" name="kelas" disabled>
                         <option value="{{ $siswas->siswaData->kelas }}">{{ $siswas->siswaData->kelas }}</option>
-                        <option value="pm">Pemasaran</option>
-                        <option value="akl">Akuntansi dan Keuangan Lembaga</option>
-                        <option value="mplb">
-                            Manajemen Perkantoran dan Layanan Bisnis
-                        </option>
-                        <option value="tjkt">
-                            Teknik Jaringan Komputer dan Telekomunikasi
-                        </option>
+                        <option value="XI">XI</option>
+                        <option value="XII">XII</option>
                     </select>
                 </div>
                 <div class="jurusan profile-secure">
                     <label for="jurusan">Jurusan :</label>
-                    <select class="input-secure" id="jurusan" name="jurusan" @readonly(true)>
+                    <select class="input-secure" id="jurusan" name="jurusan" disabled>
                         <option value="{{ $siswas->siswaData->jurusan }}">{{ $siswas->siswaData->jurusan }}</option>
                         <option value="pm">Pemasaran</option>
                         <option value="akl">Akuntansi dan Keuangan Lembaga</option>

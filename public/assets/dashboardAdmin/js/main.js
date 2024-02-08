@@ -23,12 +23,15 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 // Fungsi Search pada Kelasfunction handleSearch() {
 function handleSearch() {
+  search();
+}
+function search() {
   var input, filter, tabels, i, j, txtValue;
   input = document.getElementById("cari");
   filter = input.value.toUpperCase();
   tabels = document.querySelectorAll('.tabel');
   tabels.forEach(function (tabel) {
-    var rows = tabel.querySelectorAll('.table-data-jurusan tr');
+    var rows = tabel.querySelectorAll('.table-data-siswa tr');
     var tabelMatch = false;
     for (i = 0; i < rows.length; i++) {
       var cells = rows[i].getElementsByTagName("td");
@@ -41,17 +44,19 @@ function handleSearch() {
           break;
         }
       }
-      // Menampilkan atau menyembunyikan baris berdasarkan hasil pencarian
-      rows[i].style.display = rowMatch ? "" : "none";
     }
-
-    // Menampilkan atau menyembunyikan tabel berdasarkan hasil pencarian
-    tabel.style.display = tabelMatch ? "block" : "none";
+    if (tabelMatch) {
+      tabel.style.display = "block";
+    } else {
+      tabel.style.display = "none";
+    }
   });
 }
 document.getElementById("cari").addEventListener("keyup", function (event) {
   if (event.key === "Enter") {
     handleSearch();
+  } else {
+    search();
   }
 });
 
@@ -186,35 +191,6 @@ editButtons.forEach(function (button) {
 document.getElementById("closeButton").addEventListener("click", function () {
   var confirmElement = document.getElementById("editModal");
   confirmElement.style.display = "none";
-});
-document.querySelectorAll('.editButton').forEach(function (button) {
-  button.addEventListener('click', function () {
-    // Mendapatkan data dari baris yang dipilih
-    var row = this.closest('tr');
-    var nama = row.querySelector('.nama').innerText.trim();
-    var nis = row.querySelector('.nis').innerText.trim();
-    var alamat = row.querySelector('.alamat').innerText.trim();
-    var jurusan = row.querySelector('.jurusan').innerText.trim();
-    var noTelepon = row.querySelector('.noTelepon').innerText.trim();
-    var jenisKelamin = row.querySelector('.jenisKelamin').innerText.trim();
-    var kelas = row.querySelector('.kelas').innerText.trim();
-    var hobi = row.querySelector('.hobi').innerText.trim();
-    var tanggalLahir = row.querySelector('.tanggalLahir').innerText.trim();
-
-    // Mengisi nilai-nilai dalam modal dengan nilai dari baris yang dipilih
-    document.getElementById('nama1').value = nama;
-    document.getElementById('nis1').value = nis;
-    document.getElementById('alamat1').value = alamat;
-    document.getElementById('jurusan1').value = jurusan;
-    document.getElementById('noTelepon1').value = noTelepon;
-    document.getElementById('jenisKelamin1').value = jenisKelamin;
-    document.getElementById('kelas1').value = kelas;
-    document.getElementById('hobi1').value = hobi;
-    document.getElementById('tanggalLahir1').value = tanggalLahir;
-
-    // Menampilkan modal
-    document.getElementById('editModal').style.display = 'block';
-  });
 });
 /******/ })()
 ;

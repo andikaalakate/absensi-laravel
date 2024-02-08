@@ -36,59 +36,72 @@ function stopScanner() {
 }
 
 function onScanSuccess(qrCodeMessage) {
+    Swal.fire({
+        icon: "success",
+        title: "Berhasil!",
+        showConfirmButton: false,
+        timer: 5000,
+    });
+    setTimeout(function() {
+        location.reload();
+    }, 5000); // 5 seconds
     submitFormWithLocation();
+    // stopScanner();
 }
 
-function submitFormWithLocation() {
+document.querySelectorAll('.form-submit').forEach(function(form) {
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        submitFormWithLocation(form);
+    });
+});
+
+function submitFormWithLocation(form) {
     var form = document.getElementById("form-submit");
     var nisInput = form.querySelector("input[name='nis']");
+    var statusInput = form.querySelector("input[name='status']");
+    var tokenInput = form.querySelector("input[name='_token']");
+    var qrCodeMessage = document.getElementById("qrCodeMessage").textContent;
+    var data = {
+        _token: tokenInput.value,
+        nis: nisInput.value,
+        lokasi_masuk: latitude + "," + longitude,
+        jam_masuk: new Date(), // Use new Date() to get the current date and time
+        jam_keluar: null,
+        status: statusInput.value
+    };
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-
-            var data = {
-                nis: nisInput.value,
-                lokasi_masuk: latitude + "," + longitude
-            };
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                Swal.fire({
-                    icon: "success",
-                    title: "Berhasil!",
-                    showConfirmButton: false,
-                    timer: 5000,
-                });
-                stopScanner();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Failed to submit form with location.");
-            });
-        }, function(error) {
-            console.error("Error getting geolocation:", error);
-            alert("Unable to retrieve current location.");
+    fetch(qrCodeMessage, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            '_token': tokenInput.value,
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        Swal.fire({
+            icon: "success",
+            title: "Berhasil!",
+            showConfirmButton: false,
+            timer: 5000,
         });
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
+        stopScanner();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Failed to submit form with location.");
+    });
 }
+
 
 function onScanError(errorMessage) {
     console.error("QR Code scan error:", errorMessage);

@@ -12,7 +12,7 @@
             <h1 class="content-head">Leaderboard <span>#10</span></h1>
             <div class="detail-leaderboard">
                 <div class="filter">
-                    <input class="filter-nama" type="text" placeholder="Cari..." id="cari"/>
+                    <input class="filter-nama" type="text" placeholder="Cari..." id="cariNama"/>
                     <select name="filter-waktu">
                         <option value="sepuluh">X (Sepuluh)</option>
                         <option value="sebelas">XI (Sebelas)</option>

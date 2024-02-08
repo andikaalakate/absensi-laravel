@@ -68,7 +68,13 @@ input::selection {
     text-align: center;
 }
 
-.table-data-jurusan tr:last-child td:last-child button {
+.aksiButton {
+    display: flex;
+    gap: 5px;
+    border: none;
+}
+
+.aksiButton button {
     border: none;
     cursor: pointer;
     width: 50px;
@@ -78,16 +84,15 @@ input::selection {
     border-radius: 3px;
 }
 
-.table-data-jurusan tr:last-child td:last-child button:nth-child(1) {
-    background-color: rgb(55, 155, 52);
+#editButtonJurusan {
+    background-color:rgb(55, 155, 52) ;
+}
+#editButtonJurusan:hover {
+    background-color:rgb(33, 107, 30) ;
 }
 
-.table-data-jurusan tr:last-child td:last-child button:nth-child(1):hover {
-    background-color: rgb(33, 107, 30);
-}
-
-.table-data-jurusan tr:last-child td:last-child button:nth-child(2):hover {
-    background-color: rgb(107, 30, 30);
+#hapusButton:hover {
+    background-color:rgb(107, 30, 30) ;
 }
 
 /* Pagination */
