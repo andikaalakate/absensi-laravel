@@ -13,14 +13,18 @@ class KelasSeeder extends Seeder
      */
     public function run(): void
     {
-        Kelas::factory()->create([
+        Kelas::create([
             'id_kelas' => '110',
-            'nama_kelas' => 'XI RPL',
+            'nama_kelas' => 'X',
+        ]);
+        Kelas::create([
+            'id_kelas' => '111',
+            'nama_kelas' => 'XI',
         ]);
 
-        Kelas::factory()->create([
-            'id_kelas' => '111',
-            'nama_kelas' => 'XI TKJ',
+        Kelas::create([
+            'id_kelas' => '112',
+            'nama_kelas' => 'XII',
         ]);
     }
 }

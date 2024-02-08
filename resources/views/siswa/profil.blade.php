@@ -2,7 +2,7 @@
 
 @section('head')
 <title>Siswa - {{ $title }}</title>
-<link rel="stylesheet" href="{{ mix('assets/dashboard/css/profilSiswa.css') }}" />
+<link rel="stylesheet" href="{{ mix('assets/dashboard/css/profilSiswa.css') . "?id=" . Str::random(16) }}" />
 @endsection
 
 @section('content')
@@ -19,7 +19,7 @@
                     <tr>
                         <th>Kelas</th>
                         <th>:</th>
-                        <th>{{ $siswas->siswaData->kelas }}</th>
+                        <th>{{ $siswas->siswaData->kelas }} - {{ $siswas->siswaJurusan->alias_jurusan }}</th>
                     </tr>
                     <tr>
                         <th>Jurusan</th>
@@ -53,6 +53,41 @@
                 </div>
             </div>
         </div>
+        <div class="content-container">
+            <div class="biografi-content">
+                <table border=".3" class="biografi-table">
+                <tr>
+                    <td>NIS</td>
+                    <td>:</td>
+                    <td>{{ $siswas->siswaData->nis }}</td>
+                </tr>
+                <tr>
+                    <td>Jenis Kelamin</td>
+                    <td>:</td>
+                    <td>{{ $siswas->siswaData->jenis_kelamin }}</td>
+                </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td>:</td>
+                    <td>{{ $siswas->siswaBio->alamat }}</td>
+                </tr>
+                <tr>
+                    <td>Nomor Telepon</td>
+                    <td>:</td>
+                    <td>{{ $siswas->siswaLogin->no_telp }}</td>
+                </tr>
+                </table>
+            </div>
+            <div class="current-location">
+                <h1><i class='bx bx-current-location'></i>Lokasi saat ini</h1>
+                <div class="maps" id="location">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+    <script src="{{ mix('assets/dashboard/js/userLocation.js') }}"></script>
 @endsection

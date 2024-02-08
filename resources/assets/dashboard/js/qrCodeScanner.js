@@ -9,11 +9,14 @@ function toggleScan() {
     if (reader.style.display === "none") {
         reader.style.display = "block";
         qrcodeContainer.style.display = "none";
+        startScanner(); // Mulai scanner ketika tombol diaktifkan
     } else {
         reader.style.display = "none";
         qrcodeContainer.style.display = "block";
+        stopScanner(); // Berhenti scanner ketika tombol dinonaktifkan
     }
 }
+
 
 let html5QrcodeScanner = null;
 

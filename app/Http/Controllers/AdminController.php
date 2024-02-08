@@ -28,7 +28,7 @@ class AdminController extends Controller
     {
         $credentials = $request->validate([
             'username' => 'required',
-            'email' => 'email|required',
+            // 'email' => 'email|required',
             'password' => 'required'
         ]);
 
@@ -57,12 +57,10 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function dashboard()
     {
-        $url = route('siswa.absensi.index');
-        $response = Http::withoutVerifying()->acceptJson()->get($url);
-
-        $siswaAbsensi = $response->json();
+        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/';
+        $siswaAbsensi   = Http::get($theUrl)->json();
 
         // dd($siswaAbsensi);
 
@@ -71,9 +69,98 @@ class AdminController extends Controller
         // $siswaAbsensi = Http::withoutVerifying()->timeout(30)->get(route('siswa.absensi.show2', Auth::user()->nis))->json();
 
         return view('admin.dashboard', [
-            'title' => "Profil",
+            'title' => "Dashboard",
             'siswas' => $siswas,
             'siswaAbsensi' => $siswaAbsensi
+        ]);
+    }
+
+    public function siswa()
+    {
+        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/';
+        $siswaAbsensi   = Http::get($theUrl)->json();
+
+        // dd($siswaAbsensi);
+
+        // ini_set('max_execution_time', 120);
+        $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->get();
+        // $siswaAbsensi = Http::withoutVerifying()->timeout(30)->get(route('siswa.absensi.show2', Auth::user()->nis))->json();
+
+        return view('admin.siswa', [
+            'title' => "Data Siswa",
+            'siswas' => $siswas,
+            'siswaAbsensi' => $siswaAbsensi
+        ]);
+    }
+
+    public function jurusan()
+    {
+        return view('admin.jurusan', [
+            'title' => "Data Jurusan",
+        ]);
+    }
+
+    public function kelas()
+    {
+        return view('admin.kelas', [
+            'title' => "Data Kelas",
+        ]);
+    }
+
+    public function user()
+    {
+        return view('admin.user', [
+            'title' => "Data User",
+        ]);
+    }
+
+    public function peringkat()
+    {
+        $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->get();
+        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/';
+        $siswaAbsensi   = Http::get($theUrl)->json();
+
+        $hadirCount = 0;
+        $sakitCount = 0;
+        $izinCount = 0;
+        $alphaCount = 0;
+
+        // dd($siswaAbsensi);
+
+        foreach ($siswaAbsensi['data']['data'] as $record) {
+            switch ($record['status']) {
+                case 'Hadir':
+                    $hadirCount++;
+                    break;
+                case 'Sakit':
+                    $sakitCount++;
+                    break;
+                case 'Izin':
+                    $izinCount++;
+                    break;
+                case 'Alpha':
+                    $alphaCount++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return view('admin.peringkat', [
+            'title' => "Data Peringkat",
+            'siswas' => $siswas,
+            'siswaAbsensi' => $siswaAbsensi,
+            'hadirCount' => $hadirCount,
+            'sakitCount' => $sakitCount,
+            'izinCount' => $izinCount,
+            'alphaCount' => $alphaCount,
+        ]);
+    }
+
+    public function laporan()
+    {
+        return view('admin.laporan', [
+            'title' => "Data Kelas",
         ]);
     }
 

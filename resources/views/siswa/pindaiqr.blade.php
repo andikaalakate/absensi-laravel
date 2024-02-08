@@ -4,7 +4,7 @@
     <title>Siswa - {{ $title }}</title>
     <link rel="stylesheet" href="{{ mix('assets/dashboard/css/scan-qr.css') }}">
     <link rel="stylesheet" href="{{ mix('css/app.css') . "?id=" . Str::random(16) }}">
-    <script src="{{ mix('assets/dashboard/js/checkLocation.js') . "?id=" . Str::random(16) }}" defer></script>
+    {{-- <script src="{{ mix('assets/dashboard/js/checkLocation.js') . "?id=" . Str::random(16) }}" defer></script> --}}
 @endsection
 
 @section('content')
@@ -22,7 +22,12 @@
             <div class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md p-5" id="qrcodeContainer">
               <div id="qrcode" title="QRCode"></div>
             </div>
-            <input type="text" id="inputQR" value="{{ route('siswa.index') }}/{{ $siswas->siswaData->nis }}" readonly disabled hidden />
+            <input type="text" id="inputQR" value="{{ route('siswa.absensi.show', $siswaAbsensi['data'][0]['nis']) }}" readonly disabled hidden />
+            <form action="{{ route('siswa.absensi.store') }}" method="post" id="form-submit">
+              @csrf
+              <input type="text" name="nis" value="{{ $siswas->siswaData->nis }}" hidden />
+              <button type="submit" id="btn-submit" class="hidden">Submit</button>
+            </form>
           </div>
         </div>
         {{-- <div id="swapCamera" onclick="swapKamera()"><i class='bx bxs-camera'></i></div> --}}
@@ -43,6 +48,15 @@
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H
     });
+  </script>
+  <script>
+    let scanner = new Html5QrcodeScanner("qrCodeReader");
+    scanner.addEventListener("scan", (result) => {
+      document.getElementById("form-submit").submit();
+      scanner.clear();
+    })
+    let btnSubmit = document.getElementById("btn-submit");
+    
   </script>
   <script src="{{ mix('assets/dashboard/js/qrCodeScanner.js') . "?id=" . Str::random(16) }}" defer></script>
 @endsection

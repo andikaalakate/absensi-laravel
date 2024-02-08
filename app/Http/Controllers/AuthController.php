@@ -30,7 +30,7 @@ class AuthController extends Controller
             'nis' => 'required',
             'password' => 'required'
         ]);
-
+        
         if (Auth::guard('siswa')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/siswa/profil');

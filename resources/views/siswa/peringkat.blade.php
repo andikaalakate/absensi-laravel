@@ -12,11 +12,11 @@
             <h1 class="content-head">Leaderboard <span>#10</span></h1>
             <div class="detail-leaderboard">
                 <div class="filter">
-                    <input class="filter-nama" type="text" placeholder="Cari..." />
+                    <input class="filter-nama" type="text" placeholder="Cari..." id="cari"/>
                     <select name="filter-waktu">
-                        <option value="mingguan">Mingguan</option>
-                        <option value="bulanan">Bulanan</option>
-                        <option value="tahunan">Tahunan</option>
+                        <option value="sepuluh">X (Sepuluh)</option>
+                        <option value="sebelas">XI (Sebelas)</option>
+                        <option value="duabelas">XII (Dua Belas)</option>
                     </select>
                 </div>
                 <table border="1" class="tabel-leaderboard">
@@ -57,7 +57,7 @@
                                 <p class="nama-siswa">{{ $siswa->nama_lengkap }}</p>
                                 <small>{{ $hadir }} Hadir, {{ $sakit }} Sakit, {{ $izin }} Izin, {{ $alpha }} Alpha</small>
                             </td>
-                            <td class="td-kelas">{{ $siswa->kelas }}</td>
+                            <td class="td-kelas">{{ $siswa->kelas }} - {{ $siswa->siswaJurusan->alias_jurusan }}</td>
                             <td class="td-peringkat"><i class='bx bxs-medal'></i></td>
                         </tr>
                     @endforeach

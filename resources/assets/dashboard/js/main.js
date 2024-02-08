@@ -123,3 +123,49 @@ function saveChanges() {
     });
     hideConfirmation();
 }
+
+// Fungsi Pencarian 
+function search() {
+    var input, filter, tabels, i, j, txtValue;
+    input = document.getElementById("cari");
+    filter = input.value.toUpperCase();
+    tabels = document.querySelectorAll('.tabel-leaderboard');
+
+    tabels.forEach(function (tabel) {
+        var rows = tabel.querySelectorAll('tr');
+        var tabelMatch = false;
+
+        for (i = 0; i < rows.length; i++) {
+            var cells = rows[i].querySelectorAll("td, th");
+            var rowMatch = false;
+
+            // Periksa setiap sel pada baris
+            for (j = 0; j < cells.length; j++) {
+                txtValue = cells[j].textContent || cells[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    rowMatch = true;
+                    break;
+                }
+            }
+
+            // Tampilkan atau sembunyikan baris berdasarkan hasil pencarian
+            if (rowMatch || i === 0) {
+                rows[i].style.display = ""; // Tampilkan baris jika cocok atau baris header
+                if (rowMatch) {
+                    tabelMatch = true; // Setel tabelMatch menjadi true jika ada yang cocok
+                }
+            } else {
+                rows[i].style.display = "none"; // Sembunyikan baris jika tidak cocok dan bukan header
+            }
+        }
+
+        // Tampilkan atau sembunyikan tabel berdasarkan hasil pencarian di baris-barisnya
+        if (tabelMatch) {
+            tabel.style.display = "table"; // Tampilkan kembali tabel jika ada yang cocok
+        } else {
+            tabel.style.display = "none"; // Sembunyikan tabel jika tidak ada yang cocok
+        }
+    });
+}
+
+document.getElementById("cari").addEventListener("keyup", search);

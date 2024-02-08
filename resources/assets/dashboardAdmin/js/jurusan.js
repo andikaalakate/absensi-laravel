@@ -46,13 +46,13 @@ document.getElementById("cari").addEventListener("keyup", function (event) {
 
 
 // Konfirmasi Tambah Jurusan
-document.getElementById("buttonFormCon1").addEventListener("click", function () {
+document.getElementById("buttonFormCon").addEventListener("click", function () {
     var confirmElement1 = document.getElementById("confirm1");
 
     confirmElement1.classList.add("aktif");
 });
 
-document.getElementById("noButton1").addEventListener("click", function () {
+document.getElementById("noButton").addEventListener("click", function () {
     var confirmElement1 = document.getElementById("confirm1");
 
     confirmElement1.classList.remove("aktif");
@@ -101,7 +101,7 @@ editButtons.forEach(function (button) {
     });
 });
 
-document.getElementById("closeButtonJurusan").addEventListener("click", function () {
+document.getElementById("closeButton").addEventListener("click", function () {
     var modalElement = document.getElementById("editModalJurusan");
 
     modalElement.style.display = "none";

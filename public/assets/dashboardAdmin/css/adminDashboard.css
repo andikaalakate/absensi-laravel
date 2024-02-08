@@ -1,0 +1,117 @@
+.status-jumlah {
+    display: grid;
+    grid-template-areas: "jurusan siswa kelas user "
+        "hadir hadir hadir hadir";
+    grid-template-columns: repeat(1fr);
+    width: 100%;
+    padding: 5px;
+    gap: 10px;
+    color: #fff;
+}
+
+.status-jumlah h2 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.status-jumlah p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+}
+
+.jJurusan,
+.jSiswa,
+.jKelas,
+.siswaHadir,
+.jUser {
+    border-radius: 5px;
+    overflow: hidden;
+    height: 250px;
+    box-shadow: 0 0 8px #0006;
+    padding: 5px;
+    display: grid;
+    grid-template-areas: "judul"
+        "isi";
+        grid-template-rows: 50px auto;
+        cursor: default;
+}
+
+.jJurusan {
+    grid-area: jurusan;
+    background: linear-gradient(130deg, rgb(0, 87, 128), rgb(46, 125, 161));
+}
+
+.jJurusan:hover {
+    box-shadow: 0 0 16px rgb(0, 87, 128);
+    scale: 1.01;
+}
+
+.jSiswa {
+    grid-area: siswa;
+    background: linear-gradient(130deg, rgb(139, 139, 19), rgb(214, 214, 79));
+}
+
+.jSiswa:hover {
+    scale: 1.01;
+    box-shadow: 0 0 16px rgb(139, 139, 19);
+}
+
+.jKelas {
+    grid-area: kelas;
+    background: linear-gradient(130deg, rgb(102, 43, 161), rgb(114, 68, 160));
+}
+
+.jKelas:hover {
+    scale: 1.01;
+    box-shadow: 0 0 16px rgb(102, 43, 161);
+}
+
+.siswaHadir {
+    grid-area: hadir;
+    background: linear-gradient(130deg, rgb(32, 148, 32), rgb(59, 170, 59));
+}
+
+.siswaHadir:hover {
+    box-shadow: 0 0 16px rgb(32, 148, 32);
+    scale: 1.01;
+}
+
+.jUser {
+    grid-area: user;
+    background: linear-gradient(130deg, rgb(129, 18, 18), rgb(173, 51, 51));
+}
+
+.jUser:hover {
+    box-shadow: 0 0 16px rgb(129, 18, 18);
+    scale: 1.01;
+}
+
+@media only screen and (max-width:1024px) {
+    .status-jumlah {
+        grid-template-areas: "jurusan siswa kelas "
+        "user user user "
+            "hadir hadir hadir";
+    }
+}
+
+@media only screen and (max-width:600px) {
+    .status-jumlah {
+        grid-template-areas: "jurusan siswa "
+            " kelas kelas"
+            "user user  "
+            "hadir hadir ";
+    }
+}
+
+@media only screen and (max-width:425px) {
+    .status-jumlah {
+        grid-template-areas: "jurusan "
+            "siswa "
+            "kelas "
+            "user "
+            "hadir ";
+    }
+}

@@ -17,12 +17,16 @@
 </head>
 
 <body>
-    @include('components.sidebar')
-    @yield('content')
+    <div class="container" id="container">
+        @include('components.sidebar')
+        @yield('content')
+    </div>
     @include('components.preload')
     <!-- Script -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="{{ mix('assets/dashboard/js/main.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ mix('assets/dashboardAdmin/js/main.js') . "?id=" . Str::random(16) }}" defer></script>
+    <script src="{{ mix('assets/dashboard/js/main.js') . "?id=" . Str::random(16) }}" defer></script>
     @yield('script')
 </body>
 

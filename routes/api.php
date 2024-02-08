@@ -28,5 +28,6 @@ Route::delete('/siswa/{nis}', [SiswaDataApiController::class, 'destroy'])->name(
 // Route::apiResource('api/siswa', SiswaDataApiController::class);
 
 Route::get('/absensi/siswa', [SiswaAbsensiController::class, 'index'])->name('siswa.absensi.index');
+Route::post('/absensi/siswa/store', [SiswaAbsensiController::class, 'store'])->name('siswa.absensi.store');
 Route::get('/absensi/siswa/{nis}', [SiswaAbsensiController::class, 'show'])->name('siswa.absensi.show');
 Route::get('/absensi2/siswa/{nis}', [SiswaAbsensiController::class, 'show2'])->name('siswa.absensi.show2');

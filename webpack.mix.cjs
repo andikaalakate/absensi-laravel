@@ -49,6 +49,30 @@ mix.css(
     "resources/assets/dashboard/css/tentang.css",
     "assets/dashboard/css"
 )
+.css(
+    "resources/assets/dashboardAdmin/css/adminSiswa.css",
+    "assets/dashboardAdmin/css"
+)
+.css(
+    "resources/assets/dashboardAdmin/css/adminJurusan.css",
+    "assets/dashboardAdmin/css"
+)
+.css(
+    "resources/assets/dashboardAdmin/css/adminKelas.css",
+    "assets/dashboardAdmin/css"
+)
+.css(
+    "resources/assets/dashboardAdmin/css/adminUser.css",
+    "assets/dashboardAdmin/css"
+)
+.css(
+    "resources/assets/dashboardAdmin/css/adminPeringkat.css",
+    "assets/dashboardAdmin/css"
+)
+.css(
+    "resources/assets/dashboardAdmin/css/adminDashboard.css",
+    "assets/dashboardAdmin/css"
+)
 .js(
     "resources/assets/dashboard/js/main.js",
     "assets/dashboard/js"
@@ -66,8 +90,28 @@ mix.css(
     "assets/dashboard/js"
 )
 .js(
-    "node_modules/html5-qrcode/html5-qrcode.min.js",
+    "resources/assets/dashboard/js/userLocation.js",
     "assets/dashboard/js"
+)
+.js(
+    "resources/assets/dashboardAdmin/js/main.js",
+    "assets/dashboardAdmin/js"
+)
+.js(
+    "resources/assets/dashboardAdmin/js/jurusan.js",
+    "assets/dashboardAdmin/js"
+)
+.js(
+    "resources/assets/dashboardAdmin/js/kelas.js",
+    "assets/dashboardAdmin/js"
+)
+.js(
+    "resources/assets/dashboardAdmin/js/user.js",
+    "assets/dashboardAdmin/js"
+)
+.js(
+    "resources/assets/dashboardAdmin/js/peringkat.js",
+    "assets/dashboardAdmin/js"
 )
 .setPublicPath('public');
 ;
