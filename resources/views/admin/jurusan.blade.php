@@ -2,7 +2,7 @@
 
 @section('head')
     <title>Admin - {{ $title }}</title>
-    <link rel="stylesheet" href="{{ mix('assets/dashboardAdmin/css/adminJurusan.css') }}" media="all" />
+    <link rel="stylesheet" href="{{ mix('assets/dashboardAdmin/css/adminJurusan.css') . "?id=" . Str::random(16) }}" media="all" />
 @endsection
 
 @section('content')
@@ -41,14 +41,14 @@
                             <tr>
                                 <td>Interaksi</td>
                                 <td>:</td>
-                                <form action="{{ route('jurusan.destroy', $juru->id_jurusan) }}" method="POST">
-                                    <td class="aksiButton">
+                                <td class="aksiButton">
+                                    <button id="editButtonJurusan">Edit</button>
+                                        <form action="{{ route('jurusan.destroy', $juru->id_jurusan) }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button id="editButtonJurusan">Edit</button>
                                         <button id="hapusButton" type="submit">Hapus</button>
-                                    </td>
-                                </form>
+                                    </form>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -126,6 +126,6 @@
 @endsection
 
 @section('script')
-    <script src="{{ mix('assets/dashboardAdmin/js/jurusan.js') }}" defer></script>
+    <script src="{{ mix('assets/dashboardAdmin/js/jurusan.js') . "?id=" . Str::random(16) }}" defer></script>
 @endsection
 

@@ -56,14 +56,14 @@
                             <tr>
                                 <td>Interaksi</td>
                                 <td>:</td>
-                                <form action="{{ route('user.destroy', $u->id) }}" method="POST">
-                                    <td class="aksiButton">
+                                <td class="aksiButton">
+                                    <button id="editButton">Edit</button>
+                                    <form action="{{ route('user.destroy', $u->id) }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button id="editButton">Edit</button>
                                         <button id="hapusButton" type="submit">Hapus</button>
-                                    </td>
-                                </form>
+                                    </form>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -147,36 +147,36 @@
             <h2>Edit Data</h2>
             <form action="#" method="post" class="form-modal">
                 <div class="modal-input">
-                    <label for="id">ID</label>
-                    <input type="text" value="210707" class="id" id="id" name="id" disabled>
+                    <label for="id1">ID</label>
+                    <input type="text" value="210707" class="id" id="id1" name="id" disabled>
                 </div>
                 <div class="modal-input">
-                    <label for="nama">Nama</label>
-                    <input type="text" placeholder="Masukkan Nama" class="nama" required id="nama" name="nama_lengkap"/>
+                    <label for="nama1">Nama</label>
+                    <input type="text" placeholder="Masukkan Nama" class="nama" required id="nama1" name="nama_lengkap"/>
                 </div>
                 <div class="modal-input">
-                    <label for="username">Username</label>
-                    <input type="text" placeholder="Masukkan Username" class="username" required id="username" name="username" />
+                    <label for="username1">Username</label>
+                    <input type="text" placeholder="Masukkan Username" class="username" required id="username1" name="username" />
                 </div>
                 <div class="modal-input">
-                    <label for="notelp">No. Telepon</label>
-                    <input type="text" placeholder="Masukkan Nomor Telepon" required id="notelp" name="no_telp"/>
+                    <label for="notelp1">No. Telepon</label>
+                    <input type="text" placeholder="Masukkan Nomor Telepon" required id="notelp1" name="no_telp"/>
                 </div>
                 <div class="modal-input">
-                    <label for="email">Email</label>
-                    <input type="email" placeholder="Masukkan Email" required id="email" name="email"/>
+                    <label for="email1">Email</label>
+                    <input type="email" placeholder="Masukkan Email" required id="email1" name="email"/>
                 </div>
                 <div class="modal-input">
-                    <label for="role">Role</label>
-                    <select name="role" id="role" required>
+                    <label for="role1">Role</label>
+                    <select name="role" id="role1" required>
                         <option value="admin">Admin</option>
                         <option value="operator">Operator</option>
                         <option value="kepala_sekolah">Kepala Sekolah</option>
                     </select>
                 </div>
                 <div class="modal-input">
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="Masukkan Password" required id="password" name="password"/>
+                    <label for="password1">Password</label>
+                    <input type="password" placeholder="Masukkan Password" required id="password1" name="password"/>
                 </div>
                 <button type="submit">Simpan</button>
             </form>

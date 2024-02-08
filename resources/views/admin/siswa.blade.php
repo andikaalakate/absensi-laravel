@@ -61,14 +61,14 @@
                             <tr>
                                 <td>Interaksi</td>
                                 <td>:</td>
-                                <form action="{{ route('siswa.destroy', $siswa->siswaData->nis) }}" method="POST">
-                                    <td class="aksiButton">
+                                <td class="aksiButton">
+                                    <button id="editButton">Edit</button>
+                                    <form action="{{ route('siswa.destroy', $siswa->siswaData->nis) }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button id="editButton">Edit</button>
-                                        <button id="hapusButton" type="submit">Hapus</button>
-                                    </td>
-                                </form>
+                                        <button type="submit">Hapus</button>
+                                    </form>
+                                </td>
                             </tr>
                         </table>
                     </div>

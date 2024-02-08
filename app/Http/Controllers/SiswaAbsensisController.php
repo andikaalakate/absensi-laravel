@@ -6,6 +6,8 @@ use App\Models\SiswaAbsensi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class SiswaAbsensisController extends Controller
 {
@@ -30,45 +32,39 @@ class SiswaAbsensisController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nis' => 'required|string|max:20',
+            'lokasi_masuk' => 'required|string',
+            'status' => 'required|string|in:Hadir,Sakit,Alpha,Izin',
+            'jam_masuk' => 'required|Time',
+            'jam_pulang' => 'nullable|Time',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         try {
-            $today = Carbon::today(); // Mendapatkan tanggal hari ini
-            $nis = $request->nis;
+            DB::beginTransaction();
 
-            $siswaAbsensi = new SiswaAbsensi;
+            // Simpan data jurusan
+            $siswaAbsensi = new SiswaAbsensi();
+            $siswaAbsensi->fill($request->only([
+                'nis',
+                'lokasi_masuk',
+                'status',
+                'jam_masuk',
+                'jam_pulang',
+            ]));
+            $siswaAbsensi->save();
 
-            // Cek apakah sudah ada data absensi untuk hari ini
-            $siswaAbsensi = SiswaAbsensi::where('nis', $nis)
-                ->first();
+            DB::commit();
 
-
-            if ($siswaAbsensi) {
-                // Jika data absensi sudah ada, lakukan update jam pulang
-                $siswaAbsensi->update(['jam_pulang' => now()]);
-                return redirect()->back()->with('success', 'Data absensi berhasil ditambahkan.');
-            } else {
-                // Jika belum ada data absensi, buat data baru
-                $siswaAbsensi = SiswaAbsensi::create([
-                    'nis' => $request->nis,
-                    'jam_masuk' => now(),
-                    'jam_pulang' => null,
-                    'status' => $request->status,
-                    'created_at' => $today,
-                    'updated_at' => $today,
-                ]);
-                $siswaAbsensi->save();
-                // return new SiswaAbsensiResource(
-                //     status: true,
-                //     message: 'Data absensi berhasil ditambahkan.',
-                //     resource: $siswaAbsensi
-                // );
-                return redirect()->back()->with('success', 'Data absensi berhasil ditambahkan.');
-            }
+            return back()->with('success', 'Data siswaAbsensi berhasil disimpan');
         } catch (\Exception $e) {
-            // Tangani jika terjadi exception
-            return response()->json([
-                'status' => false,
-                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            // Tangani rollback jika terjadi kesalahan
+            DB::rollback();
+            return back()->with('error', 'Data siswaAbsensi gagal disimpan');
         }
     }
 

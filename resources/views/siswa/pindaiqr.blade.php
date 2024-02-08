@@ -22,7 +22,7 @@
             <div class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md p-5" id="qrcodeContainer">
               <div id="qrcode" title="QRCode"></div>
             </div>
-            <input type="text" id="inputQR" value="{{ route('siswa.absensi.show', $siswas->siswaData->nis) }}" readonly disabled hidden />
+            <input type="text" id="inputQR" value="{{ route('siswa.absensi.store') }}" readonly disabled hidden />
             <form action="{{ route('siswa.absensi.store') }}" method="POST" id="form-submit" hidden>
               @csrf
               @method('POST')

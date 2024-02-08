@@ -18,8 +18,8 @@ class SiswaBioSeeder extends Seeder
             'alamat' => 'Jl. Utama 1, Desa Kolam',
             'biografi' => 'Apa yaa?',
             'hobi' => 'Ngoding',
-            'image' => '/images/siswa/andika-alakate.jpeg'
+            'image' => 'andika-alakate.jpeg'
         ]);
-        SiswaBio::factory()->noId()->count(10)->create();
+        // SiswaBio::factory()->noId()->count(10)->create();
     }
 }

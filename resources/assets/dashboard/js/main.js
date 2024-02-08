@@ -126,46 +126,75 @@ function saveChanges() {
 
 // Fungsi Pencarian 
 function search() {
-    var input, filter, tabels, i, j, txtValue;
-    input = document.getElementById("cari");
+    var input, filter, tabel, tr, td, i, txtValue;
+    input = document.getElementById("cariNama");
     filter = input.value.toUpperCase();
-    tabels = document.querySelectorAll('.tabel-leaderboard');
+    tabel = document.querySelector('.tabel-leaderboard');
+    tr = tabel.querySelectorAll("tr");
 
-    tabels.forEach(function (tabel) {
-        var rows = tabel.querySelectorAll('tr');
-        var tabelMatch = false;
-
-        for (i = 0; i < rows.length; i++) {
-            var cells = rows[i].querySelectorAll("td, th");
-            var rowMatch = false;
-
-            // Periksa setiap sel pada baris
-            for (j = 0; j < cells.length; j++) {
-                txtValue = cells[j].textContent || cells[j].innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    rowMatch = true;
-                    break;
-                }
-            }
-
-            // Tampilkan atau sembunyikan baris berdasarkan hasil pencarian
-            if (rowMatch || i === 0) {
-                rows[i].style.display = ""; // Tampilkan baris jika cocok atau baris header
-                if (rowMatch) {
-                    tabelMatch = true; // Setel tabelMatch menjadi true jika ada yang cocok
-                }
+    for (i = 1; i < tr.length; i++) { // Mulai dari 1 untuk melewati baris header
+        td = tr[i].getElementsByTagName("td")[1]; // Ambil sel kedua (indeks 1) yang berisi nama
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = ""; // Tampilkan baris jika namanya cocok
             } else {
-                rows[i].style.display = "none"; // Sembunyikan baris jika tidak cocok dan bukan header
+                tr[i].style.display = "none"; // Sembunyikan baris jika namanya tidak cocok
             }
         }
-
-        // Tampilkan atau sembunyikan tabel berdasarkan hasil pencarian di baris-barisnya
-        if (tabelMatch) {
-            tabel.style.display = "table"; // Tampilkan kembali tabel jika ada yang cocok
-        } else {
-            tabel.style.display = "none"; // Sembunyikan tabel jika tidak ada yang cocok
-        }
-    });
+    }
 }
 
-document.getElementById("cari").addEventListener("keyup", search);
+// Tambahkan event listener untuk menangani input keyboard
+document.getElementById("cariNama").addEventListener("input", search);
+
+// Tambahkan event listener untuk menangani tombol Enter
+document.getElementById("cariNama").addEventListener("keypress", function (event) {
+    // Periksa apakah tombol yang ditekan adalah tombol Enter (kode 13)
+    if (event.keyCode === 13) {
+        search(); // Panggil fungsi pencarian saat tombol Enter ditekan
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    checkLocationPermission()
+        .then(() => {
+            // Izin lokasi diberikan, lakukan tindakan yang diperlukan di sini
+            // console.log("Izin lokasi diberikan");
+        })
+        .catch((error) => {
+            // Izin lokasi tidak diberikan atau ditolak, tangani kesalahan di sini
+            // console.error("Tidak dapat mengakses izin lokasi:", error.message);
+        });
+});
+
+function checkLocationPermission() {
+    return new Promise((resolve, reject) => {
+        navigator.permissions
+            .query({ name: "geolocation" })
+            .then((permissionStatus) => {
+                if (permissionStatus.state === "granted") {
+                    resolve();
+                } else if (permissionStatus.state === "prompt") {
+                    Swal.fire({
+                        title: "Izin Lokasi",
+                        text: 'Untuk menggunakan fitur ini, kami memerlukan akses lokasi Anda. Klik "Izinkan" pada prompt izin lokasi yang muncul.',
+                        showCancelButton: true,
+                        confirmButtonText: "Izinkan",
+                        cancelButtonText: "Tidak Izinkan",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            resolve();
+                        } else {
+                            reject(new Error("Permission denied"));
+                        }
+                    });
+                } else {
+                    reject(new Error("Permission denied"));
+                }
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+}

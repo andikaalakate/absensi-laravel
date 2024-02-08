@@ -22,6 +22,6 @@ class SiswaDataSeeder extends Seeder
             'kelas' => 'XI',
             'tanggal_lahir' => '2006-12-26'
         ]);
-        SiswaData::factory()->noId()->count(10)->create();
+        // SiswaData::factory()->noId()->count(10)->create();
     }
 }

@@ -55,7 +55,7 @@ Route::middleware(['auth:siswa', 'auth.session', 'auth.checkduplicate'])->group(
   Route::get('/siswa/tampilan', [SiswaController::class, 'tampilan']);
   Route::get('/siswa/pindai-qr', [SiswaController::class, 'pindaiqr']);
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-  Route::post('/absensi/siswa/store', [SiswaAbsensisController::class, 'store'])->name('siswa.absensi.store');
+  Route::post('/siswa/absensi/store', [SiswaAbsensisController::class, 'store'])->name('siswa.absensi.store');
   Route::put('/siswa/{nis}', [SiswaDataController::class, 'update'])->name('siswa.update');
 });
 

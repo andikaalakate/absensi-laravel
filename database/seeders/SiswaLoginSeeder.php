@@ -20,6 +20,6 @@ class SiswaLoginSeeder extends Seeder
             'no_telp' => '+6289505722187'
         ]);
 
-        SiswaLogin::factory()->noId()->count(10)->create();
+        // SiswaLogin::factory()->noId()->count(10)->create();
     }
 }

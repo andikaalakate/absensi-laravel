@@ -12,8 +12,8 @@
             <h1 class="content-head">Data Peringkat</h1>
             <div class="detail-leaderboard">
                 <div class="filter">
-                    <label class="searchInput" for="cari">
-                        <input type="text" class="filter-nama" placeholder="Cari Siswa..." id="cari" />
+                    <label class="searchInput" for="cariNama">
+                        <input type="text" class="filter-nama" placeholder="Cari Siswa..." id="cariNama" />
                         <i class="bx bx-search" onclick="search()"></i>
                     </label>
                     <select name="filter-waktu">
