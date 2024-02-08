@@ -40,7 +40,7 @@ class SiswaController extends Controller
         $siswaAbsensi   = Http::get($theUrl)->json();
         $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaJurusan')->where('nis', Auth::user()->nis)->first();
         // $siswaAbsensi = Http::withoutVerifying()->acceptJson()->get(route('siswa.absensi.show2', Auth::user()->nis))->json();
-
+        // dd($siswaAbsensi);
         return view('siswa.profil', [
             'title' => "Profil",
             'siswas' => $siswas,

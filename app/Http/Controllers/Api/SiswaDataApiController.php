@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SiswaResource;
+use App\Models\SiswaAbsensi;
 use App\Models\SiswaBio;
 use App\Models\SiswaData;
 use App\Models\SiswaLogin;
@@ -19,9 +20,9 @@ class SiswaDataApiController extends Controller
      */
     public function index()
     {
-        $siswaData = SiswaData::latest()->paginate(5);
-        $siswaBio = SiswaBio::latest()->paginate(5);
-        $siswaLogin = SiswaLogin::latest()->paginate(5);
+        $siswaData = SiswaData::latest()->paginate(10);
+        $siswaBio = SiswaBio::latest()->paginate(10);
+        $siswaLogin = SiswaLogin::latest()->paginate(10);
 
         if (!$siswaData || !$siswaBio || !$siswaLogin) {
             return response()->json([
@@ -44,7 +45,7 @@ class SiswaDataApiController extends Controller
 
     public function create()
     {
-        return view('siswa.create');
+        return view('admin.siswa');
     }
 
     /**
@@ -195,10 +196,7 @@ class SiswaDataApiController extends Controller
             ]));
         });
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Data Siswa berhasil diupdate',
-        ], 200);
+        return back()->with('success', 'Data Siswa berhasil diupdate');
     }
 
 
@@ -208,20 +206,15 @@ class SiswaDataApiController extends Controller
     public function destroy(string $nis)
     {
         try {
+            SiswaAbsensi::where('nis', $nis)->delete();
             SiswaBio::where('nis', $nis)->delete();
             SiswaLogin::where('nis', $nis)->delete();
             SiswaData::where('nis', $nis)->delete();
         } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Gagal menghapus data siswa: ' . $th->getMessage()
-            ], 400);
+            return back()->with('error', $th->getMessage());
         }
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Data Siswa berhasil dihapus',
-        ], 200);
+        return back()->with('success', 'Data Siswa berhasil dihapus');
     }
 
 

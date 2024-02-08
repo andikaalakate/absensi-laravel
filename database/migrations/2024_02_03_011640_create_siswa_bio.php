@@ -19,7 +19,10 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->timestamps();
 
-            $table->foreign('nis')->references('nis')->on('siswa_data');
+            $table->foreign('nis')
+            ->references('nis')
+            ->on('siswa_data')
+            ->onDelete('cascade');
         });
     }
 

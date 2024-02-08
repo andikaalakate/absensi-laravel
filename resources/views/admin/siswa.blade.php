@@ -15,118 +15,75 @@
                     <input type="text" placeholder="Cari siswa..." id="cari" />
                     <i class="bx bx-search" onclick="search()"></i>
                 </label>
-                <div class="tabel">
-                    <table border="1" class="table-data-siswa" id="1">
-                        <tr>
-                            <td>Nama</td>
-                            <td>:</td>
-                            <td>M. Gilang Chandrawinata</td>
-                        </tr>
-                        <tr>
-                            <td>NIS</td>
-                            <td>:</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>Kelas</td>
-                            <td>:</td>
-                            <td>XI</td>
-                        </tr>
-                        <tr>
-                            <td>Jurusan</td>
-                            <td>:</td>
-                            <td>Rekayasa Perangkat Lunak</td>
-                        </tr>
-                        <tr>
-                            <td>Nomor Telepon</td>
-                            <td>:</td>
-                            <td>+6285762647933</td>
-                        </tr>
-                        <tr>
-                            <td>Alamat</td>
-                            <td>:</td>
-                            <td>Jln. Makmur Dusun VI Kenanga</td>
-                        </tr>
-                        <tr>
-                            <td>Jenis Kelamin</td>
-                            <td>:</td>
-                            <td>Laki-laki</td>
-                        </tr>
-                        <tr>
-                            <td>Tanggal Lahir</td>
-                            <td>:</td>
-                            <td>21 Juli 2007</td>
-                        </tr>
-                        <tr>
-                            <td>Interaksi</td>
-                            <td>:</td>
-                            <td>
-                                <button id="editButton">Edit</button>
-                                <button type="submit">Hapus</button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="tabel">
-                    <table border="1" class="table-data-siswa" id="2">
-                        <tr>
-                            <td>Nama</td>
-                            <td>:</td>
-                            <td>Andika Pratama</td>
-                        </tr>
-                        <tr>
-                            <td>NIS</td>
-                            <td>:</td>
-                            <td>456</td>
-                        </tr>
-                        <tr>
-                            <td>Kelas</td>
-                            <td>:</td>
-                            <td>XI</td>
-                        </tr>
-                        <tr>
-                            <td>Jurusan</td>
-                            <td>:</td>
-                            <td>Rekayasa Perangkat Lunak</td>
-                        </tr>
-                        <tr>
-                            <td>Nomor Telepon</td>
-                            <td>:</td>
-                            <td>+6289515929090</td>
-                        </tr>
-                        <tr>
-                            <td>Alamat</td>
-                            <td>:</td>
-                            <td>Jln. Utama 1 Desa Kolam</td>
-                        </tr>
-                        <tr>
-                            <td>Jenis Kelamin</td>
-                            <td>:</td>
-                            <td>Laki-laki</td>
-                        </tr>
-                        <tr>
-                            <td>Tanggal Lahir</td>
-                            <td>:</td>
-                            <td>26 Desember 2006</td>
-                        </tr>
-                        <tr>
-                            <td>Interaksi</td>
-                            <td>:</td>
-                            <td class="aksiButton">
-                                <button id="editButton">Edit</button>
-                                <button type="submit">Hapus</button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                @foreach($siswas as $siswa)
+                    <div class="tabel">
+                        <table border="1" class="table-data-siswa" id="{{ $loop->iteration }}">
+                            <tr>
+                                <td>Nama</td>
+                                <td>:</td>
+                                <td class="nama">{{ isset($siswa->siswaData->nama_lengkap) ? $siswa->siswaData->nama_lengkap : '-' }}</td>
+                            </tr>
+                            <tr>
+                                <td>NIS</td>
+                                <td>:</td>
+                                <td class="nis" data-nis="{{ isset($siswa->siswaData->nis) ? $siswa->siswaData->nis : '-' }}">{{ isset($siswa->siswaData->nis) ? $siswa->siswaData->nis : '-' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Kelas</td>
+                                <td>:</td>
+                                <td class="kelas">{{ isset($siswa->siswaData->kelas) ? $siswa->siswaData->kelas : '-' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Jurusan</td>
+                                <td>:</td>
+                                <td class="jurusan">{{ isset($siswa->siswaData->jurusan) ? $siswa->siswaData->jurusan : '-' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Nomor Telepon</td>
+                                <td>:</td>
+                                <td class="noTelepon">{{ isset($siswa->siswaData->siswaLogin->no_telp) ? $siswa->siswaData->siswaLogin->no_telp : '-' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td>:</td>
+                                <td class="alamat">{{ isset($siswa->siswaData->siswaBio->alamat) ? $siswa->siswaData->siswaBio->alamat : '-' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Jenis Kelamin</td>
+                                <td>:</td>
+                                <td class="jenisKelamin">{{ isset($siswa->siswaData->jenis_kelamin) ? $siswa->siswaData->jenis_kelamin : '-' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal Lahir</td>
+                                <td>:</td>
+                                <td class="tanggalLahir">{{ isset($siswa->siswaData->tanggal_lahir) ? \Carbon\Carbon::parse($siswa->siswaData->tanggal_lahir)->format('d F Y') : '-'  }}</td>
+                            </tr>
+                            <tr>
+                                <td>Interaksi</td>
+                                <td>:</td>
+                                <form action="{{ route('siswa.destroy', $siswa->siswaData->nis) }}" method="POST">
+                                    <td class="aksiButton">
+                                        @csrf
+                                        @method('delete')
+                                        <button id="editButton">Edit</button>
+                                        <button id="hapusButton" type="submit">Hapus</button>
+                                    </td>
+                                </form>
+                            </tr>
+                        </table>
+                    </div>
+                @endforeach
 
                 <div class="pagination">
-                    <button>1</button>
-                    <button>2</button>
+                    @for ($i = 1; $i <= $siswas->lastPage(); $i++)
+                        <button onclick="window.location.href = '{{ $siswas->url($i) }}'">{{ $i }}</button>
+                    @endfor
                 </div>
             </div>
             <h1 class="content-head">Tambah Siswa</h1>
-            <form action="{{ route('siswa.store') }}" method="post" class="form-add">
+            <form action="{{ route('siswa.store') }}" method="POST" enctype="multipart/form-data" class="form-add">
+                @csrf
+                @method('POST')
                 <div class="input-data">
                     <label for="nis">NIS</label>
                     <input type="text" placeholder="Masukkan NIS" class="nis" required id="nis" name="nis" />
@@ -138,23 +95,33 @@
                 <div class="input-data">
                     <label for="kelas">Kelas</label>
                     <select name="kelas" id="kelas">
-                        <option value="X RPL">X / (10)</option>
-                        <option value="xi">XI / (11)</option>
-                        <option value="xii">XII / (12)</option>
+                        @foreach ($kelas as $k)
+                            @php
+                                $angka_kelas = '';
+
+                                $kelas_romaji_ke_angka = [
+                                    'X' => '10',
+                                    'XI' => '11',
+                                    'XII' => '12'
+                                ];
+
+                                if (array_key_exists($k->nama_kelas, $kelas_romaji_ke_angka)) {
+                                    $angka_kelas = $kelas_romaji_ke_angka[$k->nama_kelas];
+                                } else {
+                                    $angka_kelas = 'Tidak Diketahui';
+                                }
+                            @endphp
+
+                            <option value="{{ $k->nama_kelas }}">{{ $k->nama_kelas }} / ({{ $angka_kelas }})</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="input-data">
                     <label for="jurusan">Jurusan</label>
                     <select name="jurusan" id="jurusan">
-                        <option value="akl">Akuntansi Keuangan dan Lembaga</option>
-                        <option value="pm">Pemasaran</option>
-                        <option value="mplb">
-                            Manajemen Perkantoran dan Layanan Bisnis
-                        </option>
-                        <option value="rpl">Rekayasa Perangkat Lunak</option>
-                        <option value="tjkt">
-                            Teknik Jaringan Komputer dan Telekomunikasi
-                        </option>
+                        @foreach ($jurusan as $j)
+                            <option value="{{ $j->nama_jurusan }}">{{ $j->nama_jurusan }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="input-data">
@@ -168,8 +135,8 @@
                 <div class="input-data">
                     <label for="jenisKelamin">Jenis Kelamin</label>
                     <select name="jenis_kelamin" id="jenisKelamin" required>
-                        <option value="laki-laki">Laki-Laki</option>
-                        <option value="perempuan">Perempuan</option>
+                        <option value="Laki-Laki">Laki-Laki</option>
+                        <option value="Perempuan">Perempuan</option>
                     </select>
                 </div>
                 <div class="input-data">
@@ -190,7 +157,7 @@
                 </div>
                 <div class="input-data">
                     <label for="conPassword">Konfirmasi Password</label>
-                    <input type="password" placeholder="Konfirmasi Password" required id="conPassword" name="" />
+                    <input type="password" placeholder="Konfirmasi Password" required id="conPassword" />
                 </div>
                 <div class="input-data">
                     <label for="inputFile">Foto Diri</label>
@@ -207,8 +174,18 @@
                             ADD FILE
                         </div>
                     </label>
-                    <input type="file" required style="display: none" id="inputFile" accept="image/*" name="image" />
+                    <input type="file" required style="display: none" id="inputFile" accept="image/*" multiple name="image" />
                 </div>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @if ($loop->first)
+                        <ul>
+                            @foreach ($errors->get($loop->index) as $detailError)
+                                <li>{{ $detailError }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                @endforeach
                 <div class="buttonForm">
                     <button type="reset" class="reset buttonFormCon">Ulangi</button>
                     <a class="confirm buttonFormCon" id="buttonFormCon">

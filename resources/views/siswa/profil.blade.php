@@ -11,7 +11,11 @@
     <div class="dash-content" id="dashContent">
         <div class="profil-card">
             <div class="img-profil">
-                <img src="{{ asset($siswas->siswaBio->image) }}" alt="{{ asset('images/avatar1.webp') }}" />
+                <img src="@if ($siswas->siswaBio->image)
+                /images/siswa/{{ $siswas->siswaBio->image }}
+                @else
+                    {{ asset('images/siswa/avatar1.webp') }}
+                @endif" alt="{{ $siswas->siswaData->nama_lengkap }}" />
             </div>
             <div class="data-profil">
                 <h1 class="nama-profil">{{ $siswas->siswaData->nama_lengkap }}</h1>
@@ -29,28 +33,33 @@
                 </table>
             </div>
             <div class="waktu-profil">
-                @php
-                    $latestAttendance = collect($siswaAbsensi['data'])
-                        ->where('nis', $siswas->siswaData->nis)
-                        ->sortByDesc('created_at')
-                        ->first();
-                @endphp
+                @if (empty($siswaAbsensi['data']))
+                    <div class="waktu-masuk">Tidak Masuk</div>
+                    <div class="waktu-pulang">Belum Pulang</div>
+                @else
+                    @php
+                        $latestAttendance = collect($siswaAbsensi['data'])
+                            ->where('nis', $siswas->siswaData->nis)
+                            ->sortByDesc('created_at')
+                            ->first();
+                    @endphp
 
-                <div class="waktu-masuk">
-                    @if ($latestAttendance && $latestAttendance['status'] == 'Hadir')
-                        Masuk - {{ \Carbon\Carbon::parse($latestAttendance['jam_masuk'])->format('H:i') }}
-                    @else
-                        Tidak Masuk
-                    @endif
-                </div>
+                    <div class="waktu-masuk">
+                        @if ($latestAttendance && $latestAttendance['status'] == 'Hadir')
+                            Masuk - {{ \Carbon\Carbon::parse($latestAttendance['jam_masuk'])->format('H:i') }}
+                        @else
+                            Tidak Masuk
+                        @endif
+                    </div>
 
-                <div class="waktu-pulang">
-                    @if ($latestAttendance && $latestAttendance['status'] == 'Hadir')
-                        Pulang - {{ \Carbon\Carbon::parse($latestAttendance['jam_pulang'])->format('H:i') }}
-                    @else
-                        Belum Pulang
-                    @endif
-                </div>
+                    <div class="waktu-pulang">
+                        @if ($latestAttendance && $latestAttendance['status'] == 'Hadir' && $latestAttendance['jam_pulang'])
+                            Pulang - {{ \Carbon\Carbon::parse($latestAttendance['jam_pulang'])->format('H:i') }}
+                        @else
+                            Belum Pulang
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
         <div class="content-container">

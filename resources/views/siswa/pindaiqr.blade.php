@@ -22,10 +22,13 @@
             <div class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md p-5" id="qrcodeContainer">
               <div id="qrcode" title="QRCode"></div>
             </div>
-            <input type="text" id="inputQR" value="{{ route('siswa.absensi.show', $siswaAbsensi['data'][0]['nis']) }}" readonly disabled hidden />
-            <form action="{{ route('siswa.absensi.store') }}" method="post" id="form-submit">
+            <input type="text" id="inputQR" value="{{ route('siswa.absensi.show', $siswas->siswaData->nis) }}" readonly disabled hidden />
+            <form action="{{ route('siswa.absensi.store') }}" method="POST" id="form-submit" hidden>
               @csrf
+              @method('POST')
               <input type="text" name="nis" value="{{ $siswas->siswaData->nis }}" hidden />
+              <input type="text" name="lokasi_masuk" hidden />
+              <input type="text" name="status" value="Hadir" hidden />
               <button type="submit" id="btn-submit" class="hidden">Submit</button>
             </form>
           </div>
@@ -48,15 +51,6 @@
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H
     });
-  </script>
-  <script>
-    let scanner = new Html5QrcodeScanner("qrCodeReader");
-    scanner.addEventListener("scan", (result) => {
-      document.getElementById("form-submit").submit();
-      scanner.clear();
-    })
-    let btnSubmit = document.getElementById("btn-submit");
-    
   </script>
   <script src="{{ mix('assets/dashboard/js/qrCodeScanner.js') . "?id=" . Str::random(16) }}" defer></script>
 @endsection

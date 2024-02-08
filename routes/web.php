@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Api\KelasJurusanController;
+use App\Http\Controllers\Api\SiswaAbsensiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SiswaAbsensisController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\api\SiswaDataApiController;
+use App\Http\Controllers\SiswaDataController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +55,8 @@ Route::middleware(['auth:siswa', 'auth.session', 'auth.checkduplicate'])->group(
   Route::get('/siswa/tampilan', [SiswaController::class, 'tampilan']);
   Route::get('/siswa/pindai-qr', [SiswaController::class, 'pindaiqr']);
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+  Route::post('/absensi/siswa/store', [SiswaAbsensisController::class, 'store'])->name('siswa.absensi.store');
+  Route::put('/siswa/{nis}', [SiswaDataController::class, 'update'])->name('siswa.update');
 });
 
 Route::middleware(['auth:admin', 'auth.session', 'auth.checkduplicate'])->group(function () {
@@ -61,9 +67,15 @@ Route::middleware(['auth:admin', 'auth.session', 'auth.checkduplicate'])->group(
   Route::get('/admin/jurusan', [AdminController::class, 'jurusan']);
   Route::get('/admin/kelas', [AdminController::class, 'kelas']);
   Route::get('/admin/user', [AdminController::class, 'user']);
+  Route::post('/admin/user/store', [AdminController::class, 'store'])->name('user.store');
+  Route::delete('/admin/user/destroy/{id}', [AdminController::class, 'destroy'])->name('user.destroy');
   Route::get('/admin/peringkat', [AdminController::class, 'peringkat']);
   Route::get('/admin/laporan', [AdminController::class, 'laporan']);
   Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+  Route::post('/admin/siswa/store', [SiswaDataController::class, 'store'])->name('siswa.store');
+  Route::delete('/admin/siswa/destroy/{nis}', [SiswaDataApiController::class, 'destroy'])->name('siswa.destroy');
+  Route::post('/admin/kelas/store', [KelasJurusanController::class, 'store1'])->name('kelas.store');
+  Route::delete('/admin/kelas/destroy/{id}', [KelasJurusanController::class, 'destroy1'])->name('kelas.destroy');
+  Route::post('/admin/jurusan/store', [KelasJurusanController::class, 'store2'])->name('jurusan.store');
+  Route::delete('/admin/jurusan/destroy/{id}', [KelasJurusanController::class, 'destroy2'])->name('jurusan.destroy');
 });
-
-Route::get('/siswa/create', [SiswaDataApiController::class, 'create'])->name('siswa.create');

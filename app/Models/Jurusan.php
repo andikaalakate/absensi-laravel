@@ -10,4 +10,13 @@ class Jurusan extends Model
     use HasFactory;
 
     protected $table = 'jurusan';
+    protected $primaryKey = 'id_jurusan';
+    protected $guarded = ['id_jurusan'];
+
+    protected $fillable = [
+        'id_jurusan',
+        'nama_jurusan',
+        'alias_jurusan',
+        'kepala_jurusan',
+    ];
 }
