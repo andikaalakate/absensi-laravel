@@ -19,7 +19,10 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('nis')->references('nis')->on('siswa_data');
+            $table->foreign('nis')
+            ->references('nis')
+            ->on('siswa_data')
+            ->onDelete('cascade');
         });
     }
 

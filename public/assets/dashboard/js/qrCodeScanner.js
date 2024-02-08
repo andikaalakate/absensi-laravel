@@ -21,21 +21,17 @@ var __webpack_exports__ = {};
   !*** ./resources/assets/dashboard/js/qrCodeScanner.js ***!
   \********************************************************/
 __webpack_require__.r(__webpack_exports__);
-var scanNav = document.getElementById("scanNav");
-if (scanNav) {
-  scanNav.addEventListener('click', toggleScan);
-}
 function toggleScan() {
   var reader = document.getElementById("qrCodeReader");
   var qrcodeContainer = document.getElementById("qrcodeContainer");
   if (reader.style.display === "none") {
     reader.style.display = "block";
     qrcodeContainer.style.display = "none";
-    startScanner(); // Mulai scanner ketika tombol diaktifkan
+    startScanner();
   } else {
     reader.style.display = "none";
     qrcodeContainer.style.display = "block";
-    stopScanner(); // Berhenti scanner ketika tombol dinonaktifkan
+    stopScanner();
   }
 }
 var html5QrcodeScanner = null;
@@ -58,25 +54,61 @@ function stopScanner() {
   }
 }
 function onScanSuccess(qrCodeMessage) {
-  Swal.fire({
-    icon: "success",
-    title: "Berhasil!",
-    showConfirmButton: false,
-    timer: 5000
-  });
-  stopScanner();
-  setTimeout(function () {
-    location.reload();
-  }, 2000);
+  submitFormWithLocation();
+}
+function submitFormWithLocation() {
+  var form = document.getElementById("form-submit");
+  var nisInput = form.querySelector("input[name='nis']");
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      var data = {
+        nis: nisInput.value,
+        lokasi_masuk: latitude + "," + longitude
+      };
+      fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(data)
+      }).then(function (response) {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      }).then(function (data) {
+        console.log(data);
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil!",
+          showConfirmButton: false,
+          timer: 5000
+        });
+        stopScanner();
+      })["catch"](function (error) {
+        console.error('Error:', error);
+        alert("Failed to submit form with location.");
+      });
+    }, function (error) {
+      console.error("Error getting geolocation:", error);
+      alert("Unable to retrieve current location.");
+    });
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
 }
 function onScanError(errorMessage) {
-  // You can handle scan errors here
+  console.error("QR Code scan error:", errorMessage);
 }
-
-// Start the scanner when the page loads
-document.addEventListener("DOMContentLoaded", startScanner);
-
-// Cleanup the scanner when the page is unloaded
+document.addEventListener("DOMContentLoaded", function () {
+  var scanNav = document.getElementById("scanNav");
+  if (scanNav) {
+    scanNav.addEventListener('click', toggleScan);
+  }
+});
 window.addEventListener("beforeunload", stopScanner);
 /******/ })()
 ;

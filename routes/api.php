@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\KelasJurusanController;
 use App\Http\Controllers\Api\SiswaAbsensiController;
 use App\Http\Controllers\api\SiswaDataApiController;
 use Illuminate\Http\Request;
@@ -22,12 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/siswa', [SiswaDataApiController::class, 'index'])->name('siswa.index');
 Route::get('/siswa/{nis}', [SiswaDataApiController::class, 'show'])->name('siswa.show');
-Route::post('/siswa', [SiswaDataApiController::class, 'store'])->name('siswa.store');
-Route::put('/siswa/{nis}', [SiswaDataApiController::class, 'update'])->name('siswa.update');
-Route::delete('/siswa/{nis}', [SiswaDataApiController::class, 'destroy'])->name('siswa.destroy');
 // Route::apiResource('api/siswa', SiswaDataApiController::class);
 
 Route::get('/absensi/siswa', [SiswaAbsensiController::class, 'index'])->name('siswa.absensi.index');
-Route::post('/absensi/siswa/store', [SiswaAbsensiController::class, 'store'])->name('siswa.absensi.store');
 Route::get('/absensi/siswa/{nis}', [SiswaAbsensiController::class, 'show'])->name('siswa.absensi.show');
 Route::get('/absensi2/siswa/{nis}', [SiswaAbsensiController::class, 'show2'])->name('siswa.absensi.show2');
+
+Route::get('/kelasjurusan', [KelasJurusanController::class, 'index'])->name('kelasjurusan.index');
+Route::get('/kelas', [KelasJurusanController::class, 'kelas'])->name('kelas.index');
+Route::get('/jurusan', [KelasJurusanController::class, 'jurusan'])->name('jurusan.index');

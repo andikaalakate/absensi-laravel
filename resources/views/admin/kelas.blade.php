@@ -15,69 +15,56 @@
                     <input type="text" placeholder="Cari Kelas..." id="cari" />
                     <i class="bx bx-search"></i>
                 </label>
-                <div class="tabel">
-                    <table border="1" class="table-data-kelas" id="1">
-                        <tr>
-                            <td>ID</td>
-                            <td>:</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>Kelas</td>
-                            <td>:</td>
-                            <td>X <span>Sepuluh</span></td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah Siswa</td>
-                            <td>:</td>
-                            <td>
-                                450 Orang
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="tabel">
-                    <table border="1" class="table-data-kelas" id="2">
-                        <tr>
-                            <td>ID</td>
-                            <td>:</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td>Kelas</td>
-                            <td>:</td>
-                            <td>XI <span>Sebelas</span> </td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah Siswa</td>
-                            <td>:</td>
-                            <td>
-                                500 Orang
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="tabel">
-                    <table border="1" class="table-data-kelas" id="3">
-                        <tr>
-                            <td>ID</td>
-                            <td>:</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td>Kelas</td>
-                            <td>:</td>
-                            <td>XII <span>Dua Belas</span></td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah Siswa</td>
-                            <td>:</td>
-                            <td>
-                                400 Orang
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                @foreach ($kelas as $k)
+                    <div class="tabel">
+                        <table border="1" class="table-data-kelas" id="{{ $loop->iteration }}">
+                            <tr>
+                                <td>ID Kelas</td>
+                                <td>:</td>
+                                <td>{{ $k->id_kelas }}</td>
+                            </tr>
+                            <tr>
+                                @php
+                                    $angka_kelas = '';
+
+                                    $kelas_romaji_ke_angka = [
+                                        'I' => 'Satu',
+                                        'II' => 'Dua',
+                                        'III' => 'Tiga',
+                                        'IV' => 'Empat',
+                                        'V' => 'Lima',
+                                        'VI' => 'Enam',
+                                        'VII' => 'Tujuh',
+                                        'VIII' => 'Delapan',
+                                        'IX' => 'Sembilan',
+                                        'X' => 'Sepuluh',
+                                        'XI' => 'Sebelas',
+                                        'XII' => 'Dua Belas'
+                                    ];
+
+                                    if (array_key_exists($k->nama_kelas, $kelas_romaji_ke_angka)) {
+                                        $angka_kelas = $kelas_romaji_ke_angka[$k->nama_kelas];
+                                    } else {
+                                        $angka_kelas = 'Tidak Diketahui';
+                                    }
+                                    
+                                    // Hitung jumlah siswa dalam kelas
+                                    $jumlahSiswa = $siswas->where('siswaData.kelas', $k->nama_kelas)->count();
+                                @endphp
+                                <td>Nama Kelas</td>
+                                <td>:</td>
+                                <td>{{ $k->nama_kelas }} <span>{{ $angka_kelas }}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah Siswa</td>
+                                <td>:</td>
+                                <td>
+                                    {{ $jumlahSiswa }} Orang
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

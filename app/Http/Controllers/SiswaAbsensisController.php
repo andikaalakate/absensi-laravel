@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\SiswaAbsensiResource;
 use App\Models\SiswaAbsensi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class SiswaAbsensiController extends Controller
+class SiswaAbsensisController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $absensis = SiswaAbsensi::latest()->paginate(5);
+        //
+    }
 
-        return new SiswaAbsensiResource(
-            status: true,
-            message: "List Data Absensi",
-            resource: $absensis
-        );
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -47,7 +47,14 @@ class SiswaAbsensiController extends Controller
                 return redirect()->back()->with('success', 'Data absensi berhasil ditambahkan.');
             } else {
                 // Jika belum ada data absensi, buat data baru
-                $siswaAbsensi = SiswaAbsensi::create($request->all());
+                $siswaAbsensi = SiswaAbsensi::create([
+                    'nis' => $request->nis,
+                    'jam_masuk' => now(),
+                    'jam_pulang' => null,
+                    'status' => $request->status,
+                    'created_at' => $today,
+                    'updated_at' => $today,
+                ]);
                 $siswaAbsensi->save();
                 // return new SiswaAbsensiResource(
                 //     status: true,
@@ -68,41 +75,18 @@ class SiswaAbsensiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($nis)
+    public function show(SiswaAbsensi $siswaAbsensi)
     {
-        $siswaAbsensi = SiswaAbsensi::where('nis', $nis)->get();
-
-        if ($siswaAbsensi) {
-            return new SiswaAbsensiResource(
-                status: true,
-                message: "Detail Data Absensi",
-                resource: $siswaAbsensi
-            );
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data absensi tidak ditemukan.',
-            ], 404);
-        }
-    }
-    public function show2($nis)
-    {
-        $siswaAbsensi = SiswaAbsensi::where('nis', $nis)->latest()->first();
-
-        if ($siswaAbsensi) {
-            return new SiswaAbsensiResource(
-                status: true,
-                message: "Detail Data Absensi",
-                resource: $siswaAbsensi
-            );
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data absensi tidak ditemukan.',
-            ], 404);
-        }
+        //
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(SiswaAbsensi $siswaAbsensi)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.

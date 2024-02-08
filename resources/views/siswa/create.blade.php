@@ -14,6 +14,7 @@
         <div class="container mx-auto mt-8 text-white">
             <form action="{{ route('siswa.store') }}" method="POST">
                 @csrf
+                @method('POST')
                 <div class="mb-4">
                     <label for="nis" class="block mb-2">NIS:</label>
                     <input type="text" id="nis" name="nis" class="border border-gray-300 rounded px-4 py-2 w-full" required>
@@ -39,12 +40,9 @@
                 <div class="mb-4">
                     <label for="kelas" class="block mb-2">Kelas:</label>
                     <select id="kelas" name="kelas" class="border border-gray-300 rounded px-4 py-2 w-full" required>
-                        <option value="X RPL">X RPL</option>
-                        <option value="XI RPL">XI RPL</option>
-                        <option value="XII RPL">XII RPL</option>
-                        <option value="X TKJ">X TKJ</option>
-                        <option value="XI TKJ">XI TKJ</option>
-                        <option value="XII TKJ">XII TKJ</option>
+                        <option value="X">X</option>
+                        <option value="XI">XI</option>
+                        <option value="XII">XII</option>
                     </select>
                 </div>
                 <div class="mb-4">
