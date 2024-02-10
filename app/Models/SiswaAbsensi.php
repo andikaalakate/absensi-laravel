@@ -12,13 +12,14 @@ class SiswaAbsensi extends Model
     protected $table = 'siswa_absensi';
     protected $primaryKey = 'nis';
     public $incrementing = false;
-
+    protected $casts = [
+        'lokasi_masuk' => 'json',
+    ];
     protected $fillable = [
         'nis',
         'jam_masuk',
         'jam_pulang',
         'lokasi_masuk',
-        'qr_code',
         'status'
     ];
 

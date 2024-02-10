@@ -59,6 +59,7 @@ document.getElementById("cari").addEventListener("keyup", function (event) {
     search();
   }
 });
+document.getElementById('cari-icon').addEventListener('click', handleSearch);
 
 //Fungsi Input Angka
 var alertShown = false;
@@ -108,89 +109,92 @@ function showToastAlert(message) {
     stopOnFocus: true
   }).showToast();
 }
-
-// Konfirmasi
-function confirmation() {
-  var nis = document.getElementById("nis").value;
-  var nama = document.getElementById("nama").value;
-  var kelas = document.getElementById("kelas").value;
-  var alamat = document.getElementById("alamat").value;
-  var telepon = document.getElementById("hobi").value;
-  var jenisKelamin = document.getElementById("jenisKelamin").value;
-  var tanggalLahir = document.getElementById("tanggalLahir").value;
-  var password = document.getElementById("password").value;
-  var conPassword = document.getElementById("conPassword").value;
-  if (nis === "" || nama === "" || kelas === "" || alamat === "" || telepon === "" || jenisKelamin === "" || tanggalLahir === "" || password === "" || conPassword === "") {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Harap isi semua input sebelum menambahkan data!'
-    });
-    return false;
-  }
-  if (password !== conPassword) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Konfirmasi password tidak sesuai!'
-    });
-    return false;
-  }
-  return true;
+var submitBtn = document.getElementById("submitButtonTambah");
+if (submitBtn) {
+  submitBtn.addEventListener("click", saveChanges);
+}
+function saveChanges() {
+  Swal.fire({
+    title: "Berhasil Ditambahkan!",
+    icon: "success",
+    timer: 3000
+  });
 }
 
-// Konfirmasi Tambah Siswa
-var buttonFormCon = document.getElementById("buttonFormCon");
-buttonFormCon.addEventListener("click", function () {
-  // Mengambil nilai input password dan konfirmasi password
-  var password = document.getElementById("password").value;
-  var conPassword = document.getElementById("conPassword").value;
+// Konfirmasi
+// function confirmation() {
+//     var nis = document.getElementById("nis").value;
+//     var nama = document.getElementById("nama").value;
+//     var kelas = document.getElementById("kelas").value;
+//     var alamat = document.getElementById("alamat").value;
+//     var telepon = document.getElementById("hobi").value;
+//     var jenisKelamin = document.getElementById("jenisKelamin").value;
+//     var tanggalLahir = document.getElementById("tanggalLahir").value;
+//     var password = document.getElementById("password").value;
+//     var conPassword = document.getElementById("conPassword").value;
 
-  // Melakukan validasi form
-  if (!password || !conPassword) {
-    // Menampilkan toast alert jika form belum lengkap
-    Toastify({
-      text: "Form belum lengkap!",
-      duration: 1000,
-      gravity: "top",
-      position: "right",
-      backgroundColor: "linear-gradient(90deg, rgb(189, 22, 22), rgb(214, 87, 87))"
-    }).showToast();
-  } else if (password !== conPassword) {
-    // Menampilkan toast alert jika password dan konfirmasi password berbeda
-    Toastify({
-      text: "Password tidak sesuai!",
-      duration: 3000,
-      gravity: "top",
-      position: "right",
-      backgroundColor: "linear-gradient(180deg, rgb(189, 22, 22), rgb(214, 87, 87))"
-    }).showToast();
-  } else {
-    // Menampilkan elemen dengan ID "confirm"
-    document.getElementById("confirm").classList.add("aktif");
-  }
-});
-document.getElementById("noButton").addEventListener("click", function () {
-  var confirmElement = document.getElementById("confirm");
-  confirmElement.classList.remove("aktif");
-});
+//     if (nis === "" || nama === "" || kelas === "" || alamat === "" || telepon === "" || jenisKelamin === "" || tanggalLahir === "" || password === "" || conPassword === "") {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Oops...',
+//             text: 'Harap isi semua input sebelum menambahkan data!'
+//         });
+//         return false;
+//     }
 
-// Fungsi untuk membuka modal edit
-var editButtons = document.querySelectorAll("#editButton");
+//     if (password !== conPassword) {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Oops...',
+//             text: 'Konfirmasi password tidak sesuai!'
+//         });
+//         return false;
+//     }
 
-// Menambahkan event listener ke setiap elemen dengan ID "editButton"
-editButtons.forEach(function (button) {
-  button.addEventListener("click", function () {
-    // Mengambil elemen dengan ID "editModal"
-    var modalElement = document.getElementById("editModal");
+//     return true;
+// }
 
-    // Mengubah properti display menjadi "block"
-    modalElement.style.display = "block";
-  });
-});
-document.getElementById("closeButton").addEventListener("click", function () {
-  var confirmElement = document.getElementById("editModal");
-  confirmElement.style.display = "none";
-});
+// // Konfirmasi Tambah Siswa
+// // Select all elements with class "buttonFormCon"
+// var buttonsFormCon = document.querySelectorAll(".buttonCon");
+
+// // Iterate over the selected elements and attach the event listener
+// buttonsFormCon.forEach(function(buttonFormCon) {
+//     buttonFormCon.addEventListener("click", function () {
+//         // Mengambil nilai input password dan konfirmasi password
+//         var password = document.getElementById("password").value;
+//         var conPassword = document.getElementById("conPassword").value;
+
+//         // Melakukan validasi form
+//         if (!password || !conPassword) {
+//             // Menampilkan toast alert jika form belum lengkap
+//             Toastify({
+//                 text: "Form belum lengkap!",
+//                 duration: 1000,
+//                 gravity: "top",
+//                 position: "right",
+//                 backgroundColor: "linear-gradient(90deg, rgb(189, 22, 22), rgb(214, 87, 87))",
+//             }).showToast();
+//         } else if (password !== conPassword) {
+//             // Menampilkan toast alert jika password dan konfirmasi password berbeda
+//             Toastify({
+//                 text: "Password tidak sesuai!",
+//                 duration: 3000,
+//                 gravity: "top",
+//                 position: "right",
+//                 backgroundColor: "linear-gradient(180deg, rgb(189, 22, 22), rgb(214, 87, 87))",
+//             }).showToast();
+//         } else {
+//             // Menampilkan elemen dengan ID "confirm"
+//             document.getElementById("confirm1").classList.add("aktif");
+//         }
+//     });
+// });
+
+// document.getElementById("noButton").addEventListener("click", function () {
+//     var confirmElement = document.getElementById("confirm1");
+
+//     confirmElement.classList.remove("aktif");
+// });
 /******/ })()
 ;

@@ -13,23 +13,23 @@
             <div class="status-jumlah">
                 <div class="jJurusan">
                     <h2>Jumlah Jurusan</h2>
-                    <p>5</p>
+                    <p>{{ $jurusanCount }}</p>
                 </div>
                 <div class="jSiswa">
                     <h2>Jumlah Siswa</h2>
-                    <p>1.000</p>
+                    <p>{{ $siswaCount }}</p>
                 </div>
                 <div class="jKelas">
                     <h2>Jumlah Kelas</h2>
-                    <p>25</p>
+                    <p>{{ $kelasCount }}</p>
                 </div>
                 <div class="jUser">
                     <h2>Jumlah User</h2>
-                    <p>6</p>
+                    <p>{{ $adminCount }}</p>
                 </div>
                 <div class="siswaHadir">
                     <h2>Siswa yang hadir hari ini</h2>
-                    <p>6</p>
+                    <p>{{ $siswaHadirCount }}</p>
                 </div>
             </div>
         </div>

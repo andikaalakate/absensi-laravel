@@ -1,0 +1,61 @@
+.report {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-tanggal {
+    width: 100%;
+}
+
+.filter-tanggal input {
+    max-width: 500px;
+    width: 100%;
+}
+
+.table-report {
+    max-width: 100%;
+    overflow: auto;
+}
+
+.table-report table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-report th {
+    background-color: rgb(32, 32, 185);
+    color: whitesmoke;
+}
+
+.table-report th,
+.table-report td {
+    padding: 5px;
+}
+
+.table-report tbody tr:nth-child(even) {
+    background-color: #ccc;
+}
+
+
+.table-report tbody td:nth-child(1) {
+    width: 50px;
+    text-align: center;
+}
+
+.table-report tbody td:nth-child(7) {
+    width: 30px;
+    text-align: center;
+}
+
+.table-report tbody td:nth-child(4),
+.table-report tbody td:nth-child(5),
+.table-report tbody td:nth-child(6) {
+    width: 70px;
+    text-align: center;
+}
+
+.table-report tbody td:nth-child(2), .table-report tbody td:last-child {
+    width: 100px;
+    text-align: center;
+}

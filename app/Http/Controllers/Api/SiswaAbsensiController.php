@@ -8,6 +8,8 @@ use App\Models\SiswaAbsensi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class SiswaAbsensiController extends Controller
 {
@@ -70,21 +72,17 @@ class SiswaAbsensiController extends Controller
      */
     public function show($nis)
     {
-        $siswaAbsensi = SiswaAbsensi::where('nis', $nis)->get();
+        $siswaAbsensi = SiswaAbsensi::where('nis', $nis)
+            ->latest('jam_masuk')
+            ->paginate(10);
 
-        if ($siswaAbsensi) {
-            return new SiswaAbsensiResource(
-                status: true,
-                message: "Detail Data Absensi",
-                resource: $siswaAbsensi
-            );
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data absensi tidak ditemukan.',
-            ], 404);
-        }
+        return new SiswaAbsensiResource(
+            status: true,
+            message: "Detail Data Absensi",
+            resource: $siswaAbsensi
+        );
     }
+
     public function show2($nis)
     {
         $siswaAbsensi = SiswaAbsensi::where('nis', $nis)->latest()->first();
@@ -104,13 +102,95 @@ class SiswaAbsensiController extends Controller
     }
 
 
+    public function storeOrUpdate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nis' => 'required|string|max:20',
+            'lokasi_masuk' => 'required|string',
+            'status' => 'required|string|in:Hadir,Sakit,Alpha,Izin',
+            'jam_masuk' => 'required|date_format:H:i:s',
+            'jam_pulang' => 'nullable|date_format:H:i:s|after:jam_masuk',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // Cek apakah sudah ada data untuk nis pada hari ini
+            $siswaAbsensi = SiswaAbsensi::where('nis', $request->nis)
+                ->whereDate('created_at', today())
+                ->first();
+
+            if ($siswaAbsensi) {
+                // Jika sudah ada, update data
+                $siswaAbsensi->fill($request->only([
+                    'jam_pulang',
+                ]));
+                $siswaAbsensi->save();
+            } else {
+                // Jika belum ada, buat entri baru
+                $siswaAbsensi = new SiswaAbsensi();
+                $siswaAbsensi->fill($request->only([
+                    'nis',
+                    'lokasi_masuk',
+                    'status',
+                    'jam_masuk',
+                ]));
+                $siswaAbsensi->save();
+            }
+
+            DB::commit();
+
+            return back()->with('success', 'Data siswaAbsensi berhasil disimpan');
+        } catch (\Exception $e) {
+            // Tangani rollback jika terjadi kesalahan
+            DB::rollback();
+            return back()->with('error', 'Data siswaAbsensi gagal disimpan');
+        }
+    }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SiswaAbsensi $siswaAbsensi)
+    public function update(Request $request, $nis)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'jam_pulang' => 'required|date_format:H:i:s|after:jam_masuk',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // Cek apakah sudah ada data untuk nis pada hari ini
+            $siswaAbsensi = SiswaAbsensi::where('nis', $nis)
+                ->whereDate('created_at', today())
+                ->first();
+
+            if ($siswaAbsensi) {
+                // Jika sudah ada, update jam_pulang
+                $siswaAbsensi->jam_pulang = $request->jam_pulang;
+                $siswaAbsensi->save();
+            } else {
+                // Jika tidak ada, kembalikan respons error
+                return response()->json(['error' => 'Data tidak ditemukan'], 404);
+            }
+
+            DB::commit();
+
+            return response()->json(['message' => 'Data berhasil diperbarui'], 200);
+        } catch (\Exception $e) {
+            // Tangani rollback jika terjadi kesalahan
+            DB::rollback();
+            return response()->json(['error' => 'Data gagal diperbarui'], 500);
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

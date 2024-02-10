@@ -142,9 +142,9 @@ class SiswaDataController extends Controller
             'password' => 'nullable|string|min:8', // tambahkan validasi min panjang password
         ]);
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)->withInput();
+        // }
 
         try {
             DB::beginTransaction();

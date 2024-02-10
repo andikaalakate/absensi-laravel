@@ -34,37 +34,45 @@ class SiswaAbsensisController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nis' => 'required|string|max:20',
-            'lokasi_masuk' => 'required|string',
+            'lokasi_masuk' => 'required',
             'status' => 'required|string|in:Hadir,Sakit,Alpha,Izin',
-            'jam_masuk' => 'required|Time',
-            'jam_pulang' => 'nullable|Time',
+            'jam_masuk' => 'required|date_format:H:i:s',
+            'jam_pulang' => 'nullable|date_format:H:i:s|after:jam_masuk',
         ]);
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)->withInput();
+        // }
 
         try {
             DB::beginTransaction();
 
-            // Simpan data jurusan
-            $siswaAbsensi = new SiswaAbsensi();
-            $siswaAbsensi->fill($request->only([
-                'nis',
-                'lokasi_masuk',
-                'status',
-                'jam_masuk',
-                'jam_pulang',
-            ]));
-            $siswaAbsensi->save();
+            $todayDate = Carbon::now()->toDateString();
+            $siswaAbsensiCount = SiswaAbsensi::where('nis', $request->nis)
+                ->whereDate('created_at', $todayDate)
+                ->count();
+
+            if ($siswaAbsensiCount < 2) {
+                $siswaAbsensi = new SiswaAbsensi();
+                $siswaAbsensi->fill($request->only([
+                    'nis',
+                    'lokasi_masuk',
+                    'status',
+                    'jam_masuk',
+                    'jam_pulang',
+                ]));
+                $siswaAbsensi->jam_pulang = Carbon::now()->format('H:i:s');
+                $siswaAbsensi->save();
+            } else {
+                return back()->with('error', 'Anda hanya dapat mengirimkan data dua kali dalam satu hari');
+            }
 
             DB::commit();
 
-            return back()->with('success', 'Data siswaAbsensi berhasil disimpan');
+            // return back()->with('success', 'Data siswaAbsensi berhasil disimpan');
         } catch (\Exception $e) {
-            // Tangani rollback jika terjadi kesalahan
             DB::rollback();
-            return back()->with('error', 'Data siswaAbsensi gagal disimpan');
+            // return back()->with('error', 'Data siswaAbsensi gagal disimpan');
         }
     }
 

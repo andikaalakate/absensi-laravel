@@ -68,42 +68,6 @@ function dropdownSetting() {
     document.getElementById("dropdownSetting").style.height = "40px";
   }
 }
-
-// script.js
-var currentPage = 1;
-var rowsPerPage = 10;
-var tableRows = document.querySelectorAll(".tabel-data tbody tr");
-var prevBtn = document.getElementById("prevBtn");
-if (prevBtn) {
-  prevBtn.addEventListener("click", changePage(-1));
-}
-var nextBtn = document.getElementById("nextBtn");
-if (nextBtn) {
-  nextBtn.addEventListener("click", changePage(1));
-}
-function showPage(page) {
-  var startIndex = (page - 1) * rowsPerPage;
-  var endIndex = startIndex + rowsPerPage;
-  tableRows.forEach(function (row, index) {
-    if (index >= startIndex && index < endIndex) {
-      row.style.display = "table-row";
-    } else {
-      row.style.display = "none";
-    }
-  });
-}
-function changePage(delta) {
-  currentPage += delta;
-  if (currentPage < 1) {
-    currentPage = 1;
-  }
-  var totalPages = Math.ceil(tableRows.length / rowsPerPage);
-  if (currentPage > totalPages) {
-    currentPage = totalPages;
-  }
-  showPage(currentPage);
-}
-showPage(currentPage);
 var submitButton = document.getElementById("submitButton");
 if (submitButton) {
   submitButton.addEventListener("click", showConfirmation);

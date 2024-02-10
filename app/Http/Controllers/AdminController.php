@@ -7,7 +7,9 @@ use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Jurusan;
 use App\Models\Kelas;
+use App\Models\SiswaAbsensi;
 use App\Models\SiswaData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -63,38 +65,58 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
-        $theUrl1     = config('app.guzzle_test_url').'/api/absensi/siswa/';
-        $siswaAbsensi   = Http::get($theUrl1)->json();
+        $theUrl1 = config('app.guzzle_test_url') . '/api/absensi/siswa/';
+        $siswaAbsensi = Http::get($theUrl1)->json();
+
+        $theUrl2 = config('app.guzzle_test_url') . '/api/siswa/';
+        $siswas = Http::get($theUrl2)->json();
 
         // dd($siswaAbsensi);
+        $today = Carbon::today();
 
-        // ini_set('max_execution_time', 120);
-        // $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->get();
-        // $siswaAbsensi = Http::withoutVerifying()->timeout(30)->get(route('siswa.absensi.show2', Auth::user()->nis))->json();
-        $theUrl2     = config('app.guzzle_test_url').'/api/siswa/';
-        $siswas   = Http::get($theUrl2)->json();
+        $siswaDataCount = SiswaData::get();
+        $jurusanDataCount = Jurusan::get();
+        $kelasDataCount = Kelas::get();
+        $adminDataCount = Admin::get();
+        $siswaAbsensiCount = SiswaAbsensi::where('status', 'Hadir')
+            ->whereDate('created_at', $today)
+            ->get();
 
-        // dd($siswas);
+        $siswaHadirCount = $siswaAbsensiCount
+            ->pluck('nis')
+            ->unique()
+            ->count();
+        $siswaCount = $siswaDataCount->count();
+        $jurusanCount = $jurusanDataCount->count();
+        $kelasCount = $kelasDataCount->count();
+        $adminCount = $adminDataCount->count();
+
+        // dd($siswaAbsensiCount);
         return view('admin.dashboard', [
             'title' => "Dashboard",
             'siswas' => $siswas,
-            'siswaAbsensi' => $siswaAbsensi
+            'siswaAbsensi' => $siswaAbsensi,
+            'siswaCount' => $siswaCount,
+            'jurusanCount' => $jurusanCount,
+            'kelasCount' => $kelasCount,
+            'adminCount' => $adminCount,
+            'siswaHadirCount' => $siswaHadirCount
         ]);
     }
 
     public function siswa()
     {
-        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/';
-        $siswaAbsensi   = Http::get($theUrl)->json();
+        $theUrl = config('app.guzzle_test_url') . '/api/absensi/siswa/';
+        $siswaAbsensi = Http::get($theUrl)->json();
 
         // dd($siswaAbsensi);
 
         // ini_set('max_execution_time', 120);
         // $siswaAbsensi = Http::withoutVerifying()->timeout(30)->get(route('siswa.absensi.show2', Auth::user()->nis))->json();
-        
+
         // $theUrl2     = config('app.guzzle_test_url').'/api/siswa/';
         // $siswas   = Http::get($theUrl2)->json();
-        
+
         $siswaData = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->paginate(5);
         $jurusan = Jurusan::all();
         $kelas = Kelas::all();
@@ -111,10 +133,12 @@ class AdminController extends Controller
 
     public function jurusan()
     {
+        $kelas = Kelas::paginate(3);
         $jurusan = Jurusan::paginate(3);
         return view('admin.jurusan', [
             'title' => "Data Jurusan",
-            'jurusan' => $jurusan
+            'jurusan' => $jurusan,
+            'kelas' => $kelas
         ]);
     }
 
@@ -131,60 +155,63 @@ class AdminController extends Controller
 
     public function user()
     {
+        $kelas = Kelas::paginate(3);
         $user = Admin::paginate(3);
+        $jurusan = Jurusan::paginate(3);
         return view('admin.user', [
             'title' => "Data User",
-            'users' => $user
+            'users' => $user,
+            'kelas' => $kelas,
+            'jurusan' => $jurusan
         ]);
     }
 
-    public function peringkat()
+    public function peringkat(Request $request)
     {
-        $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->get();
-        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/';
-        $siswaAbsensi   = Http::get($theUrl)->json();
+        $theUrl = config('app.guzzle_test_url') . '/api/absensi/siswa/';
+        $siswaAbsensi = Http::get($theUrl)->json();
+        $siswaAbsensiCount = SiswaAbsensi::get();
 
-        $hadirCount = 0;
-        $sakitCount = 0;
-        $izinCount = 0;
-        $alphaCount = 0;
+        $filterKelas = $request->input('filter_kelas');
 
-        // dd($siswaAbsensi);
+        $query = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaAbsensi');
 
-        foreach ($siswaAbsensi['data']['data'] as $record) {
-            switch ($record['status']) {
-                case 'Hadir':
-                    $hadirCount++;
-                    break;
-                case 'Sakit':
-                    $sakitCount++;
-                    break;
-                case 'Izin':
-                    $izinCount++;
-                    break;
-                case 'Alpha':
-                    $alphaCount++;
-                    break;
-                default:
-                    break;
-            }
+        if ($filterKelas && $filterKelas !== 'semua') {
+            $query->whereHas('siswaData', function ($q) use ($filterKelas) {
+                $q->where('kelas', $filterKelas);
+            });
         }
+
+        $siswas = $query->paginate(10);
+
+        $siswaHadirCount = $siswaAbsensiCount
+            ->where('status', 'Hadir')
+            ->count();
+        $siswaSakitCount = $siswaAbsensiCount
+            ->where('status', 'Sakit')
+            ->count();
+        $siswaIzinCount = $siswaAbsensiCount
+            ->where('status', 'Izin')
+            ->count();
+        $siswaAlphaCount = $siswaAbsensiCount
+            ->where('status', 'Alpha')
+            ->count();
 
         return view('admin.peringkat', [
             'title' => "Data Peringkat",
             'siswas' => $siswas,
             'siswaAbsensi' => $siswaAbsensi,
-            'hadirCount' => $hadirCount,
-            'sakitCount' => $sakitCount,
-            'izinCount' => $izinCount,
-            'alphaCount' => $alphaCount,
+            'hadirCount' => $siswaHadirCount,
+            'sakitCount' => $siswaSakitCount,
+            'izinCount' => $siswaIzinCount,
+            'alphaCount' => $siswaAlphaCount,
         ]);
     }
 
     public function laporan()
     {
         return view('admin.laporan', [
-            'title' => "Data Kelas",
+            'title' => "Data Laporan",
         ]);
     }
 
@@ -233,19 +260,19 @@ class AdminController extends Controller
 
             DB::commit();
 
-            // return back()->with('success', 'Data user berhasil disimpan');
-            return response()->json([
-                'status' => true,
-                'message' => 'Data user berhasil disimpan',
-            ]);
+            return back()->with('success', 'Data user berhasil disimpan');
+            // return response()->json([
+            //     'status' => true,
+            //     'message' => 'Data user berhasil disimpan',
+            // ]);
         } catch (\Exception $e) {
             // Tangani rollback jika terjadi kesalahan
             DB::rollback();
-            // return back()->with('error', 'Data user gagal disimpan');
-            return response()->json([
-                'status' => false,
-                'message' => 'Data user gagal disimpan: ' . $e->getMessage(),
-            ]);
+            return back()->with('error', 'Data user gagal disimpan');
+            // return response()->json([
+            //     'status' => false,
+            //     'message' => 'Data user gagal disimpan: ' . $e->getMessage(),
+            // ]);
         }
     }
 
@@ -268,9 +295,52 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAdminRequest $request, Admin $admin)
+    public function update(UpdateAdminRequest $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama' => 'string|max:75',
+            'username' => 'string|max:75',
+            'email' => 'email|max:75',
+            'no_telp' => 'string|max:20',
+            'role' => 'in:admin,operator,kepala_sekolah',
+            'password' => 'nullable|string|min:8',
+        ]);
+
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)->withInput();
+        // }
+
+        try {
+            DB::beginTransaction();
+
+            $admin = Admin::where('id', $id)->firstOrFail();
+            $admin->update($request->only([
+                'nama',
+                'username',
+                'email',
+                'no_telp',
+                'role',
+            ]));
+
+            if ($request->filled('password')) {
+                $admin = Admin::where('id', $id)->firstOrFail();
+                $admin->update([
+                    'password' => bcrypt($request->password)
+                ]);
+            }
+
+            $admin->save();
+
+            DB::commit();
+
+            return back()
+                ->with('success', 'Data Admin berhasil diperbarui');
+        } catch (\Exception $e) {
+            // Tangani rollback jika terjadi kesalahan
+
+            DB::rollback();
+            // return back()->with('error', 'Gagal memperbarui data jurusan');
+        }
     }
 
     /**

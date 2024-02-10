@@ -174,9 +174,41 @@ class KelasJurusanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update2(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id_jurusan' => 'required|string|max:20',
+            'alias_jurusan' => 'required|string|max:8',
+            'nama_jurusan' => 'required|string|max:75',
+            'kepala_jurusan' => 'nullable|string|max:75',
+        ]);
+
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)->withInput();
+        // }
+
+        try {
+            DB::beginTransaction();
+
+            $jurusan = Jurusan::where('id_jurusan', $id)->firstOrFail();
+            $jurusan->update($request->only([
+                'id_jurusan',
+                'alias_jurusan',
+                'nama_jurusan',
+                'kepala_jurusan',
+            ]));
+
+            $jurusan->save();
+
+            DB::commit();
+
+            return back()
+                ->with('success', 'Data jurusan berhasil diperbarui');        } catch (\Exception $e) {
+            // Tangani rollback jika terjadi kesalahan
+
+            DB::rollback();
+            // return back()->with('error', 'Gagal memperbarui data jurusan');
+        }
     }
 
     /**

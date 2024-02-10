@@ -20,6 +20,6 @@ class SiswaBioSeeder extends Seeder
             'hobi' => 'Ngoding',
             'image' => 'andika-alakate.jpeg'
         ]);
-        // SiswaBio::factory()->noId()->count(10)->create();
+        SiswaBio::factory()->noId()->count(10)->create();
     }
 }

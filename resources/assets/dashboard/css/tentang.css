@@ -23,6 +23,7 @@
     justify-content: center;
     box-shadow: 0 0 8px #0006;
     align-items: center;
+    overflow: hidden;
 }
 
 .content--tentang * {
@@ -54,13 +55,52 @@
     flex-direction: column;
     align-items: center;
     gap: 1em;
-    /* background-color: red; */
     max-width: 1000px;
 }
-
 
 .content--tentang h2 {
     text-transform: uppercase;
     font-size: 20px;
     font-weight: 600;
+}
+
+.menu-pengembang {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-direction: row;
+}
+
+.menu-pengembang > div {
+    background-color: rgb(57, 110, 224);
+    padding: 10px;
+    width: 350px;
+    max-width: 350px;
+    width: 100%;
+    min-height: 400px;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 0 8px #0006;
+}
+
+.img-pengembang {
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.img-pengembang:hover img {
+    filter: grayscale(0%) ;
+}
+
+.img-pengembang img {
+    width: 100%;
+    filter: grayscale(100%) ;
+    transition: filter .3s;
+}
+
+.pengembang--name {
+    color: #f5f5f5;
 }

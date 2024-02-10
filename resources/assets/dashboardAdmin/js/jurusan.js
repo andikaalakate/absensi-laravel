@@ -46,17 +46,17 @@ document.getElementById("cari").addEventListener("keyup", function (event) {
 
 
 // Konfirmasi Tambah Jurusan
-document.getElementById("buttonFormCon").addEventListener("click", function () {
-    var confirmElement1 = document.getElementById("confirm1");
+// document.getElementById("buttonFormCon").addEventListener("click", function () {
+//     var confirmElement1 = document.getElementById("confirm1");
 
-    confirmElement1.classList.add("aktif");
-});
+//     confirmElement1.classList.add("aktif");
+// });
 
-document.getElementById("noButton").addEventListener("click", function () {
-    var confirmElement1 = document.getElementById("confirm1");
+// document.getElementById("noButton").addEventListener("click", function () {
+//     var confirmElement1 = document.getElementById("confirm1");
 
-    confirmElement1.classList.remove("aktif");
-});
+//     confirmElement1.classList.remove("aktif");
+// });
 
 // Fungsi input Nama
 var alertShown = false;
@@ -96,7 +96,17 @@ var editButtons = document.querySelectorAll("#editButtonJurusan");
 editButtons.forEach(function (button) {
     button.addEventListener("click", function () {
         var modalElement = document.getElementById("editModalJurusan");
+        const id_jurusan = button.getAttribute("data-id_jurusan");
+        const nama_jurusan = button.getAttribute("data-nama_jurusan");
+        const alias_jurusan = button.getAttribute("data-alias_jurusan");
+        const kepala_jurusan = button.getAttribute("data-kepala_jurusan");
 
+        document.getElementById("id_jurusan1").value = id_jurusan;
+        document.getElementById("nama_jurusan1").value = nama_jurusan;
+        document.getElementById("alias_jurusan1").value = alias_jurusan;
+        document.getElementById("kepala_jurusan1").value = kepala_jurusan;
+
+        document.getElementById("form-update-jurusan").action = `/api/jurusan/${id_jurusan}`;
         modalElement.style.display = "block";
     });
 });
@@ -106,3 +116,4 @@ document.getElementById("closeButton").addEventListener("click", function () {
 
     modalElement.style.display = "none";
 });
+

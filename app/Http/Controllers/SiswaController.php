@@ -65,89 +65,111 @@ class SiswaController extends Controller
             'siswaAbsensi' => $siswaAbsensi
         ]);
     }
-    public function peringkat()
+    public function peringkat(Request $request)
     {
-        $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->paginate(10);
         $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/';
         $siswaAbsensi   = Http::get($theUrl)->json();
+        $siswaAbsensiCount = SiswaAbsensi::get();
 
-        $hadirCount = 0;
-        $sakitCount = 0;
-        $izinCount = 0;
-        $alphaCount = 0;
+        $filterKelas = $request->input('filter_kelas');
 
-        // dd($siswas);
+        $query = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaAbsensi');
 
-        foreach ($siswaAbsensi['data']['data'] as $record) {
-            switch ($record['status']) {
-                case 'Hadir':
-                    $hadirCount++;
-                    break;
-                case 'Sakit':
-                    $sakitCount++;
-                    break;
-                case 'Izin':
-                    $izinCount++;
-                    break;
-                case 'Alpha':
-                    $alphaCount++;
-                    break;
-                default:
-                    break;
-            }
+        if ($filterKelas && $filterKelas !== 'semua') {
+            $query->whereHas('siswaData', function ($q) use ($filterKelas) {
+                $q->where('kelas', $filterKelas);
+            });
         }
+
+        $siswas = $query->paginate(10);
+        $siswaHadirCount = $siswaAbsensiCount
+            ->where('status', 'Hadir')
+            ->count();
+        $siswaSakitCount = $siswaAbsensiCount
+            ->where('status', 'Sakit')
+            ->count();
+        $siswaIzinCount = $siswaAbsensiCount
+            ->where('status', 'Izin')
+            ->count();
+        $siswaAlphaCount = $siswaAbsensiCount
+            ->where('status', 'Alpha')
+            ->count();
 
         return view('siswa.peringkat', [
             'title' => "Peringkat",
             'siswas' => $siswas,
             'siswaAbsensi' => $siswaAbsensi,
-            'hadirCount' => $hadirCount,
-            'sakitCount' => $sakitCount,
-            'izinCount' => $izinCount,
-            'alphaCount' => $alphaCount,
+            'hadirCount' => $siswaHadirCount,
+            'sakitCount' => $siswaSakitCount,
+            'izinCount' => $siswaIzinCount,
+            'alphaCount' => $siswaAlphaCount,
         ]);
     }
-    public function statistik()
+    public function statistik(Request $request)
     {
-        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/'.Auth::user()->nis;
-        $siswaAbsensi   = Http::get($theUrl)->json();
+        $nis = Auth::user()->nis;
+        $absensiUrl = config('app.guzzle_test_url') . "/api/absensi/siswa/" . $nis;
+        $statistik_url = route('siswa.statistik');
 
-        $hadirCount = 0;
-        $sakitCount = 0;
-        $izinCount = 0;
-        $alphaCount = 0;
+        if ($request->input('page') != '') {
+            $absensiUrl .= "?page=" . $request->input('page');
+        }
 
-        foreach ($siswaAbsensi['data'] as $record) {
-            switch ($record['status']) {
-                case 'Hadir':
-                    $hadirCount++;
-                    break;
-                case 'Sakit':
-                    $sakitCount++;
-                    break;
-                case 'Izin':
-                    $izinCount++;
-                    break;
-                case 'Alpha':
-                    $alphaCount++;
-                    break;
-                default:
-                    break;
+        $siswaAbsensiArray = Http::get($absensiUrl)->json();
+        $siswaAbsensi = $siswaAbsensiArray['data'];
+
+        foreach ($siswaAbsensi['links'] as &$link) {
+            if ($link['label'] == 'pagination.previous') {
+                $link['label'] = 'Previous';
+            } elseif ($link['label'] == 'pagination.next') {
+                $link['label'] = 'Next';
+            }
+
+            if ($link['url']) {
+                $url = parse_url($link['url']);
+                $query = isset($url['query']) ? '?' . $url['query'] : '';
+                $link['url2'] = $statistik_url . $query;
             }
         }
 
-        // dd($hadirCount, $sakitCount, $izinCount, $absenCount);
+        $siswaData = $siswaAbsensi;
+
+        $absensiCount = SiswaAbsensi::where('nis', $nis)->get();
+
+        // dd($siswaData);
+
+        $hadirCount = $absensiCount
+        ->where('status', 'Hadir')
+        // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
+        // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
+        ->count();
+        $sakitCount = $absensiCount
+        ->where('status', 'Sakit')
+        // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
+        // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
+        ->count();
+        $izinCount = $absensiCount
+        // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
+        // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
+        ->where('status', 'Izin')
+        ->count();
+        $alphaCount = $absensiCount
+        // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
+        // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
+        ->where('status', 'Alpha')
+        ->count();
 
         return view('siswa.statistik', [
             'title' => "Statistik",
             'siswaAbsensi' => $siswaAbsensi,
+            'siswaData' => $siswaData,
             'hadirCount' => $hadirCount,
             'sakitCount' => $sakitCount,
             'izinCount' => $izinCount,
             'alphaCount' => $alphaCount,
         ]);
-
     }
+
 
 
     public function tampilan()

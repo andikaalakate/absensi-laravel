@@ -14,12 +14,14 @@
                 <div class="filter">
                     <label class="searchInput" for="cariNama">
                         <input type="text" class="filter-nama" placeholder="Cari Siswa..." id="cariNama" />
-                        <i class="bx bx-search" onclick="search()"></i>
+                        <i class="bx bx-search" id="cari-icon" ></i>
                     </label>
-                    <select name="filter-waktu">
-                        <option value="mingguan">Mingguan</option>
-                        <option value="bulanan">Bulanan</option>
-                        <option value="tahunan">Tahunan</option>
+                    <select name="filter_kelas" id="filterKelas">
+                        <option value="filter">Filter</option>
+                        <option value="semua">Semua</option>
+                        <option value="X">X (Sepuluh)</option>
+                        <option value="XI">XI (Sebelas)</option>
+                        <option value="XII">XII (Dua Belas)</option>
                     </select>
                 </div>
                 <div class="tabel">
@@ -30,39 +32,20 @@
                             <th>Kelas</th>
                             <th>Urutan</th>
                         </tr>
-                        @php
-                            $studentRatios = [];
-                            foreach ($siswas->take(10) as $siswa) {
-                                $hadir = $hadirCount;
-                                $sakit = $sakitCount;
-                                $izin = $izinCount;
-                                $alpha = $alphaCount;
-                                $absen = 100 - ($hadir + $sakit + $izin + $alpha);
-                                $ratio = $hadir / 100;
-                                $studentRatios[$siswa->nama_lengkap] = $ratio;
-                            }
-                            arsort($studentRatios);
-                            $sortedStudents = array_keys($studentRatios);
-                        @endphp
     
-                        @foreach ($sortedStudents as $namaSiswa)
-                            @php
-                                $siswa = $siswas->where('nama_lengkap', $namaSiswa)->first();
-                                $hadir = $hadirCount;
-                                $sakit = $sakitCount;
-                                $izin = $izinCount;
-                                $alpha = $alphaCount;
-                                $ratio = $hadir / ($hadir + $sakit + $izin + $alpha);
-                            @endphp
-    
+                        @foreach ($siswas as $siswa)
                             <tr>
                                 <td class="td-nomor">{{ $loop->iteration }}.</td>
                                 <td class="td-nama">
-                                    <p class="nama-siswa">{{ $siswa->nama_lengkap }}</p>
-                                    <small>{{ $hadir }} Hadir, {{ $sakit }} Sakit, {{ $izin }} Izin, {{ $alpha }} Alpha</small>
+                                    <p class="nama-siswa">{{ $siswa->siswaData->nama_lengkap }}</p>
+                                    <small>{{ $hadirCount }} Hadir, {{ $sakitCount }} Sakit, {{ $izinCount }} Izin, {{ $alphaCount }} Alpha</small>
                                 </td>
-                                <td class="td-kelas">{{ $siswa->kelas }} - {{ $siswa->siswaJurusan->alias_jurusan }}</td>
-                                <td class="td-peringkat"><i class='bx bxs-medal'></i></td>
+                                <td class="td-kelas">{{ $siswa->siswaData->kelas }} - {{ $siswa->siswaJurusan->alias_jurusan }}</td>
+                                @if ($loop->iteration >= 4)
+                                    <td class="td-peringkat">#{{ $loop->iteration }}</td>
+                                @else
+                                    <td class="td-peringkat"><i class='bx bxs-medal'></i></td>
+                                @endif
                             </tr>
                         @endforeach
                     </table>
@@ -74,4 +57,23 @@
 
 @section('script')
     <script src="{{ mix('assets/dashboardAdmin/js/peringkat.js') . "?id=" . Str::random(16) }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Event listener untuk perubahan pada dropdown select
+            $('#filterKelas').on('change', function() {
+                var filterKelas = $(this).val();
+
+                if (filterKelas === 'semua') {
+                    // Redirect ke URL tanpa parameter filter_kelas
+                    var url = "{{ route('admin.peringkat') }}";
+                    window.location.href = url;
+                } else {
+                    // Redirect ke URL dengan parameter filter_kelas
+                    var url = "{{ route('admin.peringkat') }}?filter_kelas=" + filterKelas;
+                    window.location.href = url;
+                }
+            });
+        });
+    </script>
 @endsection

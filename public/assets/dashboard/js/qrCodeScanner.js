@@ -35,89 +35,132 @@ function toggleScan() {
   }
 }
 var html5QrcodeScanner = null;
+var isScanned = false;
 function startScanner() {
-  if (!html5QrcodeScanner) {
+  if (!html5QrcodeScanner && !isScanned) {
     html5QrcodeScanner = new Html5QrcodeScanner("qrCodeReader", {
       fps: 10,
       qrbox: 250,
       aspectRatio: 1.0,
       rememberLastUsedCamera: true,
-      supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+      supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+      idleTimeout: 10000
     });
     html5QrcodeScanner.render(onScanSuccess, onScanError);
   }
 }
 function stopScanner() {
   if (html5QrcodeScanner) {
+    html5QrcodeScanner.stop();
     html5QrcodeScanner.clear();
     html5QrcodeScanner = null;
   }
 }
 function onScanSuccess(qrCodeMessage) {
-  Swal.fire({
-    icon: "success",
-    title: "Berhasil!",
-    showConfirmButton: false,
-    timer: 5000
-  });
-  setTimeout(function () {
-    location.reload();
-  }, 5000); // 5 seconds
-  submitFormWithLocation();
-  // stopScanner();
+  if (!isScanned) {
+    // Swal.fire({
+    //     icon: "success",
+    //     title: "Berhasil!",
+    //     showConfirmButton: false,
+    //     timer: 5000,
+    // });
+    submitFormWithLocation(qrCodeMessage);
+    setTimeout(function () {
+      location.href = '/siswa/statistik';
+    }, 5000);
+    isScanned = true;
+  }
 }
-document.querySelectorAll('.form-submit').forEach(function (form) {
-  form.addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent default form submission
-    submitFormWithLocation(form);
-  });
-});
-function submitFormWithLocation(form) {
+function submitFormWithLocation(qrCodeMessage) {
   var form = document.getElementById("form-submit");
   var nisInput = form.querySelector("input[name='nis']");
   var statusInput = form.querySelector("input[name='status']");
   var tokenInput = form.querySelector("input[name='_token']");
-  var qrCodeMessage = document.getElementById("qrCodeMessage").textContent;
-  var data = {
-    _token: tokenInput.value,
-    nis: nisInput.value,
-    lokasi_masuk: latitude + "," + longitude,
-    jam_masuk: new Date(),
-    // Use new Date() to get the current date and time
-    jam_keluar: null,
-    status: statusInput.value
-  };
-  fetch(qrCodeMessage, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      '_token': tokenInput.value,
-      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    },
-    body: JSON.stringify(data)
-  }).then(function (response) {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  }).then(function (data) {
-    console.log(data);
+  var now = new Date();
+  var inputQR = document.getElementById("inputQR");
+  var qrCodeContent = inputQR.value;
+  var formattedTime = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+  console.log("qrCodeMessage:", qrCodeMessage);
+  console.log("NIS Akun Absensi:", nisInput.value);
+  if (qrCodeMessage !== nisInput.value) {
     Swal.fire({
-      icon: "success",
-      title: "Berhasil!",
-      showConfirmButton: false,
+      icon: "error",
+      title: "Gagal Absen!",
+      text: "NIS QRCode tidak sesuai dengan NIS Akun Absensi",
+      showConfirmButton: true,
       timer: 5000
     });
-    stopScanner();
-  })["catch"](function (error) {
-    console.error('Error:', error);
-    alert("Failed to submit form with location.");
-  });
+    return; // Hentikan proses absen jika NIS QRCode tidak sesuai
+  }
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      var data = {
+        nis: nisInput.value,
+        lokasi_masuk: {
+          latitude: latitude,
+          longitude: longitude
+        },
+        jam_masuk: formattedTime,
+        jam_keluar: null,
+        status: statusInput.value
+      };
+      fetch(qrCodeContent, {
+        method: "POST",
+        headers: {
+          "XSRF-TOKEN": tokenInput.value,
+          "Content-Type": "application/json",
+          "X-CSRF-TOKEN": tokenInput.value
+        },
+        cache: "no-cache",
+        redirect: "follow",
+        credentials: "same-origin",
+        body: JSON.stringify(data)
+      }).then(function (response) {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        JSON.stringify(data);
+      }).then(function (data) {
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil Absen!",
+          showConfirmButton: true,
+          timer: 5000
+        });
+      })["catch"](function (error) {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Gagal Absen!",
+          showConfirmButton: true,
+          timer: 5000
+        });
+      });
+    }, function (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Gagal mengambil lokasi!",
+        showConfirmButton: true,
+        timer: 5000
+      });
+    });
+  } else {
+    Swal.fire({
+      icon: "error",
+      title: "Gagal mengambil lokasi!",
+      showConfirmButton: true,
+      timer: 5000
+    });
+  }
 }
 function onScanError(errorMessage) {
   console.error("QR Code scan error:", errorMessage);
 }
 document.addEventListener("DOMContentLoaded", function () {
+  // submitFormWithLocation();
+
   var scanNav = document.getElementById("scanNav");
   if (scanNav) {
     scanNav.addEventListener('click', toggleScan);

@@ -42,8 +42,16 @@
                                 <td>Interaksi</td>
                                 <td>:</td>
                                 <td class="aksiButton">
-                                    <button id="editButtonJurusan">Edit</button>
-                                        <form action="{{ route('jurusan.destroy', $juru->id_jurusan) }}" method="POST">
+                                    <button 
+                                    id="editButtonJurusan" 
+                                    data-id_jurusan="{{ $juru->id_jurusan }}" 
+                                    data-nama_jurusan="{{ $juru->nama_jurusan }}"
+                                    data-alias_jurusan="{{ $juru->alias_jurusan }}"
+                                    data-kepala_jurusan="{{ $juru->kepala_jurusan }}"
+                                    >
+                                        Edit
+                                    </button>
+                                    <form action="{{ route('jurusan.destroy', $juru->id_jurusan) }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button id="hapusButton" type="submit">Hapus</button>
@@ -59,68 +67,8 @@
                     @endfor
                 </div>
             </div>
-            <h1 class="content-head">Tambah Jurusan</h1>
-            <form action="{{ route('jurusan.store') }}" method="post" class="form-add">
-                @csrf
-                @method('POST')
-                <div class="input-data">
-                    <label for="id">ID Jurusan</label>
-                    <input type="text" placeholder="Masukkan ID Jurusan" required id="id" name="id_jurusan" />
-                </div>
-                <div class="input-data">
-                    <label for="jurusan">Nama Jurusan</label>
-                    <input type="text" placeholder="Masukkan Nama Jurusan" required id="jurusan" name="nama_jurusan" />
-                </div>
-                <div class="input-data">
-                    <label for="alias">ALIAS Jurusan</label>
-                    <input type="text" placeholder="Masukkan Alias Jurusan" required id="alias" name="alias_jurusan" />
-                </div>
-                <div class="input-data">
-                    <label for="namaKajur">Nama Kepala Jurusan</label>
-                    <input type="text" placeholder="Masukkan Nama Kepala Jurusan" required id="namaKajur" name="kepala_jurusan" />
-                </div>
-                <div class="buttonForm">
-                    <button type="reset" class="reset buttonFormCon">Ulangi</button>
-                    <a class="confirm buttonFormCon" id="buttonFormCon">Tambah</a>
-                </div>
-                <!-- Confirmation Changes -->
-                <div id="confirm1">
-                    <div class="confirmPage">
-                        <span>Simpan ?</span>
-                        <div class="button">
-                            <p class="buttonConfirmation" id="noButton">Tidak</p>
-                            <button class="buttonConfirmation" type="submit">ya</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!-- Edit Modal -->
-            <div id="editModalJurusan" class="modal">
-                <div class="modal-content">
-                    <span class="close" id="closeButton">&times;</span>
-                    <!-- Form edit -->
-                    <h2>Edit Data</h2>
-                    <form action="#" method="post" class="form-modal">
-                        <div class="modal-input">
-                            <label for="id">ID Jurusan</label>
-                            <input type="text" required id="id" name="id" />
-                        </div>
-                        <div class="modal-input">
-                            <label for="namaJurusan">Nama Jurusan</label>
-                            <input type="text" id="namaJurusan" name="nis">
-                        </div>
-                        <div class="modal-input">
-                            <label for="alias">ALIAS Jurusan</label>
-                            <input type="text" required id="alias" name="alias_jurusan" />
-                        </div>
-                        <div class="modal-input">
-                            <label for="namaKajur">Nama Kepala Jurusan</label>
-                            <input type="text" id="namaKajur" name="nama">
-                        </div>
-                        <button type="submit">Simpan</button>
-                    </form>
-                </div>
-            </div>
+            @include('components.admin.tambahform')
+            @include('components.admin.editmodal')
         </div>
     </div>
 @endsection

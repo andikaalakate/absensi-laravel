@@ -73,6 +73,10 @@ mix.css(
     "resources/assets/dashboardAdmin/css/adminDashboard.css",
     "assets/dashboardAdmin/css"
 )
+.css(
+    "resources/assets/dashboardAdmin/css/adminLaporan.css",
+    "assets/dashboardAdmin/css"
+)
 .js(
     "resources/assets/dashboard/js/main.js",
     "assets/dashboard/js"
@@ -111,6 +115,10 @@ mix.css(
 )
 .js(
     "resources/assets/dashboardAdmin/js/peringkat.js",
+    "assets/dashboardAdmin/js"
+)
+.js(
+    "resources/assets/dashboardAdmin/js/editSiswa.js",
     "assets/dashboardAdmin/js"
 )
 .setPublicPath('public');

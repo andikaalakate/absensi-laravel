@@ -50,27 +50,28 @@ Route::middleware(['auth:siswa', 'auth.session', 'auth.checkduplicate'])->group(
   Route::get('/siswa/profil', [SiswaController::class, 'index']);
   Route::get('/siswa/tentang', [SiswaController::class, 'tentang']);
   Route::get('/siswa/keamanan', [SiswaController::class, 'keamanan'])->name('siswa.keamanan');
-  Route::get('/siswa/peringkat', [SiswaController::class, 'peringkat']);
-  Route::get('/siswa/statistik', [SiswaController::class, 'statistik']);
+  Route::get('/siswa/peringkat', [SiswaController::class, 'peringkat'])->name('siswa.peringkat');
+  Route::get('/siswa/statistik', [SiswaController::class, 'statistik'])->name('siswa.statistik');
   Route::get('/siswa/tampilan', [SiswaController::class, 'tampilan']);
   Route::get('/siswa/pindai-qr', [SiswaController::class, 'pindaiqr']);
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
   Route::post('/siswa/absensi/store', [SiswaAbsensisController::class, 'store'])->name('siswa.absensi.store');
-  Route::put('/siswa/{nis}', [SiswaDataController::class, 'update'])->name('siswa.update');
+  Route::post('/absensi/siswa/storeupdate', [SiswaAbsensisController::class, 'storeOrUpdate'])->name('siswa.absensi.storeupdate');
 });
 
 Route::middleware(['auth:admin', 'auth.session', 'auth.checkduplicate'])->group(function () {
   Route::get('/', [AdminController::class, 'home']);
   Route::get('/admin', [AdminController::class, 'home']);
-  Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
-  Route::get('/admin/siswa', [AdminController::class, 'siswa']);
-  Route::get('/admin/jurusan', [AdminController::class, 'jurusan']);
-  Route::get('/admin/kelas', [AdminController::class, 'kelas']);
-  Route::get('/admin/user', [AdminController::class, 'user']);
+  Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+  Route::get('/admin/siswa', [AdminController::class, 'siswa'])->name('admin.siswa');
+  Route::get('/admin/jurusan', [AdminController::class, 'jurusan'])->name('admin.jurusan');
+  Route::get('/admin/kelas', [AdminController::class, 'kelas'])->name('admin.kelas');
+  Route::get('/admin/user', [AdminController::class, 'user'])->name('admin.user');
   Route::post('/admin/user/store', [AdminController::class, 'store'])->name('user.store');
+  Route::put('/admin/user/update/{id}', [AdminController::class, 'update'])->name('user.update');
   Route::delete('/admin/user/destroy/{id}', [AdminController::class, 'destroy'])->name('user.destroy');
-  Route::get('/admin/peringkat', [AdminController::class, 'peringkat']);
-  Route::get('/admin/laporan', [AdminController::class, 'laporan']);
+  Route::get('/admin/peringkat', [AdminController::class, 'peringkat'])->name('admin.peringkat');
+  Route::get('/admin/laporan', [AdminController::class, 'laporan'])->name('admin.laporan');
   Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
   Route::post('/admin/siswa/store', [SiswaDataController::class, 'store'])->name('siswa.store');
   Route::delete('/admin/siswa/destroy/{nis}', [SiswaDataApiController::class, 'destroy'])->name('siswa.destroy');

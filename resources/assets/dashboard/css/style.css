@@ -171,6 +171,15 @@ aside.sidebar * {
     background-color: #968f8f;
 }
 
+.dash *::selection {
+    background-color: rgb(33, 82, 187);
+    color: white;
+}
+
+.dash img::selection {
+    background-color: transparent;
+}
+
 
 /* Preload */
 

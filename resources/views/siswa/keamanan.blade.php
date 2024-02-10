@@ -3,27 +3,6 @@
 @section('head')
     <title>Siswa - {{ $title }}</title>
     <link rel="stylesheet" href="{{ mix('assets/dashboard/css/keamanan.css') }}">
-    {{-- <script defer>
-        document.addEventListener('DOMContentLoaded', function () {
-            let formModified = false;
-            const formElements = document.querySelectorAll('.input-secure, textarea');
-            formElements.forEach(function (element) {
-                element.addEventListener('input', function () {
-                    formModified = true;
-                });
-            });
-            window.addEventListener('beforeunload', function (event) {
-                if (formModified) {
-                    const confirmationMessage = 'Anda memiliki perubahan yang belum disimpan. Apakah Anda yakin ingin meninggalkan halaman?';
-                    (event || window.event).returnValue = confirmationMessage;
-                    return confirmationMessage;
-                }
-            });
-            window.confirmSubmit = function () {
-                formModified = false;
-            };
-        });
-    </script> --}}
 @endsection
 
 @section('content')
@@ -51,7 +30,8 @@
                 </div>
                 <div class="nama-profil profile-secure">
                     <label for="nama">Nama :</label>
-                    <input type="text" value="{{ $siswas->siswaData->nama_lengkap }}" disabled class="input-secure" id="nama"
+                    <input type="text" value="{{ $siswas->siswaData->nama_lengkap }}" disabled class="input-secure" id="nama_lengkap" />
+                    <input type="text" value="{{ $siswas->siswaData->nama_lengkap }}" hidden class="input-secure" id="nama"
                         name="nama_lengkap" />
                 </div>
                 <div class="jKelamin-profil profile-secure">
@@ -86,7 +66,8 @@
                 
                 <div class="nis-profil profile-secure">
                     <label for="nis">Nis :</label>
-                    <input type="text" value="{{ $siswas->siswaData->nis }}" readonly disabled class="input-secure" id="nis" name="nis" />
+                    <input type="text" value="{{ $siswas->siswaData->nis }}" readonly disabled class="input-secure" id="nis1" />
+                    <input type="text" value="{{ $siswas->siswaData->nis }}" hidden class="input-secure" id="nis" name="nis" />
                 </div>
                 <div class="profile-secure">
                     <label for="tanggalLahir">Tanggal Lahir</label>
