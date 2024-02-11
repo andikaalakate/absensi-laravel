@@ -172,9 +172,9 @@ class AdminController extends Controller
         $siswaAbsensiCount = SiswaAbsensi::get();
 
         $query = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaAbsensi', 'siswaJurusan')
-        ->filterByKelas($request->input('filter_kelas'));
+        ->filterByKelas($request->input('filter_kelas'))->filterBySiswa();
 
-        $siswas = $query->get();
+        $siswas = $query->paginate(25)->withQueryString();
 
         // dd($siswas);
 

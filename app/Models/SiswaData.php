@@ -99,7 +99,12 @@ class SiswaData extends Model
     {
         if (request('search')) {
             return $query->where('nama_lengkap', 'like', '%' . request('search') . '%')
-                ->orWhere('nis', 'like', '%' . request('search') . '%');
+                ->orWhere('nis', 'like', '%' . request('search') . '%')
+                ->orWhere('kelas', 'like', '%' . request('search') . '%')
+                ->orWhere('jurusan', 'like', '%' . request('search') . '%')
+                ->orWhere('tanggal_lahir', 'like', '%' . request('search') . '%')
+                ->orWhere('jenis_kelamin', 'like', '%' . request('search') . '%')
+            ;
         }
     }
 }

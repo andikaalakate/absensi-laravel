@@ -12,10 +12,13 @@
             <h1 class="content-head">Data Peringkat</h1>
             <div class="detail-leaderboard">
                 <div class="filter">
-                    <label class="searchInput" for="cariNama">
-                        <input type="text" class="filter-nama" placeholder="Cari Siswa..." id="cariNama" />
-                        <i class="bx bx-search" id="cari-icon"></i>
-                    </label>
+                    <form id="searchForm" action="{{ route('admin.peringkat') }}">
+                        <label class="searchInput" for="cari">
+                            <input type="text" class="filter-nama" placeholder="Cari siswa..." id="cari"
+                                name="search" value="{{ request('search') }}" />
+                            <i id="submitBtn" class="bx bx-search"></i>
+                        </label>
+                    </form>
                     <select name="filter_kelas" id="filterKelas">
                         <option value="semua" {{ request('filter_kelas') == 'semua' ? 'selected' : '' }}>Semua</option>
                         <option value="X" {{ request('filter_kelas') == 'X' ? 'selected' : '' }}>X (Sepuluh)</option>
@@ -35,12 +38,13 @@
                         </tr>
 
                         @php
+                            $i = ($siswas->currentPage() - 1) * $siswas->perPage() + 1;
                             $sortedSiswas = $siswas->sortByDesc('percent_hadir');
                         @endphp
 
                         @foreach ($sortedSiswas as $siswa)
                             <tr>
-                                <td class="td-nomor">{{ $loop->iteration }}.</td>
+                                <td class="td-nomor">{{ $i++ }}.</td>
                                 <td class="td-nama">
                                     <p class="nama-siswa">{{ $siswa->siswaData->nama_lengkap }}</p>
                                     <small>
@@ -53,15 +57,48 @@
                                 <td class="td-kelas">{{ $siswa->siswaData->kelas }} -
                                     {{ $siswa->siswaJurusan->alias_jurusan }}
                                 </td>
-                                @if ($loop->iteration >= 4)
-                                    <td class="td-peringkat">#{{ $loop->iteration }}</td>
-                                @else
+                                @if ($loop->iteration <= 3)
                                     <td class="td-peringkat"><i class='bx bxs-medal'></i></td>
+                                @else
+                                    <td class="td-peringkat">#{{ $loop->iteration }}</td>
                                 @endif
                             </tr>
                         @endforeach
                     </table>
                 </div>
+                @if ($siswas->hasPages())
+                    <div class="pagination">
+                        @php
+                            $currentPage = $siswas->currentPage();
+                            $lastPage = $siswas->lastPage();
+                            $startPage = max($currentPage - 2, 1);
+                            $endPage = min($currentPage + 1, $lastPage);
+                        @endphp
+
+                        @if ($currentPage > 1)
+                            <button onclick="window.location.href = '{{ $siswas->url(1) }}'">
+                                <i class='bx bx-first-page'></i>
+                            </button>
+                            <button onclick="window.location.href = '{{ $siswas->previousPageUrl() }}'">
+                                <i class='bx bx-chevron-left'></i>
+                            </button>
+                        @endif
+
+                        @for ($i = $startPage; $i <= $endPage; $i++)
+                            <button onclick="window.location.href = '{{ $siswas->url($i) }}'"
+                                @if ($i === $currentPage) class="active" @endif>{{ $i }}</button>
+                        @endfor
+
+                        @if ($currentPage < $lastPage)
+                            <button onclick="window.location.href = '{{ $siswas->nextPageUrl() }}'">
+                                <i class='bx bx-chevron-right'></i>
+                            </button>
+                            <button onclick="window.location.href = '{{ $siswas->url($lastPage) }}'">
+                                <i class='bx bx-last-page'></i>
+                            </button>
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
     </div>
