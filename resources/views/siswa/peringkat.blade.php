@@ -14,11 +14,11 @@
                 <div class="filter">
                     <input class="filter-nama" type="text" placeholder="Cari..." id="cariNama" />
                     <select name="filter_kelas" id="filterKelas">
-                        <option value="filter">Filter</option>
-                        <option value="semua">Semua</option>
-                        <option value="X">X (Sepuluh)</option>
-                        <option value="XI">XI (Sebelas)</option>
-                        <option value="XII">XII (Dua Belas)</option>
+                        <option value="semua" {{ request('filter_kelas') == 'semua' ? 'selected' : '' }}>Semua</option>
+                        <option value="X" {{ request('filter_kelas') == 'X' ? 'selected' : '' }}>X (Sepuluh)</option>
+                        <option value="XI" {{ request('filter_kelas') == 'XI' ? 'selected' : '' }}>XI (Sebelas)</option>
+                        <option value="XII" {{ request('filter_kelas') == 'XII' ? 'selected' : '' }}>XII (Dua Belas)
+                        </option>
                     </select>
                 </div>
                 <table border="1" class="tabel-leaderboard">
@@ -28,23 +28,24 @@
                         <th>Kelas</th>
                         <th>Urutan</th>
                     </tr>
-                    @foreach ($siswas as $siswa)
+                    @php
+                        $sortedSiswas = $siswas->sortByDesc('percent_hadir');
+                    @endphp
+
+                    @foreach ($sortedSiswas as $siswa)
                         <tr>
                             <td class="td-nomor">{{ $loop->iteration }}.</td>
                             <td class="td-nama">
                                 <p class="nama-siswa">{{ $siswa->siswaData->nama_lengkap }}</p>
                                 <small>
-                                    @if (isset($absensiCounts[$siswa->siswaData->nis]))
-                                        {{ $absensiCounts[$siswa->siswaAbsensi->status]['Hadir'] }} Hadir,
-                                        {{ $absensiCounts[$siswa->siswaAbsensi->status]['Sakit'] }} Sakit,
-                                        {{ $absensiCounts[$siswa->siswaAbsensi->status]['Izin'] }} Izin,
-                                        {{ $absensiCounts[$siswa->siswaAbsensi->status]['Alpha'] }} Alpha
-                                    @else
-                                        Belum ada data absensi
-                                    @endif
+                                    {{ $siswa->jumlah_hadir }} Hadir,
+                                    {{ $siswa->jumlah_sakit }} Sakit,
+                                    {{ $siswa->jumlah_izin }} Izin,
+                                    {{ $siswa->jumlah_alpha }} Alpha
                                 </small>
                             </td>
-                            <td class="td-kelas">{{ $siswa->siswaData->kelas }} - {{ $siswa->siswaJurusan->alias_jurusan }}
+                            <td class="td-kelas">{{ $siswa->siswaData->kelas }} -
+                                {{ $siswa->siswaJurusan->alias_jurusan }} {{ $siswa->siswaData->variabel_kelas }}
                             </td>
                             @if ($loop->iteration >= 4)
                                 <td class="td-peringkat">#{{ $loop->iteration }}</td>
@@ -53,7 +54,6 @@
                             @endif
                         </tr>
                     @endforeach
-
                 </table>
             </div>
         </div>

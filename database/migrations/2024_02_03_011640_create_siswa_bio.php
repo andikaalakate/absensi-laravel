@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('siswa_bio', function (Blueprint $table) {
             $table->string('nis', 20)->primary();
             $table->string('image')->nullable();
-            $table->text('biografi')->nullable();
-            $table->text('hobi')->nullable();
             $table->string('alamat')->nullable();
             $table->timestamps();
 

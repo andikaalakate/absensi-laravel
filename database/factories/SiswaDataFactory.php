@@ -26,10 +26,10 @@ class SiswaDataFactory extends Factory
         return [
             'nis' => $nis,
             'nama_lengkap' => $this->faker->name,
-            'qr_code' => '/api/siswa/absensi/' . $nis,
             'jenis_kelamin' => $this->faker->randomElement(['Laki-Laki', 'Perempuan']),
-            'jurusan' => $this->faker->randomElement(['Rekayasa Perangkat Lunak', 'Teknik Jaringan Komputer dan Telekomunikasi', 'Pemasaran', 'Akuntansi dan Keuangan Lembaga', 'Manajemen Perkantoran dan Layanan Bisnis']),
             'kelas' => $this->faker->randomElement(['X', 'XI', 'XII']),
+            'jurusan' => $this->faker->randomElement(['Rekayasa Perangkat Lunak', 'Teknik Jaringan Komputer dan Telekomunikasi', 'Pemasaran', 'Akuntansi dan Keuangan Lembaga', 'Manajemen Perkantoran dan Layanan Bisnis']),
+            'variabel_kelas' => $this->faker->randomElement(['1', '2', '3']),
             'tanggal_lahir' => $this->faker->date('Y-m-d', '2006-01-01')
         ];
     }

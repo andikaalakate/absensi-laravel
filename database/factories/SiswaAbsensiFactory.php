@@ -25,7 +25,10 @@ class SiswaAbsensiFactory extends Factory
             'nis' => $nis,
             'jam_masuk' => $this->faker->time(),
             'jam_pulang' => $this->faker->time(),
-            'lokasi_masuk' => $this->faker->address,
+            'lokasi_masuk' => json_encode([
+                'latitude' => $this->faker->latitude,
+                'longitude' => $this->faker->longitude,
+            ]),
         ];
     }
     public function configure()

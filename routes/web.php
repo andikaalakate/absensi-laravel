@@ -72,6 +72,8 @@ Route::middleware(['auth:admin', 'auth.session', 'auth.checkduplicate'])->group(
   Route::delete('/admin/user/destroy/{id}', [AdminController::class, 'destroy'])->name('user.destroy');
   Route::get('/admin/peringkat', [AdminController::class, 'peringkat'])->name('admin.peringkat');
   Route::get('/admin/laporan', [AdminController::class, 'laporan'])->name('admin.laporan');
+  Route::get('/admin/laporan/view/pdf', [AdminController::class, 'viewLaporan'])->name('admin.view.laporan');
+  Route::get('/admin/laporan/cetak/pdf', [AdminController::class, 'cetakLaporan'])->name('admin.cetak.laporan');
   Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
   Route::post('/admin/siswa/store', [SiswaDataController::class, 'store'])->name('siswa.store');
   Route::delete('/admin/siswa/destroy/{nis}', [SiswaDataApiController::class, 'destroy'])->name('siswa.destroy');

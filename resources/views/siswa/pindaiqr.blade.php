@@ -2,10 +2,10 @@
 
 @section('head')
     <title>Siswa - {{ $title }}</title>
-    <link rel="stylesheet" href="{{ mix('assets/dashboard/css/scan-qr.css') }}">
+    <link rel="stylesheet" href="{{ mix('assets/dashboard/css/scan-qr.css') . '?id=' . Str::random(16) }}">
     <link rel="stylesheet" href="{{ mix('css/app.css') . '?id=' . Str::random(16) }}">
     {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
-    {{-- <script src="{{ mix('assets/dashboard/js/checkLocation.js') . "?id=" . Str::random(16) }}" defer></script> --}}
+    {{-- <script src="{{ mix('assets/dashboard/js/checkLocation.js') . '?id=' . Str::random(16) }}" defer></script> --}}
 @endsection
 
 @section('content')
@@ -22,9 +22,9 @@
                         class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md lg:w-[50rem] items center justify-center mx-auto text-center bg-center self-center flex w-full image-full"
                         width="800px" style="display: none;">
                     </div>
-                    <div class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md p-5"
+                    <div class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md p-5 user-select-none"
                         id="qrcodeContainer">
-                        <div id="qrcode" title="QRCode"></div>
+                        <div id="qrcode" title="QRCode" draggable="false" (dragstart)="false;"></div>
                     </div>
                     <input type="text" id="inputQR" value="{{ route('siswa.absensi.store') }}" readonly disabled
                         hidden />

@@ -21,6 +21,20 @@ var __webpack_exports__ = {};
   !*** ./resources/assets/dashboard/js/main.js ***!
   \***********************************************/
 __webpack_require__.r(__webpack_exports__);
+window.ondragstart = function () {
+  return false;
+};
+var elementsWithTooltip = document.querySelectorAll("[title]");
+elementsWithTooltip.forEach(function (element) {
+  element.addEventListener("mouseover", function () {
+    element.dataset.title = element.getAttribute("title");
+    element.removeAttribute("title");
+  });
+  element.addEventListener("mouseout", function () {
+    element.setAttribute("title", element.dataset.title);
+    delete element.dataset.title;
+  });
+});
 var noHp = document.getElementById("noHp");
 if (noHp) {
   noHp.addEventListener("input", validateNumberInput);
@@ -98,12 +112,12 @@ function saveChanges() {
   hideConfirmation();
 }
 
-// Fungsi Pencarian 
+// Fungsi Pencarian
 function search() {
   var input, filter, tabel, tr, td, i, txtValue;
   input = document.getElementById("cariNama");
   filter = input.value.toUpperCase();
-  tabel = document.querySelector('.tabel-leaderboard');
+  tabel = document.querySelector(".tabel-leaderboard");
   tr = tabel.querySelectorAll("tr");
   for (i = 1; i < tr.length; i++) {
     // Mulai dari 1 untuk melewati baris header

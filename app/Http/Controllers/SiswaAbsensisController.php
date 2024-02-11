@@ -48,11 +48,15 @@ class SiswaAbsensisController extends Controller
             DB::beginTransaction();
 
             $todayDate = Carbon::now()->toDateString();
-            $siswaAbsensiCount = SiswaAbsensi::where('nis', $request->nis)
-                ->whereDate('created_at', $todayDate)
-                ->count();
 
-            if ($siswaAbsensiCount < 2) {
+            $existingSiswaAbsensi = SiswaAbsensi::where('nis', $request->nis)
+                ->whereDate('created_at', $todayDate)
+                ->first();
+
+            if ($existingSiswaAbsensi) {
+                $existingSiswaAbsensi->jam_pulang = Carbon::now()->format('H:i:s');
+                $existingSiswaAbsensi->save();
+            } else {
                 $siswaAbsensi = new SiswaAbsensi();
                 $siswaAbsensi->fill($request->only([
                     'nis',
@@ -63,8 +67,6 @@ class SiswaAbsensisController extends Controller
                 ]));
                 $siswaAbsensi->jam_pulang = Carbon::now()->format('H:i:s');
                 $siswaAbsensi->save();
-            } else {
-                return back()->with('error', 'Anda hanya dapat mengirimkan data dua kali dalam satu hari');
             }
 
             DB::commit();

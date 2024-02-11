@@ -81,7 +81,14 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }
       }, function (error) {
-        console.error("Gagal mendapatkan lokasi:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Gagal Mendapatkan Lokasi!",
+          showConfirmButton: true,
+          timer: 5000
+        }).then(function () {
+          location.reload();
+        });
         if (error.code === 1) {
           Swal.fire({
             icon: "error",

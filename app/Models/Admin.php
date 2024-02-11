@@ -43,5 +43,14 @@ class Admin extends Authenticatable
         'remember_token',
     ];
 
-
+    public function scopeFilterByUsers($query)
+    {
+        if (request('search')) {
+            return $query->where('nama', 'like', '%' . request('search') . '%')
+                ->orWhere('username', 'like', '%' . request('search') . '%')
+                ->orWhere('email', 'like', '%' . request('search') . '%')
+                ->orWhere('no_telp', 'like', '%' . request('search') . '%')
+                ->orWhere('id', 'like', '%' . request('search') . '%');
+        }
+    }
 }

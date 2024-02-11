@@ -25,6 +25,14 @@ __webpack_require__.r(__webpack_exports__);
 function handleSearch() {
   search();
 }
+document.getElementById("submitBtn").addEventListener("click", function () {
+  document.getElementById("searchForm").submit();
+});
+document.getElementById("cari").addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    document.getElementById("searchForm").submit();
+  }
+});
 function search() {
   var input, filter, tabels, i, j, txtValue;
   input = document.getElementById("cari");
@@ -52,13 +60,16 @@ function search() {
     }
   });
 }
-document.getElementById("cari").addEventListener("keyup", function (event) {
-  if (event.key === "Enter") {
-    handleSearch();
-  } else {
-    search();
-  }
-});
+
+// document.getElementById("cari").addEventListener("keyup", function (event) {
+
+//     if (event.key === "Enter") {
+//         handleSearch();
+//     } else {
+//         search();
+//     }
+// });
+
 document.getElementById('cari-icon').addEventListener('click', handleSearch);
 
 //Fungsi Input Angka

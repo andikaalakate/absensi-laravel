@@ -19,4 +19,23 @@ class Jurusan extends Model
         'alias_jurusan',
         'kepala_jurusan',
     ];
+
+    public function siswaData()
+    {
+        return $this->hasOne(SiswaData::class, 'jurusan', 'nama_jurusan');
+    }
+
+    public function siswaKelas()
+    {
+        return $this->hasMany(Kelas::class, 'alias_jurusan', 'alias_jurusan');
+    }
+
+    public function scopeFilterByJurusan($query)
+    {
+        if (request('search')) {
+            return $query->where('nama_jurusan', 'like', '%' . request('search') . '%')
+                ->orWhere('alias_jurusan', 'like', '%' . request('search') . '%')
+                ->orWhere('id_jurusan', 'like', '%' . request('search') . '%');
+        }
+    }
 }

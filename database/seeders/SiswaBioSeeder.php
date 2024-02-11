@@ -16,10 +16,8 @@ class SiswaBioSeeder extends Seeder
         SiswaBio::create([
             'nis' => '46710',
             'alamat' => 'Jl. Utama 1, Desa Kolam',
-            'biografi' => 'Apa yaa?',
-            'hobi' => 'Ngoding',
             'image' => 'andika-alakate.jpeg'
         ]);
-        SiswaBio::factory()->noId()->count(10)->create();
+        SiswaBio::factory()->noId()->count(50)->create();
     }
 }

@@ -1,3 +1,21 @@
+window.ondragstart = function () {
+    return false;
+};
+
+const elementsWithTooltip = document.querySelectorAll("[title]");
+
+elementsWithTooltip.forEach((element) => {
+    element.addEventListener("mouseover", () => {
+        element.dataset.title = element.getAttribute("title");
+        element.removeAttribute("title");
+    });
+
+    element.addEventListener("mouseout", () => {
+        element.setAttribute("title", element.dataset.title);
+        delete element.dataset.title;
+    });
+});
+
 let noHp = document.getElementById("noHp");
 if (noHp) {
     noHp.addEventListener("input", validateNumberInput);
@@ -83,15 +101,16 @@ function saveChanges() {
     hideConfirmation();
 }
 
-// Fungsi Pencarian 
+// Fungsi Pencarian
 function search() {
     var input, filter, tabel, tr, td, i, txtValue;
     input = document.getElementById("cariNama");
     filter = input.value.toUpperCase();
-    tabel = document.querySelector('.tabel-leaderboard');
+    tabel = document.querySelector(".tabel-leaderboard");
     tr = tabel.querySelectorAll("tr");
 
-    for (i = 1; i < tr.length; i++) { // Mulai dari 1 untuk melewati baris header
+    for (i = 1; i < tr.length; i++) {
+        // Mulai dari 1 untuk melewati baris header
         td = tr[i].getElementsByTagName("td")[1]; // Ambil sel kedua (indeks 1) yang berisi nama
         if (td) {
             txtValue = td.textContent || td.innerText;
@@ -108,14 +127,16 @@ function search() {
 document.getElementById("cariNama").addEventListener("input", search);
 
 // Tambahkan event listener untuk menangani tombol Enter
-document.getElementById("cariNama").addEventListener("keypress", function (event) {
-    // Periksa apakah tombol yang ditekan adalah tombol Enter (kode 13)
-    if (event.keyCode === 13) {
-        search(); // Panggil fungsi pencarian saat tombol Enter ditekan
-    }
-});
+document
+    .getElementById("cariNama")
+    .addEventListener("keypress", function (event) {
+        // Periksa apakah tombol yang ditekan adalah tombol Enter (kode 13)
+        if (event.keyCode === 13) {
+            search(); // Panggil fungsi pencarian saat tombol Enter ditekan
+        }
+    });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     checkLocationPermission()
         .then(() => {
             // Izin lokasi diberikan, lakukan tindakan yang diperlukan di sini

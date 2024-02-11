@@ -12,8 +12,11 @@
             <h1 class="content-head">Data Laporan</h1>
             <div class="report">
                 <div class="filter-tanggal">
-                    <input type="date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" name="tanggal"
-                        id="tanggalLaporan">
+                    <input type="date" name="tanggal" id="tanggalLaporan">
+                    <div class="button-report">
+                        <a href="{{ route('admin.laporan') }}?lihat=pdf" class="lihat--button">Lihat</a>
+                        <a href="{{ route('admin.laporan') }}?cetak=pdf" class="cetak--button">Cetak</a>
+                    </div>
                 </div>
                 <div class="table-report">
                     <table border="1">
@@ -30,76 +33,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>X MPLB 1</td>
-                                <td>Melintika Sinaga S,Pd.</td>
-                                <td>37</td>
-                                <td>0</td>
-                                <td>37</td>
-                                <td>100%</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>X MPLB 2</td>
-                                <td>Irmayanti Batubara S,Pd.</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>38</td>
-                                <td>100%</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>X MPLB 3</td>
-                                <td>Ernawati Naibaho S,Pd.</td>
-                                <td>38</td>
-                                <td>0</td>
-                                <td>38</td>
-                                <td>100%</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>X AKL</td>
-                                <td>Kristina Simamarta S,Pd.</td>
-                                <td>36</td>
-                                <td>0</td>
-                                <td>36</td>
-                                <td>100%</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>16</td>
-                                <td>XI RPL</td>
-                                <td>Yosefina Simamora S,Pd.</td>
-                                <td>17</td>
-                                <td>0</td>
-                                <td>17</td>
-                                <td>100%</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>17</td>
-                                <td>XII AKL</td>
-                                <td>Sondang M. Banjarnahor S,Pd.</td>
-                                <td>37</td>
-                                <td>0</td>
-                                <td>37</td>
-                                <td>100%</td>
-                                <td></td>
-                            </tr>
+                            @foreach ($siswaAbsensiCounts as $siswaAbsensiCount)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $siswaAbsensiCount->kelas }} - {{ $siswaAbsensiCount->alias_jurusan }}
+                                        {{ $siswaAbsensiCount->variabel_kelas }}</td>
+                                    <td>Belum Ada
+                                    </td>
+                                    <td>{{ $siswaAbsensiCount->jumlah_hadir }} / {{ $siswaCount }}</td>
+                                    <td>0</td>
+                                    <td>{{ $siswaCount }}</td>
+                                    <td>
+                                        Tidak Ada
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -10,18 +10,17 @@
     <div class="dash" id="dashBoard">
         <div class="dash-content" id="dashContent">
             <h1 class="content-head">Keamanan</h1>
-            <form action="{{ route('siswa.update', ['nis' => $siswas->siswaData->nis]) }}" class="secure-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+            <form action="{{ route('siswa.update', ['nis' => $siswas->siswaData->nis]) }}" class="secure-form" method="POST"
+                autocomplete="off" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 <div class="ubah-profilePic">
                     <div class="profile-img">
-                        <img src="@if ($siswas->siswaBio->image)
-                                    /images/siswa/{{ $siswas->siswaBio->image }}
+                        <img src="@if ($siswas->siswaBio->image) /images/siswa/{{ $siswas->siswaBio->image }}
                                 @else
-                                    {{ asset('images/siswa/avatar1.webp') }}
-                                @endif" alt="{{ $siswas->siswaData->nama_lengkap }}"
-                            aria-label="profile-picture" />
+                                    {{ asset('images/siswa/avatar1.webp') }} @endif"
+                            alt="{{ $siswas->siswaData->nama_lengkap }}" aria-label="profile-picture" />
                         <p>Ubah Foto Profil</p>
                     </div>
                     <label for="changeProfile" class="tombolUbah">Ubah</label>
@@ -30,21 +29,24 @@
                 </div>
                 <div class="nama-profil profile-secure">
                     <label for="nama">Nama :</label>
-                    <input type="text" value="{{ $siswas->siswaData->nama_lengkap }}" disabled class="input-secure" id="nama_lengkap" />
-                    <input type="text" value="{{ $siswas->siswaData->nama_lengkap }}" hidden class="input-secure" id="nama"
-                        name="nama_lengkap" />
+                    <input type="text" value="{{ $siswas->siswaData->nama_lengkap }}" disabled class="input-secure"
+                        id="nama_lengkap" />
+                    <input type="text" value="{{ $siswas->siswaData->nama_lengkap }}" hidden class="input-secure"
+                        id="nama" name="nama_lengkap" />
                 </div>
                 <div class="jKelamin-profil profile-secure">
                     <label for="jenis-kelamin">Jenis Kelamin :</label>
                     <select class="input-secure" id="jenis-kelamin" name="jenis_kelamin" disabled>
-                        <option value="{{ $siswas->siswaData->jenis_kelamin }}">{{ $siswas->siswaData->jenis_kelamin }}</option>
+                        <option value="{{ $siswas->siswaData->jenis_kelamin }}">{{ $siswas->siswaData->jenis_kelamin }}
+                        </option>
                         <option value="perempuan">Perempuan</option>
                     </select>
                 </div>
                 <div class="jurusan profile-secure">
                     <label for="jurusan">Kelas :</label>
                     <select class="input-secure" id="kelas" name="kelas" disabled>
-                        <option value="{{ $siswas->siswaData->kelas }}">{{ $siswas->siswaData->kelas }}</option>
+                        <option value="{{ $siswas->siswaData->kelas }}">{{ $siswas->siswaData->kelas }} -
+                            {{ $siswas->siswaJurusan->alias_jurusan }} {{ $siswas->siswaData->variabel_kelas }}</option>
                         <option value="XI">XI</option>
                         <option value="XII">XII</option>
                     </select>
@@ -63,23 +65,28 @@
                         </option>
                     </select>
                 </div>
-                
+
                 <div class="nis-profil profile-secure">
-                    <label for="nis">Nis :</label>
-                    <input type="text" value="{{ $siswas->siswaData->nis }}" readonly disabled class="input-secure" id="nis1" />
-                    <input type="text" value="{{ $siswas->siswaData->nis }}" hidden class="input-secure" id="nis" name="nis" />
+                    <label for="nis">NIS :</label>
+                    <input type="text" value="{{ $siswas->siswaData->nis }}" readonly disabled class="input-secure"
+                        id="nis1" />
+                    <input type="text" value="{{ $siswas->siswaData->nis }}" hidden class="input-secure" id="nis"
+                        name="nis" />
                 </div>
                 <div class="profile-secure">
                     <label for="tanggalLahir">Tanggal Lahir</label>
-                    <input type="date" required id="tanggalLahir" value="{{ $siswas->siswaData->tanggal_lahir }}" name="tanggal_lahir" />
+                    <input type="date" required id="tanggalLahir" style="padding-left: 0.3rem;"
+                        value="{{ $siswas->siswaData->tanggal_lahir }}" name="tanggal_lahir" />
                 </div>
                 <div class="no-hp-profil profile-secure">
                     <label for="noHp">Nomor Hp :</label>
-                    <input type="text" class="input-secure" id="noHp" name="no_telp" value="{{ $siswas->siswaLogin->no_telp }}" />
+                    <input type="text" class="input-secure" id="noHp" name="no_telp"
+                        value="{{ $siswas->siswaLogin->no_telp }}" />
                 </div>
                 <div class="no-hp-profil profile-secure">
                     <label for="eMail">Email :</label>
-                    <input type="email" class="input-secure" id="eMail" name="email" value="{{ $siswas->siswaLogin->email }}" />
+                    <input type="email" class="input-secure" id="eMail" name="email"
+                        value="{{ $siswas->siswaLogin->email }}" />
                 </div>
                 <div class="password-profil profile-secure">
                     <label for="password">Password :</label>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->enum('status', ['Hadir', 'Alpha', 'Sakit', 'Izin']);
             $table->time('jam_masuk')->unique();
             $table->time('jam_pulang')->nullable();
-            $table->string('lokasi_masuk');
+            $table->json('lokasi_masuk');
             $table->timestamps();
 
             $table->foreign('nis')

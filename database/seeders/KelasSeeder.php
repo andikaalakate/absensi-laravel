@@ -16,15 +16,21 @@ class KelasSeeder extends Seeder
         Kelas::create([
             'id_kelas' => '110',
             'nama_kelas' => 'X',
+            'alias_jurusan' => 'RPL',
+            'variabel_kelas' => '1'
         ]);
         Kelas::create([
             'id_kelas' => '111',
             'nama_kelas' => 'XI',
+            'alias_jurusan' => 'RPL',
+            'variabel_kelas' => '1'
         ]);
 
         Kelas::create([
             'id_kelas' => '112',
             'nama_kelas' => 'XII',
+            'alias_jurusan' => 'RPL',
+            'variabel_kelas' => '1'
         ]);
     }
 }

@@ -36,8 +36,8 @@ class SiswaController extends Controller
         // dd($siswaAbsensi);
 
         ini_set('max_execution_time', 120);
-        $theUrl     = config('app.guzzle_test_url').'/api/absensi2/siswa/'.Auth::user()->nis;
-        $siswaAbsensi   = Http::get($theUrl)->json();
+        $theUrl = config('app.guzzle_test_url') . '/api/absensi2/siswa/' . Auth::user()->nis;
+        $siswaAbsensi = Http::get($theUrl)->json();
         $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaJurusan')->where('nis', Auth::user()->nis)->first();
         // $siswaAbsensi = Http::withoutVerifying()->acceptJson()->get(route('siswa.absensi.show2', Auth::user()->nis))->json();
         // dd($siswaAbsensi);
@@ -56,8 +56,8 @@ class SiswaController extends Controller
     public function keamanan()
     {
         $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->where('nis', Auth::user()->nis)->first();
-        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/';
-        $siswaAbsensi   = Http::get($theUrl)->json();
+        $theUrl = config('app.guzzle_test_url') . '/api/absensi/siswa/';
+        $siswaAbsensi = Http::get($theUrl)->json();
 
         return view('siswa.keamanan', [
             'title' => "Keamanan",
@@ -67,21 +67,15 @@ class SiswaController extends Controller
     }
     public function peringkat(Request $request)
     {
-        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/';
-        $siswaAbsensi   = Http::get($theUrl)->json();
+        $theUrl = config('app.guzzle_test_url') . '/api/absensi/siswa/';
+        $siswaAbsensi = Http::get($theUrl)->json();
         $siswaAbsensiCount = SiswaAbsensi::get();
 
-        $filterKelas = $request->input('filter_kelas');
-
-        $query = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaAbsensi');
-
-        if ($filterKelas && $filterKelas !== 'semua') {
-            $query->whereHas('siswaData', function ($q) use ($filterKelas) {
-                $q->where('kelas', $filterKelas);
-            });
-        }
+        $query = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaAbsensi')
+            ->filterByKelas($request->input('filter_kelas'));
 
         $siswas = $query->paginate(10);
+
         $siswaHadirCount = $siswaAbsensiCount
             ->where('status', 'Hadir')
             ->count();
@@ -139,25 +133,25 @@ class SiswaController extends Controller
         // dd($siswaData);
 
         $hadirCount = $absensiCount
-        ->where('status', 'Hadir')
-        // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
-        // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
-        ->count();
+            ->where('status', 'Hadir')
+            // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
+            // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
+            ->count();
         $sakitCount = $absensiCount
-        ->where('status', 'Sakit')
-        // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
-        // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
-        ->count();
+            ->where('status', 'Sakit')
+            // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
+            // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
+            ->count();
         $izinCount = $absensiCount
-        // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
-        // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
-        ->where('status', 'Izin')
-        ->count();
+            // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
+            // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
+            ->where('status', 'Izin')
+            ->count();
         $alphaCount = $absensiCount
-        // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
-        // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
-        ->where('status', 'Alpha')
-        ->count();
+            // ->whereBetween('jam_masuk', ['06:00:00', '08:00:00'])
+            // ->whereBetween('jam_pulang', ['11:45:00', '14:00:00'])
+            ->where('status', 'Alpha')
+            ->count();
 
         return view('siswa.statistik', [
             'title' => "Statistik",
@@ -181,8 +175,8 @@ class SiswaController extends Controller
     public function pindaiqr()
     {
         $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->where('nis', Auth::user()->nis)->first();
-        $theUrl     = config('app.guzzle_test_url').'/api/absensi/siswa/'.Auth::user()->nis;
-        $siswaAbsensi   = Http::get($theUrl)->json();
+        $theUrl = config('app.guzzle_test_url') . '/api/absensi/siswa/' . Auth::user()->nis;
+        $siswaAbsensi = Http::get($theUrl)->json();
 
         // dd($siswaAbsensi);
         return view('siswa.pindaiqr', [

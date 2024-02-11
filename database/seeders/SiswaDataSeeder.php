@@ -16,12 +16,12 @@ class SiswaDataSeeder extends Seeder
         SiswaData::create([
             'nis' => '46710',
             'nama_lengkap' => 'Andika Pratama',
-            'qr_code' => '/api/absensi/siswa/46710',
             'jenis_kelamin' => 'Laki-Laki',
             'jurusan' => 'Rekayasa Perangkat Lunak',
             'kelas' => 'XI',
+            'variabel_kelas' => '1',
             'tanggal_lahir' => '2006-12-26'
         ]);
-        SiswaData::factory()->noId()->count(10)->create();
+        SiswaData::factory()->noId()->count(50)->create();
     }
 }

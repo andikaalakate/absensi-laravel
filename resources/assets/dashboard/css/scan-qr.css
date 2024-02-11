@@ -90,3 +90,10 @@
         left: 15px;
     }
 }
+
+img {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+}

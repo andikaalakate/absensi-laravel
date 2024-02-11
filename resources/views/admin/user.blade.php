@@ -11,10 +11,12 @@
         <div class="dash-content" id="dashContent">
             <h1 class="content-head">Data User</h1>
             <div class="data-user">
-                <label class="searchInput" for="cari">
-                    <input type="text" placeholder="Cari User..." id="cari" />
-                    <i class="bx bx-search" onclick="search()"></i>
-                </label>
+                <form id="searchForm" action="{{ route('admin.user') }}">
+                    <label class="searchInput" for="cari">
+                        <input type="text" placeholder="Cari user..." id="cari" name="search" value="{{ request('search') }}" />
+                        <i id="submitBtn" class="bx bx-search"></i>
+                    </label>
+                </form>
                 @foreach ($users as $u)
                     <div class="tabel">
                         <table border="1" class="table-data-user" id="{{ $loop->iteration }}">
@@ -53,23 +55,18 @@
                                 <td>:</td>
                                 <td class="passwordData">
                                     <input type="password" class="passwordInput"
-                                    value="{{ isset($u->password) ? $u->password : '-' }}" readonly
-                                    style="border: none;" disabled>
+                                        value="{{ isset($u->password) ? $u->password : '-' }}" readonly
+                                        style="border: none;" disabled>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Interaksi</td>
                                 <td>:</td>
-                                <td class="aksiButton" >
-                                    <button id="editButton"
-                                    data-id="{{ $u->id }}" 
-                                    data-nama="{{ $u->nama }}" 
-                                    data-username="{{ $u->username }}"
-                                    data-email="{{ $u->email }}"
-                                    data-notelp="{{ $u->no_telp }}"
-                                    data-role="{{ $u->role }}"
-                                    data-password="{{ $u->password }}"
-                                    >Edit</button>
+                                <td class="aksiButton">
+                                    <button id="editButton" data-id="{{ $u->id }}" data-nama="{{ $u->nama }}"
+                                        data-username="{{ $u->username }}" data-email="{{ $u->email }}"
+                                        data-notelp="{{ $u->no_telp }}" data-role="{{ $u->role }}"
+                                        data-password="{{ $u->password }}">Edit</button>
                                     <form action="{{ route('user.destroy', $u->id) }}" method="POST">
                                         @csrf
                                         @method('delete')
@@ -80,11 +77,39 @@
                         </table>
                     </div>
                 @endforeach
-                <div class="pagination">
-                    @for ($i = 1; $i <= $users->lastPage(); $i++)
-                        <button onclick="window.location.href = '{{ $users->url($i) }}'">{{ $i }}</button>
-                    @endfor
-                </div>
+                @if ($users->hasPages())
+                    <div class="pagination">
+                        @php
+                            $currentPage = $users->currentPage();
+                            $lastPage = $users->lastPage();
+                            $startPage = max($currentPage - 2, 1);
+                            $endPage = min($currentPage + 1, $lastPage);
+                        @endphp
+
+                        @if ($currentPage > 1)
+                            <button onclick="window.location.href = '{{ $users->url(1) }}'">
+                                <i class='bx bx-first-page'></i>
+                            </button>
+                            <button onclick="window.location.href = '{{ $users->previousPageUrl() }}'">
+                                <i class='bx bx-chevron-left'></i>
+                            </button>
+                        @endif
+
+                        @for ($i = $startPage; $i <= $endPage; $i++)
+                            <button onclick="window.location.href = '{{ $users->url($i) }}'"
+                                @if ($i === $currentPage) class="active" @endif>{{ $i }}</button>
+                        @endfor
+
+                        @if ($currentPage < $lastPage)
+                            <button onclick="window.location.href = '{{ $users->nextPageUrl() }}'">
+                                <i class='bx bx-chevron-right'></i>
+                            </button>
+                            <button onclick="window.location.href = '{{ $users->url($lastPage) }}'">
+                                <i class='bx bx-last-page'></i>
+                            </button>
+                        @endif
+                    </div>
+                @endif
             </div>
             @include('components.admin.tambahform')
             @foreach ($errors->all() as $error)

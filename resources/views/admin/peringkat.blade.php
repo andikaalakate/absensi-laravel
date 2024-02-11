@@ -2,7 +2,7 @@
 
 @section('head')
     <title>Admin - {{ $title }}</title>
-    <link rel="stylesheet" href="{{ mix('assets/dashboardAdmin/css/adminPeringkat.css') . "?id=" . Str::random(16) }}" />
+    <link rel="stylesheet" href="{{ mix('assets/dashboardAdmin/css/adminPeringkat.css') . '?id=' . Str::random(16) }}" />
 @endsection
 
 @section('content')
@@ -14,15 +14,16 @@
                 <div class="filter">
                     <label class="searchInput" for="cariNama">
                         <input type="text" class="filter-nama" placeholder="Cari Siswa..." id="cariNama" />
-                        <i class="bx bx-search" id="cari-icon" ></i>
+                        <i class="bx bx-search" id="cari-icon"></i>
                     </label>
                     <select name="filter_kelas" id="filterKelas">
-                        <option value="filter">Filter</option>
-                        <option value="semua">Semua</option>
-                        <option value="X">X (Sepuluh)</option>
-                        <option value="XI">XI (Sebelas)</option>
-                        <option value="XII">XII (Dua Belas)</option>
+                        <option value="semua" {{ request('filter_kelas') == 'semua' ? 'selected' : '' }}>Semua</option>
+                        <option value="X" {{ request('filter_kelas') == 'X' ? 'selected' : '' }}>X (Sepuluh)</option>
+                        <option value="XI" {{ request('filter_kelas') == 'XI' ? 'selected' : '' }}>XI (Sebelas)</option>
+                        <option value="XII" {{ request('filter_kelas') == 'XII' ? 'selected' : '' }}>XII (Dua Belas)
+                        </option>
                     </select>
+
                 </div>
                 <div class="tabel">
                     <table border="1" class="tabel-leaderboard">
@@ -32,15 +33,26 @@
                             <th>Kelas</th>
                             <th>Urutan</th>
                         </tr>
-    
-                        @foreach ($siswas as $siswa)
+
+                        @php
+                            $sortedSiswas = $siswas->sortByDesc('percent_hadir');
+                        @endphp
+
+                        @foreach ($sortedSiswas as $siswa)
                             <tr>
                                 <td class="td-nomor">{{ $loop->iteration }}.</td>
                                 <td class="td-nama">
                                     <p class="nama-siswa">{{ $siswa->siswaData->nama_lengkap }}</p>
-                                    <small>{{ $hadirCount }} Hadir, {{ $sakitCount }} Sakit, {{ $izinCount }} Izin, {{ $alphaCount }} Alpha</small>
+                                    <small>
+                                        {{ $siswa->jumlah_hadir }} Hadir,
+                                        {{ $siswa->jumlah_sakit }} Sakit,
+                                        {{ $siswa->jumlah_izin }} Izin,
+                                        {{ $siswa->jumlah_alpha }} Alpha
+                                    </small>
                                 </td>
-                                <td class="td-kelas">{{ $siswa->siswaData->kelas }} - {{ $siswa->siswaJurusan->alias_jurusan }}</td>
+                                <td class="td-kelas">{{ $siswa->siswaData->kelas }} -
+                                    {{ $siswa->siswaJurusan->alias_jurusan }}
+                                </td>
                                 @if ($loop->iteration >= 4)
                                     <td class="td-peringkat">#{{ $loop->iteration }}</td>
                                 @else
@@ -56,7 +68,7 @@
 @endsection
 
 @section('script')
-    <script src="{{ mix('assets/dashboardAdmin/js/peringkat.js') . "?id=" . Str::random(16) }}"></script>
+    <script src="{{ mix('assets/dashboardAdmin/js/peringkat.js') . '?id=' . Str::random(16) }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {

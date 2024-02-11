@@ -9,6 +9,7 @@ use App\Models\Jurusan;
 use App\Models\Kelas;
 use App\Models\SiswaAbsensi;
 use App\Models\SiswaData;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +64,7 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         $theUrl1 = config('app.guzzle_test_url') . '/api/absensi/siswa/';
         $siswaAbsensi = Http::get($theUrl1)->json();
@@ -81,6 +82,9 @@ class AdminController extends Controller
         $siswaAbsensiCount = SiswaAbsensi::where('status', 'Hadir')
             ->whereDate('created_at', $today)
             ->get();
+
+        // $sesi = $request->session();
+        // dd($sesi);
 
         $siswaHadirCount = $siswaAbsensiCount
             ->pluck('nis')
@@ -109,15 +113,10 @@ class AdminController extends Controller
         $theUrl = config('app.guzzle_test_url') . '/api/absensi/siswa/';
         $siswaAbsensi = Http::get($theUrl)->json();
 
-        // dd($siswaAbsensi);
+        $query = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaAbsensi')->filterBySiswa();
 
-        // ini_set('max_execution_time', 120);
-        // $siswaAbsensi = Http::withoutVerifying()->timeout(30)->get(route('siswa.absensi.show2', Auth::user()->nis))->json();
-
-        // $theUrl2     = config('app.guzzle_test_url').'/api/siswa/';
-        // $siswas   = Http::get($theUrl2)->json();
-
-        $siswaData = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->paginate(5);
+        $siswaData = $query->paginate(5)->withQueryString();
+        
         $jurusan = Jurusan::all();
         $kelas = Kelas::all();
         // dd($siswaData);
@@ -134,7 +133,7 @@ class AdminController extends Controller
     public function jurusan()
     {
         $kelas = Kelas::paginate(3);
-        $jurusan = Jurusan::paginate(3);
+        $jurusan = Jurusan::filterByJurusan()->paginate(3)->withQueryString();
         return view('admin.jurusan', [
             'title' => "Data Jurusan",
             'jurusan' => $jurusan,
@@ -156,7 +155,7 @@ class AdminController extends Controller
     public function user()
     {
         $kelas = Kelas::paginate(3);
-        $user = Admin::paginate(3);
+        $user = Admin::filterByUsers()->paginate(3)->withQueryString();
         $jurusan = Jurusan::paginate(3);
         return view('admin.user', [
             'title' => "Data User",
@@ -172,17 +171,12 @@ class AdminController extends Controller
         $siswaAbsensi = Http::get($theUrl)->json();
         $siswaAbsensiCount = SiswaAbsensi::get();
 
-        $filterKelas = $request->input('filter_kelas');
+        $query = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaAbsensi', 'siswaJurusan')
+        ->filterByKelas($request->input('filter_kelas'));
 
-        $query = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaAbsensi');
+        $siswas = $query->get();
 
-        if ($filterKelas && $filterKelas !== 'semua') {
-            $query->whereHas('siswaData', function ($q) use ($filterKelas) {
-                $q->where('kelas', $filterKelas);
-            });
-        }
-
-        $siswas = $query->paginate(10);
+        // dd($siswas);
 
         $siswaHadirCount = $siswaAbsensiCount
             ->where('status', 'Hadir')
@@ -208,9 +202,82 @@ class AdminController extends Controller
         ]);
     }
 
-    public function laporan()
+    public function laporan(Request $request)
     {
+        $today = Carbon::today();
+        $siswaDataCount = SiswaData::with('siswaData', 'siswaKelas', 'siswaJurusan', 'siswaAbsensi')->get();
+        $siswaAbsensiCounts = SiswaAbsensi::select(
+            DB::raw('COUNT(*) as jumlah_hadir'),
+            'kelas',
+            'jurusan.alias_jurusan',
+            'kelas.variabel_kelas'
+        )
+            ->join('siswa_data', 'siswa_absensi.nis', '=', 'siswa_data.nis')
+            ->join('kelas', 'siswa_data.kelas', '=', 'kelas.nama_kelas')
+            ->join('jurusan', 'kelas.alias_jurusan', '=', 'jurusan.alias_jurusan')
+            ->where('siswa_absensi.status', 'Hadir')
+            ->whereDate('siswa_absensi.created_at', $today)
+            ->groupBy('kelas', 'jurusan.alias_jurusan', 'kelas.variabel_kelas')
+            ->get();
+        // dd($siswaDataCount);
+        $siswaCount = $siswaDataCount->count();
+        if ($request->get('lihat') == 'pdf') {
+            $pdf = Pdf::loadView('admin.cetakLaporan', [
+                'siswas' => $siswaDataCount,
+                'siswaAbsensiCounts' => $siswaAbsensiCounts,
+                'siswaCount' => $siswaCount
+            ]);
+            return $pdf->stream('cetaklaporan (' . $today . ').pdf');
+        }
+        if ($request->get('cetak') == 'pdf') {
+            $pdf = Pdf::loadView('admin.cetakLaporan', [
+                'siswas' => $siswaDataCount,
+                'siswaAbsensiCounts' => $siswaAbsensiCounts,
+                'siswaCount' => $siswaCount
+            ]);
+            return $pdf->download('cetaklaporan (' . $today . ').pdf');
+        }
         return view('admin.laporan', [
+            'title' => "Data Laporan",
+            'siswas' => $siswaDataCount,
+            'siswaAbsensiCounts' => $siswaAbsensiCounts,
+            'siswaCount' => $siswaCount
+        ]);
+    }
+
+    public function viewLaporan()
+    {
+        $today = Carbon::today();
+        $siswaDataCount = SiswaData::with('siswaData', 'siswaKelas', 'siswaJurusan', 'siswaAbsensi')->get();
+        $siswaAbsensiCounts = SiswaAbsensi::select(
+            DB::raw('COUNT(*) as jumlah_hadir'),
+            'kelas',
+            'jurusan.alias_jurusan',
+            'kelas.variabel_kelas'
+        )
+            ->join('siswa_data', 'siswa_absensi.nis', '=', 'siswa_data.nis')
+            ->join('kelas', 'siswa_data.kelas', '=', 'kelas.nama_kelas')
+            ->join('jurusan', 'kelas.alias_jurusan', '=', 'jurusan.alias_jurusan')
+            ->where('siswa_absensi.status', 'Hadir')
+            ->whereDate('siswa_absensi.created_at', $today)
+            ->groupBy('kelas', 'jurusan.alias_jurusan', 'kelas.variabel_kelas')
+            ->get();
+        // dd($siswaDataCount);
+        $siswaCount = $siswaDataCount->count();
+        $pdf = Pdf::loadView('admin.cetakLaporan', [
+            'siswas' => $siswaDataCount,
+            'siswaAbsensiCounts' => $siswaAbsensiCounts,
+            'siswaCount' => $siswaCount
+        ]);
+        return $pdf->stream('cetaklaporan.pdf');
+        // return view('admin.cetakLaporan', [
+        //     'title' => "Data Laporan",
+        // ]);
+    }
+
+    public function cetakLaporan()
+    {
+        return view('admin.cetakLaporan', [
             'title' => "Data Laporan",
         ]);
     }

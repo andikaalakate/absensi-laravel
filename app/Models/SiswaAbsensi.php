@@ -25,19 +25,19 @@ class SiswaAbsensi extends Model
 
     public function siswaAbsensi()
     {
-        return $this->hasOne(SiswaAbsensi::class, 'nis', 'nis');
+        return $this->belongsTo(SiswaAbsensi::class, 'nis', 'nis');
     }
     public function siswaData()
     {
-        return $this->hasOne(SiswaData::class, 'nis', 'nis');
+        return $this->belongsTo(SiswaData::class, 'nis', 'nis');
     }
     public function siswaLogin()
     {
-        return $this->hasOne(SiswaLogin::class, 'nis', 'nis');
+        return $this->belongsTo(SiswaLogin::class, 'nis', 'nis');
     }
 
     public function siswaBio()
     {
-        return $this->hasOne(SiswaBio::class, 'nis', 'nis');
+        return $this->belongsTo(SiswaBio::class, 'nis', 'nis');
     }
 }

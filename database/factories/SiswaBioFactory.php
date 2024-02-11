@@ -23,9 +23,7 @@ class SiswaBioFactory extends Factory
         return [
             'nis' => $this->faker->unique()->randomNumber(5),
             'alamat' => $this->faker->address,
-            'biografi' => $this->faker->sentence,
-            'hobi' => $this->faker->word,
-            'image' => '/images/siswa/avatar1.webp'
+            'image' => 'avatar1.webp'
         ];
     }
     public function configure()

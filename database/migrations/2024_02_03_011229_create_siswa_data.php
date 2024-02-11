@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('siswa_data', function (Blueprint $table) {
             $table->string('nis', 20)->primary();
             $table->string('nama_lengkap', 50)->index();
-            $table->string('qr_code')->unique();
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
             $table->date('tanggal_lahir');
             $table->string('kelas', 50)->index();
             $table->string('jurusan', 50)->index();
+            $table->string('variabel_kelas', 2)->index();
             $table->timestamps();
 
             $table->foreign('kelas')->references('nama_kelas')->on('kelas');

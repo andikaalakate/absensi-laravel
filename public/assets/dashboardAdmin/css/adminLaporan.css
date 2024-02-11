@@ -6,11 +6,35 @@
 
 .filter-tanggal {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: space-between;
 }
 
 .filter-tanggal input {
     max-width: 500px;
     width: 100%;
+}
+
+.button-report {
+    display: flex;
+    gap: 5px;
+}
+
+.lihat--button, .cetak--button {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    padding:3px 5px;
+    border-radius: 5px;
+    background-color: rgb(100, 100, 177);
+    color: white;
+}
+
+.lihat--button:hover, .cetak--button:hover {
+    background-color: rgb(60, 60, 143);
+    box-shadow: 0 0 8px rgb(60, 60, 143);
 }
 
 .table-report {

@@ -2,7 +2,7 @@
 
 @section('head')
     <title>Siswa - {{ $title }}</title>
-    <link rel="stylesheet" href="{{ mix('assets/dashboard/css/statistik.css') }}">
+    <link rel="stylesheet" href="{{ mix('assets/dashboard/css/statistik.css') . '?id=' . Str::random(16) }}">
 @endsection
 
 @section('content')
@@ -10,9 +10,31 @@
     <div class="dash" id="dashBoard">
         <div class="dash-content" id="dashContent">
             <h1 class="content-head">Statistik</h1>
-            <div class="chart">
-                <canvas id="myDoughnutChart" width="400" height="400"></canvas>
+            <div class="chart-card">
+                <div class="chart">
+                    <canvas id="myDoughnutChart" width="400" height="400"></canvas>
+                </div>
             </div>
+            @php
+                if (isset($siswaAbsensi['data'][0]['lokasi_masuk'])) {
+                    $lokasiMasuk = json_decode($siswaAbsensi['data'][0]['lokasi_masuk'], true);
+                    $latitude = $lokasiMasuk['latitude'];
+                    $longitude = $lokasiMasuk['longitude'];
+                } else {
+                    $latitude = 0;
+                    $longitude = 0;
+                }
+            @endphp
+
+            <div class="current-location">
+                <h1><i class='bx bx-current-location'></i>Lokasi Absensi Terbaru</h1>
+                <div class="maps" id="location">
+                    <iframe width="100%" height="100%" frameborder="0" style="border:0"
+                        src="https://www.google.com/maps?q={{ $latitude }},{{ $longitude }}&output=embed"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+
             <div class="detail-data">
                 <table class="tabel-data">
                     <tr>
@@ -35,7 +57,7 @@
                                 <td>{{ $i + $index }}.</td>
                                 {{-- <td>1.</td> --}}
                                 <!-- tanggal -->
-                                <td>{{ \Carbon\Carbon::parse($siswa['created_at'])->format('Y-m-d') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($siswa['created_at'])->format('d F Y') }}</td>
                                 <!-- jam masuk -->
                                 <td>{{ \Carbon\Carbon::parse($siswa['jam_masuk'])->format('H:i') }}</td>
                                 <!-- jam pulang -->
@@ -56,7 +78,8 @@
                     @foreach ($siswaAbsensi['links'] as $item)
                         @if ($item['label'] == 'Previous' || $item['label'] == 'Next')
                             @if (isset($item['url2']))
-                                <button onclick="window.location.href = '{{ $item['url2'] }}'">{{ $item['label'] }}</button>
+                                <button
+                                    onclick="window.location.href = '{{ $item['url2'] }}'">{{ $item['label'] }}</button>
                             @else
                                 <button>{{ $item['label'] }}</button>
                             @endif

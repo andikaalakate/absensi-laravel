@@ -35,14 +35,24 @@ function search() {
     });
 }
 
-document.getElementById("cari").addEventListener("keyup", function (event) {
+document.getElementById("submitBtn").addEventListener("click", function () {
+    document.getElementById("searchForm").submit();
+});
 
-    if (event.key === "Enter") {
-        handleSearch();
-    } else {
-        search();
+document.getElementById("cari").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        document.getElementById("searchForm").submit();
     }
 });
+
+// document.getElementById("cari").addEventListener("keyup", function (event) {
+
+//     if (event.key === "Enter") {
+//         handleSearch();
+//     } else {
+//         search();
+//     }
+// });
 
 
 // Konfirmasi Tambah Jurusan

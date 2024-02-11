@@ -22,7 +22,7 @@
                         <tr>
                             <th>Kelas</th>
                             <th>:</th>
-                            <th>{{ $siswas->siswaData->kelas }} - {{ $siswas->siswaJurusan->alias_jurusan }}</th>
+                            <th>{{ $siswas->siswaData->kelas }} - {{ $siswas->siswaJurusan->alias_jurusan }} {{ $siswas->siswaData->variabel_kelas }}</th>
                         </tr>
                         <tr>
                             <th>Jurusan</th>

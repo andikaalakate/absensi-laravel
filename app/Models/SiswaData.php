@@ -25,7 +25,12 @@ class SiswaData extends Model
 
     public function siswaData()
     {
-        return $this->hasOne(SiswaData::class, 'nis', 'nis');
+        return $this->belongsTo(SiswaData::class, 'nis', 'nis');
+    }
+
+    public function siswaKelas()
+    {
+        return $this->hasOne(Kelas::class, 'nama_kelas', 'kelas');
     }
 
     public function siswaJurusan()
@@ -35,16 +40,66 @@ class SiswaData extends Model
 
     public function siswaAbsensi()
     {
-        return $this->hasOne(SiswaAbsensi::class, 'nis', 'nis');
+        return $this->hasMany(SiswaAbsensi::class, 'nis');
+    }
+
+    public function getJumlahHadirAttribute()
+    {
+        return $this->siswaAbsensi()->where('status', 'Hadir')->count();
+    }
+
+    public function getJumlahSakitAttribute()
+    {
+        return $this->siswaAbsensi()->where('status', 'Sakit')->count();
+    }
+
+    public function getJumlahIzinAttribute()
+    {
+        return $this->siswaAbsensi()->where('status', 'Izin')->count();
+    }
+
+    public function getJumlahAlphaAttribute()
+    {
+        return $this->siswaAbsensi()->where('status', 'Alpha')->count();
+    }
+
+    public function getPercentHadirAttribute()
+    {
+        $totalKehadiran = $this->siswaAbsensi()->count();
+        if ($totalKehadiran > 0) {
+            $hadirCount = $this->siswaAbsensi()->whereIn('status', ['Hadir', 'Sakit', 'Izin', 'Alpha'])->count();
+            return round(($hadirCount / $totalKehadiran) * 100, 2);
+        } else {
+            return 0;
+        }
     }
 
     public function siswaLogin()
     {
-        return $this->hasOne(SiswaLogin::class, 'nis', 'nis');
+        return $this->belongsTo(SiswaLogin::class, 'nis', 'nis');
     }
 
     public function siswaBio()
     {
-        return $this->hasOne(SiswaBio::class, 'nis', 'nis');
+        return $this->belongsTo(SiswaBio::class, 'nis', 'nis');
+    }
+
+    public function scopeFilterByKelas($query, $kelas)
+    {
+        if ($kelas && $kelas !== 'semua') {
+            return $query->whereHas('siswaData', function ($q) use ($kelas) {
+                $q->where('kelas', $kelas);
+            });
+        }
+
+        return $query;
+    }
+
+    public function scopeFilterBySiswa($query)
+    {
+        if (request('search')) {
+            return $query->where('nama_lengkap', 'like', '%' . request('search') . '%')
+                ->orWhere('nis', 'like', '%' . request('search') . '%');
+        }
     }
 }

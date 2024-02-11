@@ -35,14 +35,14 @@ function search() {
     });
 }
 
-document.getElementById("cari").addEventListener("keyup", function (event) {
+// document.getElementById("cari").addEventListener("keyup", function (event) {
 
-    if (event.key === "Enter") {
-        handleSearch();
-    } else {
-        search();
-    }
-});
+//     if (event.key === "Enter") {
+//         handleSearch();
+//     } else {
+//         search();
+//     }
+// });
 
 document.getElementById("noButton").addEventListener("click", function () {
     var confirmElement = document.getElementById("confirm");

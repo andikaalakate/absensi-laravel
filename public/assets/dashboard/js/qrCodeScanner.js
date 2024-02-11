@@ -46,12 +46,11 @@ function startScanner() {
       supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
       idleTimeout: 10000
     });
-    html5QrcodeScanner.render(onScanSuccess, onScanError);
+    html5QrcodeScanner.render(onScanSuccess);
   }
 }
 function stopScanner() {
   if (html5QrcodeScanner) {
-    html5QrcodeScanner.stop();
     html5QrcodeScanner.clear();
     html5QrcodeScanner = null;
   }
@@ -72,6 +71,7 @@ function onScanSuccess(qrCodeMessage) {
   }
 }
 function submitFormWithLocation(qrCodeMessage) {
+  var absensiCount = 0;
   var form = document.getElementById("form-submit");
   var nisInput = form.querySelector("input[name='nis']");
   var statusInput = form.querySelector("input[name='status']");
@@ -80,8 +80,10 @@ function submitFormWithLocation(qrCodeMessage) {
   var inputQR = document.getElementById("inputQR");
   var qrCodeContent = inputQR.value;
   var formattedTime = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-  console.log("qrCodeMessage:", qrCodeMessage);
-  console.log("NIS Akun Absensi:", nisInput.value);
+
+  // console.log("qrCodeMessage:", qrCodeMessage);
+  // console.log("NIS Akun Absensi:", nisInput.value);
+
   if (qrCodeMessage !== nisInput.value) {
     Swal.fire({
       icon: "error",
@@ -90,7 +92,7 @@ function submitFormWithLocation(qrCodeMessage) {
       showConfirmButton: true,
       timer: 5000
     });
-    return; // Hentikan proses absen jika NIS QRCode tidak sesuai
+    return;
   }
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -98,10 +100,10 @@ function submitFormWithLocation(qrCodeMessage) {
       var longitude = position.coords.longitude;
       var data = {
         nis: nisInput.value,
-        lokasi_masuk: {
+        lokasi_masuk: JSON.stringify({
           latitude: latitude,
           longitude: longitude
-        },
+        }),
         jam_masuk: formattedTime,
         jam_keluar: null,
         status: statusInput.value
@@ -155,9 +157,11 @@ function submitFormWithLocation(qrCodeMessage) {
     });
   }
 }
-function onScanError(errorMessage) {
-  console.error("QR Code scan error:", errorMessage);
-}
+
+// function onScanError(errorMessage) {
+//     console.error("QR Code scan error:", errorMessage);
+// }
+
 document.addEventListener("DOMContentLoaded", function () {
   // submitFormWithLocation();
 
