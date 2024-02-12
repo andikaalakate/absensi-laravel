@@ -20,7 +20,7 @@
                 <div id="btn-scan-qr">
                     <div id="qrCodeReader"
                         class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md lg:w-[50rem] items center justify-center mx-auto text-center bg-center self-center flex w-full image-full"
-                        width="800px" style="display: none;">
+                        width="775px" style="display: none;">
                     </div>
                     <div class="border-2 border-black shadow-md drop-shadow-md shadow-slate-700 bg-white rounded-md p-5 user-select-none"
                         id="qrcodeContainer">
@@ -63,8 +63,8 @@
         var nisInput = form.querySelector("input[name='nis']");
         let qrcode = new QRCode(document.getElementById("qrcode"), {
             text: nisInput.value,
-            width: window.innerWidth > 1280 ? 800 : 300,
-            height: window.innerWidth > 1280 ? 800 : 300,
+            width: window.innerWidth > 1280 ? 800 : 275,
+            height: window.innerWidth > 1280 ? 800 : 275,
             colorDark: "#000000",
             colorLight: "#ffffff",
             correctLevel: QRCode.CorrectLevel.H

@@ -22,6 +22,7 @@ const urlsToCache = [
     "/",
     "index.php",
     "/login",
+    "css/lostConnection.css",
     "assets/dashboard/js/checkLocation.js",
     "assets/dashboard/js/instascan.min.js",
     "assets/dashboard/js/main.js",

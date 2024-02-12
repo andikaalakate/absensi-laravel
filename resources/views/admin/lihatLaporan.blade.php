@@ -5,16 +5,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="e-Absensi siswa di SMK Swasta Jambi Medan" />
-    <title>Document</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="PWA">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="PWA">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" type="application/manifest+json" href="{{ asset('__manifest.json') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
+    <title>Admin - Laporan PDF</title>
     <!-- Style -->
-    <link rel="stylesheet" href="lihatLaporan.css" media="all">
-    <link rel="stylesheet" href="../assets/dashboard/css/style.css">
+    <link rel="stylesheet" href="{{ mix('assets/dashboardAdmin/css/lihatLaporan.css') . '?id=' . Str::random(16) }}" media="all">
 </head>
 
 <body>
     <div class="data-sekolah">
         <div class="img-sekolah sekolah">
-            <img src="../assets/dashboard/img/avatar1.webp" alt="Yayasan Pendidikan SMK Swasta Jambi Medan">
+            <img src="{{ asset('images/avatar1.webp') }}" alt="Yayasan Pendidikan SMK Swasta Jambi Medan">
         </div>
         <div class="data">
             <p>Yayasan Pendidikan Jambi Medan</p>
@@ -27,7 +35,7 @@
             </div>
         </div>
         <div class="img-dinas sekolah">
-            <img src="../assets/dashboard/img/avatar1.webp" alt="Yayasan Pendidikan SMK Swasta Jambi Medan">
+            <img src="{{ asset('images/avatar1.webp') }}" alt="Yayasan Pendidikan SMK Swasta Jambi Medan">
         </div>
     </div><br>
     <p class="rekapKehadiran"><span>Rekapitulasi Pembelajaran Semester Genap</span> <span>TP. 2023/24</span> </p>

@@ -12,10 +12,11 @@
     "/assets/dashboardAdmin/js/peringkat.js": "/assets/dashboardAdmin/js/peringkat.js",
     "/assets/dashboardAdmin/js/editSiswa.js": "/assets/dashboardAdmin/js/editSiswa.js",
     "/assets/dashboard/css/style.css": "/assets/dashboard/css/style.css",
+    "/css/lostConnection.css": "/css/lostConnection.css",
     "/assets/login/css/style.css": "/assets/login/css/style.css",
-    "/assets/dashboard/css/keamanan.css": "/assets/dashboard/css/keamanan.css",
     "/css/tailwind.css": "/css/tailwind.css",
     "/css/app.css": "/css/app.css",
+    "/assets/dashboardAdmin/css/lihatLaporan.css": "/assets/dashboardAdmin/css/lihatLaporan.css",
     "/assets/dashboardAdmin/css/adminLaporan.css": "/assets/dashboardAdmin/css/adminLaporan.css",
     "/assets/dashboardAdmin/css/adminDashboard.css": "/assets/dashboardAdmin/css/adminDashboard.css",
     "/assets/dashboardAdmin/css/adminPeringkat.css": "/assets/dashboardAdmin/css/adminPeringkat.css",
@@ -27,5 +28,6 @@
     "/assets/dashboard/css/scan-qr.css": "/assets/dashboard/css/scan-qr.css",
     "/assets/dashboard/css/statistik.css": "/assets/dashboard/css/statistik.css",
     "/assets/dashboard/css/profilSiswa.css": "/assets/dashboard/css/profilSiswa.css",
-    "/assets/dashboard/css/leaderboard.css": "/assets/dashboard/css/leaderboard.css"
+    "/assets/dashboard/css/leaderboard.css": "/assets/dashboard/css/leaderboard.css",
+    "/assets/dashboard/css/keamanan.css": "/assets/dashboard/css/keamanan.css"
 }
