@@ -7,7 +7,12 @@
     <title>Login</title>
     <meta name="keywords" content="ePresensi GADAK">
     <meta name="description" content="e-Presensi Siswa di SMK Swasta Jambi Medan" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="theme-color" content="#ffffff">
     <link rel="manifest" type="application/manifest+json" href="{{ asset('__manifest.json') }}">
+
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ mix('assets/login/css/style.css') . '?id=' . Str::random(16) }}" media="all">
 
@@ -22,6 +27,10 @@
 
 <body>
     <div class="login-container">
+        <div class="button-page">
+            <a href="{{ route('login') }}">Login Siswa</a>
+            <a href="{{ route('admin.login') }}">Login Admin</a>
+        </div>
         <form action="{{ Request::is('admin/login') ? '/admin/proseslogin' : '/proseslogin' }}" method="POST"
             class="form-login" autocomplete="off">
             @csrf
@@ -61,10 +70,26 @@
         <img src="{{ asset('images/icon.png') }}" alt="GADAK Studio">
         <hr>
         <h1 class="detail-creator">
-            Made by <a href="https://gadakstd.my.id/">GADAK Studio</a>
+            Made by <a href="https://gadakstd.my.id/" id="externalLink">GADAK Studio</a>
         </h1>
     </div>
     <script src="{{ mix('assets/login/js/main.js') . '?id=' . Str::random(16) }}" defer></script>
+    <script>
+        document.getElementById("externalLink").addEventListener("click", function(event) {
+            event.preventDefault(); // Mencegah tautan dari membuka tab baru langsung
+            const url = event.target.href;
+            window.open(url, '_blank'); // Membuka tautan di browser eksternal
+        });
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    // console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    // console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>

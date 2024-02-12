@@ -20,6 +20,6 @@ class SiswaAbsensiSeeder extends Seeder
             'lokasi_masuk' => 'SMKS Jambi Medan',
             'status' => 'Hadir'
         ]);
-        // SiswaAbsensi::factory()->noId()->count(50)->create();
+        SiswaAbsensi::factory()->noId()->count(50)->create();
     }
 }

@@ -22,7 +22,8 @@
                         <tr>
                             <th>Kelas</th>
                             <th>:</th>
-                            <th>{{ $siswas->siswaData->kelas }} - {{ $siswas->siswaJurusan->alias_jurusan }} {{ $siswas->siswaData->variabel_kelas }}</th>
+                            <th>{{ $siswas->siswaData->kelas }} - {{ $siswas->siswaJurusan->alias_jurusan }}
+                                {{ $siswas->siswaData->variabel_kelas }}</th>
                         </tr>
                         <tr>
                             <th>Jurusan</th>
@@ -81,6 +82,16 @@
                             <td>Nomor Telepon</td>
                             <td>:</td>
                             <td>{{ $siswas->siswaLogin->no_telp }}</td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>:</td>
+                            <td class="status">
+                                <span
+                                    class="bg-{{ $siswas->siswaLogin->last_seen >= now()->subMinutes(2) ? 'green' : 'red' }}">
+                                    {{ $siswas->siswaLogin->last_seen >= now()->subMinutes(2) ? 'Online' : 'Offline' }}
+                                </span>
+                            </td>
                         </tr>
                     </table>
                 </div>

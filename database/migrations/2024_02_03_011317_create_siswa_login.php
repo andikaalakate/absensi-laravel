@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('email')->unique();
             $table->string('no_telp', 16);
+            $table->string('last_seen')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

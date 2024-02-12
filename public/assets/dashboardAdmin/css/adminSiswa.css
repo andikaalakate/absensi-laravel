@@ -87,6 +87,7 @@ input::selection {
 #editButton {
     background-color: rgb(55, 155, 52);
 }
+
 #editButton:hover {
     background-color: rgb(33, 107, 30);
 }
@@ -365,7 +366,7 @@ div:active {
     border: 1px solid #0007;
 }
 
-.form-modal > button {
+.form-modal>button {
     border: none;
     background-color: rgb(38, 168, 38);
     padding: 5px;
@@ -375,7 +376,7 @@ div:active {
     box-shadow: 0 0 4px #0006;
 }
 
-.form-modal > button:hover {
+.form-modal>button:hover {
     background-color: rgb(22, 114, 22);
 }
 
@@ -410,4 +411,30 @@ div:active {
 
 .qrlihat button {
     max-width: 6.5rem;
+}
+
+.bg-red {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border-radius: 0.3rem;
+    padding: 0.2rem 0.4rem;
+    font-size: small;
+    display: flex;
+    align-items: center;
+    max-width: 5rem;
+    justify-content: center;
+    text-align: center;
+}
+
+.bg-green {
+    background-color: rgb(0, 128, 0);
+    color: white;
+    border-radius: 0.3rem;
+    padding: 0.2rem 0.4rem;
+    font-size: small;
+    display: flex;
+    align-items: center;
+    max-width: 5rem;
+    justify-content: center;
+    text-align: center;
 }

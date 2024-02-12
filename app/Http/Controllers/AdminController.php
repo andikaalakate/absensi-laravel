@@ -9,6 +9,7 @@ use App\Models\Jurusan;
 use App\Models\Kelas;
 use App\Models\SiswaAbsensi;
 use App\Models\SiswaData;
+use App\Models\SiswaLogin;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -116,6 +117,8 @@ class AdminController extends Controller
         $query = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaAbsensi')->filterBySiswa();
 
         $siswaData = $query->paginate(5)->withQueryString();
+
+        $siswaStatus = SiswaLogin::orderBy('last_seen', 'desc')->get();
         
         $jurusan = Jurusan::all();
         $kelas = Kelas::all();
@@ -125,7 +128,8 @@ class AdminController extends Controller
             'siswas' => $siswaData,
             'siswaAbsensi' => $siswaAbsensi,
             'jurusan' => $jurusan,
-            'kelas' => $kelas
+            'kelas' => $kelas,
+            'siswaStatus' => $siswaStatus
         ]);
 
     }

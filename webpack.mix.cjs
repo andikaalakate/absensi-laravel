@@ -77,6 +77,10 @@ mix.css(
     "resources/assets/dashboardAdmin/css/adminLaporan.css",
     "assets/dashboardAdmin/css"
 )
+.css(
+    "resources/assets/dashboardAdmin/css/lihatLaporan.css",
+    "assets/dashboardAdmin/css"
+)
 .js(
     "resources/assets/dashboard/js/main.js",
     "assets/dashboard/js"

@@ -14,7 +14,8 @@
             <div class="data-siswa">
                 <form id="searchForm" action="{{ route('admin.siswa') }}">
                     <label class="searchInput" for="cari">
-                        <input type="text" placeholder="Cari siswa..." id="cari" name="search" value="{{ request('search') }}" />
+                        <input type="text" placeholder="Cari siswa..." id="cari" name="search"
+                            value="{{ request('search') }}" />
                         <i id="submitBtn" class="bx bx-search"></i>
                     </label>
                 </form>
@@ -94,6 +95,22 @@
                                 <td>:</td>
                                 <td class="persentaseKehadiran">
                                     {{ $siswa->percent_hadir }}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Terakhir Login</td>
+                                <td>:</td>
+                                <td class="terakhirLogin">
+                                    {{ isset($siswa->siswaLogin->last_seen) ? \Carbon\Carbon::parse($siswa->siswaLogin->last_seen)->diffForHumans() : '-' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td>:</td>
+                                <td class="status">
+                                    <span class="bg-{{ $siswa->siswaLogin->last_seen >= now()->subMinutes(2) ? 'green' : 'red' }}">
+                                        {{ $siswa->siswaLogin->last_seen >= now()->subMinutes(2) ? 'Online' : 'Offline' }}
+                                    </span>
                                 </td>
                             </tr>
                             <tr>

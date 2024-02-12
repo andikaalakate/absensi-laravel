@@ -26,6 +26,10 @@ Route::get('/welcome', function () {
   return view('landing.home');
 });
 
+Route::fallback(function () {
+  return view('offline');
+});
+
 Route::get('/clear-cache', function () {
   Artisan::call('cache:clear');
   return "Cache is cleared";
