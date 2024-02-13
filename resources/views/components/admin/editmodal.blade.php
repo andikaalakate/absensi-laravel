@@ -52,6 +52,15 @@
                         <option value="XII">XII / (12)</option>
                     </select>
                 </div>
+                <div class="modal-input">
+                    <label for="varKelas1">Kelas:</label>
+                    {{-- <input type="text" id="kelas1" name="kelas"> --}}
+                    <select id="varKelas1" name="variabel_kelas">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
                 {{-- <div class="modal-input">
                     <label for="hobi1">Hobi:</label>
                     <input type="text" id="hobi1" name="hobi">

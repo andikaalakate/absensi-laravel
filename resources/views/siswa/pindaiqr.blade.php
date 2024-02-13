@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ mix('assets/dashboard/css/scan-qr.css') . '?id=' . Str::random(16) }}">
     <link rel="stylesheet" href="{{ mix('css/app.css') . '?id=' . Str::random(16) }}">
     {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
-    <script src="{{ mix('assets/dashboard/js/checkLocation.js') . '?id=' . Str::random(16) }}" defer></script>
+    {{-- <script src="{{ mix('assets/dashboard/js/checkLocation.js') . '?id=' . Str::random(16) }}" defer></script> --}}
 @endsection
 
 @section('content')

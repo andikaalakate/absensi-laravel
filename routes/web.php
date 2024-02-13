@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\SiswaAbsensiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiswaAbsensisController;
 use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\api\SiswaDataApiController;
+use App\Http\Controllers\Api\SiswaDataApiController;
 use App\Http\Controllers\SiswaDataController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -48,7 +48,7 @@ Route::middleware('guest')->group(function () {
   Route::post('/admin/proseslogin', [AdminController::class, 'proseslogin']);
 });
 
-Route::middleware(['auth:siswa', 'auth.session', 'auth.checkduplicate'])->group(function () {
+Route::middleware(['auth:siswa', 'auth.session', 'siswaactivity'])->group(function () {
   Route::get('/', [AuthController::class, 'home']);
   Route::get('/siswa', [AuthController::class, 'home']);
   Route::get('/siswa/profil', [SiswaController::class, 'index']);
@@ -63,7 +63,7 @@ Route::middleware(['auth:siswa', 'auth.session', 'auth.checkduplicate'])->group(
   Route::post('/absensi/siswa/storeupdate', [SiswaAbsensisController::class, 'storeOrUpdate'])->name('siswa.absensi.storeupdate');
 });
 
-Route::middleware(['auth:admin', 'auth.session', 'auth.checkduplicate'])->group(function () {
+Route::middleware(['auth:admin', 'auth.session'])->group(function () {
   Route::get('/', [AdminController::class, 'home']);
   Route::get('/admin', [AdminController::class, 'home']);
   Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -80,7 +80,6 @@ Route::middleware(['auth:admin', 'auth.session', 'auth.checkduplicate'])->group(
   Route::get('/admin/laporan/cetak/pdf', [AdminController::class, 'cetakLaporan'])->name('admin.cetak.laporan');
   Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
   Route::post('/admin/siswa/store', [SiswaDataController::class, 'store'])->name('siswa.store');
-  Route::delete('/admin/siswa/destroy/{nis}', [SiswaDataApiController::class, 'destroy'])->name('siswa.destroy');
   Route::post('/admin/kelas/store', [KelasJurusanController::class, 'store1'])->name('kelas.store');
   Route::delete('/admin/kelas/destroy/{id}', [KelasJurusanController::class, 'destroy1'])->name('kelas.destroy');
   Route::post('/admin/jurusan/store', [KelasJurusanController::class, 'store2'])->name('jurusan.store');

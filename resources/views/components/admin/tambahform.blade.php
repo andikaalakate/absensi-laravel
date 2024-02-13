@@ -35,6 +35,11 @@
                     <option value="{{ $k->nama_kelas }}">{{ $k->nama_kelas }} / ({{ $angka_kelas }})</option>
                 @endforeach
             </select>
+            <select name="variabel_kelas" id="variabel_kelas">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
         </div>
         <div class="input-data">
             <label for="jurusan">Jurusan</label>
@@ -62,10 +67,6 @@
         <div class="input-data">
             <label for="tanggalLahir">Tanggal Lahir</label>
             <input type="date" required id="tanggalLahir" name="tanggal_lahir" />
-        </div>
-        <div class="input-data">
-            <label for="hobi">Hobi</label>
-            <input type="text" placeholder="Masukkan Hobi" required id="hobi" name="hobi" />
         </div>
         <div class="input-data">
             <label for="email">Email</label>

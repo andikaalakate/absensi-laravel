@@ -17,7 +17,8 @@ class SiswaLogin extends Model
         'nis',
         'email',
         'no_telp',
-        'password'
+        'password',
+        'last_seen'
     ];
 
     public function siswaLogin()

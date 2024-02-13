@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\KelasJurusanController;
 use App\Http\Controllers\Api\SiswaAbsensiController;
-use App\Http\Controllers\api\SiswaDataApiController;
+use App\Http\Controllers\Api\SiswaDataApiController;
 use App\Http\Controllers\SiswaAbsensisController;
 use App\Http\Controllers\SiswaDataController;
 use Illuminate\Http\Request;
@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/siswa', [SiswaDataApiController::class, 'index'])->name('siswa.index');
 Route::get('/siswa/{nis}', [SiswaDataApiController::class, 'show'])->name('siswa.show');
 Route::put('/siswa/{nis}', [SiswaDataController::class, 'update'])->name('siswa.update');
+Route::delete('/admin/siswa/destroy/{nis}', [SiswaDataApiController::class, 'destroy'])->name('siswa.destroy');
 // Route::apiResource('api/siswa', SiswaDataApiController::class);
 
 Route::get('/absensi/siswa', [SiswaAbsensiController::class, 'index'])->name('siswa.absensi.index');

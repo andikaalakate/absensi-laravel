@@ -20,7 +20,8 @@ class SiswaData extends Model
         'jurusan',
         'kelas',
         'nama_lengkap',
-        'tanggal_lahir'
+        'tanggal_lahir',
+        'variabel_kelas'
     ];
 
     public function siswaData()

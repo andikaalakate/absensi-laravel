@@ -41,12 +41,11 @@ class SiswaDataController extends Controller
             'kelas' => 'required|string|in:X,XI,XII',
             'tanggal_lahir' => 'required|Date',
             'alamat' => 'required|string',
-            'biografi' => 'nullable|string',
-            'hobi' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'no_telp' => 'nullable|string',
             'email' => 'nullable|email',
             'password' => 'nullable|string|min:8',
+            'variabel_kelas' => 'required|string|max:2',
         ]);
 
         if ($validator->fails()) {
@@ -59,10 +58,8 @@ class SiswaDataController extends Controller
             // Simpan data siswa
             $siswaData = new SiswaData();
             $siswaData->fill($request->only([
-                'nis', 'nama_lengkap', 'jenis_kelamin', 'jurusan', 'kelas', 'tanggal_lahir',
+                'nis', 'nama_lengkap', 'jenis_kelamin', 'jurusan', 'kelas', 'tanggal_lahir', 'variabel_kelas',
             ]));
-            $qr_code = 'api/absensi/siswa' . $siswaData->nis;
-            $siswaData->qr_code = $qr_code;
             // $tanggal_lahir = Carbon::createFromFormat('d-m-Y', $request->tanggal_lahir)->format('yyyy-mm-dd');
             // $siswaData->tanggal_lahir = $tanggal_lahir;
             $siswaData->save();
@@ -70,7 +67,7 @@ class SiswaDataController extends Controller
             // Simpan data bio siswa
             $siswaBio = new SiswaBio();
             $siswaBio->fill($request->only([
-                'nis', 'alamat', 'biografi', 'hobi'
+                'nis', 'alamat',
             ]));
 
             // Simpan gambar jika disediakan

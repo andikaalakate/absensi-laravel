@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkHost' => \App\Http\Middleware\CheckHost::class,
+        'siswaactivity' => \App\Http\Middleware\SiswaActivity::class,
     ];
 }

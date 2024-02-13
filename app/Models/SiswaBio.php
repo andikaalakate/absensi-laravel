@@ -16,8 +16,6 @@ class SiswaBio extends Model
     protected $fillable = [
         'nis',
         'alamat',
-        'biografi',
-        'hobi',
         'image',
     ];
 

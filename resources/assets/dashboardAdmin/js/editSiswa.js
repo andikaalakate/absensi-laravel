@@ -12,6 +12,7 @@ editButtons.forEach(function (editButton) {
         const notelp = editButton.getAttribute("data-no_telp");
         const jk = editButton.getAttribute("data-jk");
         const kelas = editButton.getAttribute("data-kelas");
+        const varkelas = editButton.getAttribute("data-varkelas");
         const tglahir = editButton.getAttribute("data-tglahir");
 
         // Mengisi nilai input tersembunyi dengan nilai NIS yang diambil
@@ -22,6 +23,7 @@ editButtons.forEach(function (editButton) {
         document.getElementById("noTelepon1").value = notelp;
         document.getElementById("jenisKelamin1").value = jk;
         document.getElementById("kelas1").value = kelas;
+        document.getElementById("varKelas1").value = varkelas;
         document.getElementById("tanggalLahir1").value = tglahir;
 
         // Mengubah action formulir untuk menggunakan nilai nis yang diambil

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SiswaResource;
@@ -8,8 +8,10 @@ use App\Models\SiswaAbsensi;
 use App\Models\SiswaBio;
 use App\Models\SiswaData;
 use App\Models\SiswaLogin;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -203,19 +205,35 @@ class SiswaDataApiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $nis)
+    /**
+     * destroy
+     *
+     * @param  mixed $siswaData, $siswaAbsensi, $siswaBio, $siswaLogin
+     * @return void
+     */
+    public function destroy($nis): RedirectResponse
     {
-        try {
-            SiswaAbsensi::where('nis', $nis)->delete();
-            SiswaBio::where('nis', $nis)->delete();
-            SiswaLogin::where('nis', $nis)->delete();
-            SiswaData::where('nis', $nis)->delete();
-        } catch (\Throwable $th) {
-            return back()->with('error', $th->getMessage());
+        $siswaData = SiswaData::where('nis', $nis)->first();
+
+        $siswaBio = SiswaBio::where('nis', $nis)->first();
+
+        $siswaAbsensi = SiswaAbsensi::where('nis', $nis)->first();
+
+        $siswaLogin = SiswaLogin::where('nis', $nis)->first();
+
+        $siswaData->delete();
+
+        // Hapus gambar siswaBio jika ada
+        if ($siswaBio) {
+            Storage::delete('public/images/siswa/' . $siswaBio->image);
         }
+
+        if ($siswaAbsensi) {
+            $siswaAbsensi->delete();
+        }
+
+        $siswaLogin->delete();
 
         return back()->with('success', 'Data Siswa berhasil dihapus');
     }
-
-
 }

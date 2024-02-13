@@ -133,6 +133,7 @@
                                     <button id="editButton"
                                         data-nama={{ isset($siswa->siswaData->nama_lengkap) ? $siswa->siswaData->nama_lengkap : '-' }}
                                         data-kelas="{{ isset($siswa->siswaData->kelas) ? $siswa->siswaData->kelas : '-' }}"
+                                        data-varkelas="{{ isset($siswa->siswaData->variabel_kelas) ? $siswa->siswaData->variabel_kelas : '-' }}"
                                         data-jurusan="{{ isset($siswa->siswaData->jurusan) ? $siswa->siswaData->jurusan : '-' }}"
                                         data-no_telp="{{ isset($siswa->siswaData->siswaLogin->no_telp) ? $siswa->siswaData->siswaLogin->no_telp : '-' }}"
                                         data-alamat="{{ isset($siswa->siswaData->siswaBio->alamat) ? $siswa->siswaData->siswaBio->alamat : '-' }}"
