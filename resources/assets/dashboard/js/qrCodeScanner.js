@@ -1,100 +1,166 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const btnScanQR = document.getElementById('btn-scan-qr');
-  const previewKamera = document.getElementById('previewKamera');
-  const swapCamera = document.getElementById('swapCamera');
-  const scanNav = document.getElementById('scanNav');
+function toggleScan() {
+    let reader = document.getElementById("qrCodeReader");
+    let qrcodeContainer = document.getElementById("qrcodeContainer");
 
-  let selectedDeviceId = null;
-  const codeReader = new ZXing.BrowserMultiFormatReader();
-  let scanning = false;
-
-  btnScanQR.addEventListener('click', function () {
-    initScanner();
-  });
-
-  swapCamera.addEventListener('click', function () {
-    trackQRCode();
-  });
-
-  window.addEventListener('resize', function () {
-    if (window.innerWidth <= 768) {
-      selectedDeviceId = videoInputDevices[1].deviceId;
-      trackQRCode();
-    }
-  });
-
-  scanNav.addEventListener('click', function () {
-    previewKamera.classList.toggle('scanAktif');
-    scanning = previewKamera.classList.contains('scanAktif');
-
-    if (scanning) {
-      // Jika kamera aktif, inisialisasi scanner
-      initScanner();
+    if (reader.style.display === "none") {
+        reader.style.display = "block";
+        qrcodeContainer.style.display = "none";
+        startScanner();
     } else {
-      // Jika kamera tidak aktif, hentikan pemindaian
-      codeReader.stopContinuousDecode();
+        reader.style.display = "none";
+        qrcodeContainer.style.display = "block";
+        stopScanner();
     }
-  });
+}
 
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(function (stream) {
-      previewKamera.srcObject = stream;
-      previewKamera.play();
-    })
-    .catch(function (err) {
-      console.error('Error accessing camera:', err);
-    });
+let html5QrcodeScanner = null;
+let isScanned = false;
 
-  // Sembunyikan elemen kamera saat pertama kali
-  previewKamera.style.display = 'none';
+function startScanner() {
+    if (!html5QrcodeScanner && !isScanned) {
+        html5QrcodeScanner = new Html5QrcodeScanner("qrCodeReader", {
+            fps: 10,
+            qrbox: 250,
+            aspectRatio: 1.0,
+            rememberLastUsedCamera: true,
+            supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+            idleTimeout: 10000,
+        });
+        html5QrcodeScanner.render(onScanSuccess);
+    }
+}
 
-  function initScanner() {
-    codeReader
-      .listVideoInputDevices()
-      .then(videoInputDevices => {
-        if (videoInputDevices.length > 0) {
-          // Default kamera belakang jika lebar layar <= 768px
-          selectedDeviceId = window.innerWidth <= 768 ? videoInputDevices[1].deviceId : videoInputDevices[0].deviceId;
+function stopScanner() {
+    if (html5QrcodeScanner) {
+        html5QrcodeScanner.clear();
+        html5QrcodeScanner = null;
+    }
+}
 
-          codeReader
-            .decodeOnceFromVideoDevice(selectedDeviceId, 'previewKamera')
-            .then(result => {
-              if (result) {
-                // Jika ada QR terbaca, langsung pergi ke halaman web
-                window.location.href = result.text;
-              } else {
-                // Jika tidak ada QR terbaca, tampilkan pesan SweetAlert
-                if (scanning) {
-                  swal("Tidak ada QR yang terbaca!", "", "warning");
-                }
-              }
-              codeReader.reset();
-            })
-            .catch(err => console.error(err));
-        } else {
-          alert("Camera not found!");
-        }
-      })
-      .catch(err => console.error(err));
-  }
+function onScanSuccess(qrCodeMessage) {
+    if (!isScanned) {
+        // Swal.fire({
+        //     icon: "success",
+        //     title: "Berhasil!",
+        //     showConfirmButton: false,
+        //     timer: 5000,
+        // });
+        submitFormWithLocation(qrCodeMessage);
+        setTimeout(function () {
+            location.href = '/siswa/statistik';
+        }, 5000);
+        isScanned = true;
+    }
+}
 
-  function trackQRCode() {
-    codeReader.stopContinuousDecode();
+function submitFormWithLocation(qrCodeMessage) {
+    let absensiCount = 0;
+    var form = document.getElementById("form-submit");
+    var nisInput = form.querySelector("input[name='nis']");
+    var statusInput = form.querySelector("input[name='status']");
+    var tokenInput = form.querySelector("input[name='_token']");
+    var now = new Date();
+    var inputQR = document.getElementById("inputQR");
+    var qrCodeContent = inputQR.value;
+    var formattedTime =
+        now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
-    codeReader
-      .decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'previewKamera', (result, error, controls) => {
-        if (result) {
-          // Jika ada QR terbaca, langsung pergi ke halaman web
-          window.location.href = result.text;
-        } else {
-          // Jika tidak ada QR terbaca, tampilkan pesan ToastAlert
-          if (scanning) {
-            swal("Tidak ada QR yang terbaca!", "", "warning");
-          }
-        }
-        if (error) {
-          console.error(error);
-        }
-      });
-  }
+    // console.log("qrCodeMessage:", qrCodeMessage);
+    // console.log("NIS Akun Absensi:", nisInput.value);
+
+    if (qrCodeMessage !== nisInput.value) {
+        Swal.fire({
+            icon: "error",
+            title: "Gagal Absen!",
+            text: "NIS QRCode tidak sesuai dengan NIS Akun Absensi",
+            showConfirmButton: true,
+            timer: 5000,
+        });
+        return;
+    }
+
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                var data = {
+                    nis: nisInput.value,
+                    lokasi_masuk: JSON.stringify({
+                        latitude: latitude,
+                        longitude: longitude,
+                    }),
+                    jam_masuk: formattedTime,
+                    jam_keluar: null,
+                    status: statusInput.value,
+                };
+
+                fetch(qrCodeContent, {
+                    method: "POST",
+                    headers: {
+                        "XSRF-TOKEN": tokenInput.value,
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": tokenInput.value,
+                    },
+                    cache: "no-cache",
+                    redirect: "follow",
+                    credentials: "same-origin",
+                    body: JSON.stringify(data),
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        JSON.stringify(data);
+                    })
+                    .then((data) => {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil Absen!",
+                            showConfirmButton: true,
+                            timer: 5000,
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal Absen!",
+                            showConfirmButton: true,
+                            timer: 5000,
+                        });
+                    });
+            },
+            function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Gagal mengambil lokasi!",
+                    showConfirmButton: true,
+                    timer: 5000,
+                });
+            }
+        );
+    } else {
+    Swal.fire({
+        icon: "error",
+        title: "Gagal mengambil lokasi!",
+        showConfirmButton: true,
+        timer: 5000,
+    })}
+}
+
+// function onScanError(errorMessage) {
+//     console.error("QR Code scan error:", errorMessage);
+// }
+
+document.addEventListener("DOMContentLoaded", function() {
+    // submitFormWithLocation();
+
+    var scanNav = document.getElementById("scanNav");
+    if (scanNav) {
+        scanNav.addEventListener('click', toggleScan);
+    }
 });
+
+window.addEventListener("beforeunload", stopScanner);

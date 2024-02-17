@@ -1,0 +1,124 @@
+/* Data Jurusan */
+.data-kelas {
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px #0006,
+        inset 0 0 4px #0006;
+    overflow-x: auto;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.searchInput {
+    background-color: white;
+    padding: 3px 5px;
+    display: flex;
+    max-width: 500px;
+    align-items: center;
+    border-radius: 25px;
+    box-shadow: 0 0 4px #0006;
+    font-size: 20px;
+}
+
+.searchInput input {
+    font-size: 18px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 0 5px;
+}
+
+input::-moz-selection {
+    background-color: #09f;
+    color: white;
+}
+
+input::selection {
+    background-color: #09f;
+    color: white;
+}
+
+.table-data-kelas {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.nama-murid::before {
+    content: "#";
+    opacity: .7;
+}
+
+.table-data-kelas tr:nth-child(even) {
+    background-color: #ccc;
+}
+
+.table-data-kelas td {
+    padding: 5px;
+}
+
+.table-data-kelas td:nth-child(1) {
+    width: 200px;
+}
+
+.table-data-kelas td:nth-child(2) {
+    width: 50px;
+    text-align: center;
+}
+
+.table-data-kelas td span::before {
+    content: "(";
+}
+.table-data-kelas td span::after {
+    content: ")";
+}
+
+.table-data-kelas tr:last-child td:last-child button {
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    padding: 5px 0;
+    background-color: #c43030;
+    color: white;
+    border-radius: 3px;
+}
+
+.table-data-kelas tr:last-child td:last-child button:nth-child(1) {
+    background-color: rgb(55, 155, 52);
+}
+
+.table-data-kelas tr:last-child td:last-child button:nth-child(1):hover {
+    background-color: rgb(33, 107, 30);
+}
+
+.table-data-kelas tr:last-child td:last-child button:nth-child(2):hover {
+    background-color: rgb(107, 30, 30);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.pagination button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.pagination button:hover {
+    box-shadow: 0 0 4px #0005;
+}
+

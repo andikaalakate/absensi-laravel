@@ -1,0 +1,433 @@
+/* Data Siswa */
+.data-siswa {
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px #0006, inset 0 0 4px #0006;
+    overflow-x: auto;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.searchInput {
+    background-color: white;
+    padding: 3px 5px;
+    display: flex;
+    max-width: 500px;
+    align-items: center;
+    border-radius: 25px;
+    box-shadow: 0 0 4px #0006;
+    font-size: 20px;
+}
+
+.searchInput input {
+    font-size: 18px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 0 5px;
+}
+
+input::selection {
+    background-color: #09f;
+    color: white;
+}
+
+.table-data-siswa {
+    border-collapse: collapse;
+    width: 100%;
+    /* display: none; */
+}
+
+.nama-murid::before {
+    content: "#";
+    opacity: 0.7;
+}
+
+.table-data-siswa tr:nth-child(even) {
+    background-color: #ccc;
+}
+
+.table-data-siswa td {
+    padding: 5px;
+}
+
+.table-data-siswa td:nth-child(1) {
+    width: 200px;
+}
+
+.table-data-siswa td:nth-child(2) {
+    width: 50px;
+    text-align: center;
+}
+
+.aksiButton {
+    display: flex;
+    gap: 5px;
+    border: none;
+}
+
+.aksiButton button {
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    padding: 5px 0;
+    background-color: #c43030;
+    color: white;
+    border-radius: 3px;
+}
+
+#editButton {
+    background-color: rgb(55, 155, 52);
+}
+
+#editButton:hover {
+    background-color: rgb(33, 107, 30);
+}
+
+.aksiButton button:hover {
+    background-color: rgb(107, 30, 30);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.pagination button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.pagination button:hover {
+    box-shadow: 0 0 4px #0005;
+}
+
+/* Tambah Siswa */
+.form-add {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    box-shadow: 0 0 8px #0006, inset 0 0 4px #0006;
+}
+
+.input-data {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.input-data label::after {
+    content: ":";
+    margin-left: 10px;
+}
+
+.input-data label:nth-child(2)::after {
+    content: "";
+}
+
+.input-data input {
+    padding: 3px 5px;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid #0d0d0d70;
+}
+
+.input-data select {
+    font-size: 16px;
+    padding: 3px 5px;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid #0d0d0d70;
+}
+
+.input-data input[type="date"] {
+    cursor: pointer;
+}
+
+textarea {
+    outline: none;
+    transition: 0s;
+}
+
+.input-data input:focus-within,
+.input-data select:focus-within,
+.input-data textarea:focus-within {
+    border: 1px solid #09f;
+    box-shadow: 0 0 4px #09f7;
+}
+
+.inputAlamat {
+    font-size: 16px;
+    max-width: 1000px;
+    max-height: 400px;
+    padding: 3px 5px;
+}
+
+.input-data div {
+    border: none;
+    display: flex;
+    padding: 0.75rem 1.5rem;
+    background-color: #488aec;
+    color: #ffffff;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    align-items: center;
+    border-radius: 0.5rem;
+    user-select: none;
+    gap: 0.75rem;
+    box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.input-data div:hover {
+    box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17;
+}
+
+.input-data div:focus,
+div:active {
+    opacity: 0.85;
+    box-shadow: none;
+}
+
+.input-data div svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.buttonForm {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* Button */
+.buttonForm button {
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 3px 7px;
+    border-radius: 5px;
+}
+
+.buttonFormCon {
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 3px 7px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.buttonForm button:hover,
+.buttonFormCon:hover {
+    box-shadow: 0 4px 8px #0006;
+}
+
+/* Confirm */
+#confirm1 {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #0005;
+    padding-top: 20px;
+}
+
+#confirm1.aktif {
+    display: flex;
+}
+
+.confirmPage {
+    padding: 15px 10px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    width: 200px;
+}
+
+.confirmPage span {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.confirmPage .button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    text-transform: uppercase;
+}
+
+.buttonConfirmation {
+    border: 1px solid #0005;
+    padding: 1px 6px;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 50px;
+}
+
+.buttonConfirmation:hover {
+    box-shadow: 0 0 8px #0006;
+}
+
+/* Modal Edit */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 5;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 5px 0;
+}
+
+.modal.aktif {
+    display: block;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    gap: 2px;
+    width: 100%;
+}
+
+.modal-input textarea {
+    max-width: 100%;
+    max-height: 100px;
+}
+
+.modal-input input,
+.modal-input select,
+.modal-input textarea {
+    width: 100%;
+    padding: 3px 5px;
+    border: 1px solid #0007;
+}
+
+.form-modal>button {
+    border: none;
+    background-color: rgb(38, 168, 38);
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 0 4px #0006;
+}
+
+.form-modal>button:hover {
+    background-color: rgb(22, 114, 22);
+}
+
+.qrcode-container img {
+    border: 0.5px solid black;
+    padding: 0.5rem;
+    box-shadow: 0 0 0.2rem black;
+    display: block;
+    margin: 0.5rem 0;
+    border-radius: 0.5rem;
+}
+
+.lihatQRCode {
+    background-color: rgb(55, 55, 255);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    border: none;
+}
+
+.lihatQRCode:hover {
+    background-color: rgb(6, 6, 158);
+}
+
+.qrlihat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.qrlihat button {
+    max-width: 6.5rem;
+}
+
+.bg-red {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border-radius: 0.3rem;
+    padding: 0.2rem 0.4rem;
+    font-size: small;
+    display: flex;
+    align-items: center;
+    max-width: 5rem;
+    justify-content: center;
+    text-align: center;
+}
+
+.bg-green {
+    background-color: rgb(0, 128, 0);
+    color: white;
+    border-radius: 0.3rem;
+    padding: 0.2rem 0.4rem;
+    font-size: small;
+    display: flex;
+    align-items: center;
+    max-width: 5rem;
+    justify-content: center;
+    text-align: center;
+}

@@ -1,13 +1,13 @@
 @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Nunito+Sans:wght@200;300;400;500;600;700;800;900;1000&family=Oswald:wght@200;300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Ubuntu:wght@300;400;500;700&display=swap);
 * {
-    font-family: 'Oswald', sans-serif;
+    font-family: "Oswald", sans-serif;
     font-weight: 500;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
     list-style-type: none;
-    transition: .5s;
+    transition: 0.5s;
     scroll-behavior: smooth;
 }
 
@@ -17,6 +17,10 @@
 
 *::selection {
     background-color: transparent;
+}
+
+body {
+    background-color: #cecece;
 }
 
 .container {
@@ -51,7 +55,8 @@ aside.sidebar * {
 
 .button-page {
     display: grid;
-    grid-template-areas: "panah"
+    grid-template-areas:
+        "panah"
         "logo"
         "sidelink"
         "exitLink";
@@ -61,7 +66,6 @@ aside.sidebar * {
 }
 
 .logo {
-
     grid-area: logo;
 }
 
@@ -89,10 +93,15 @@ aside.sidebar * {
     display: block;
 }
 
-.sidebutton>.list-link:nth-child(5) {
+.sidebutton > .list-link:nth-child(5) {
     height: 40px;
     overflow: hidden;
+}
 
+.exit-link {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
 }
 
 .sidelink:hover,
@@ -136,7 +145,11 @@ aside.sidebar * {
 }
 
 .dash-content {
-    background-color: #F5f5f5;
+    right: 10px;
+}
+
+.dash-content {
+    background-color: #f5f5f5;
     box-shadow: 0 0 8px #0004;
     padding: 10px;
     border-radius: 10px;
@@ -148,7 +161,6 @@ aside.sidebar * {
     width: 100%;
     max-width: calc(100% - 330px);
     padding-bottom: 75px;
-    transition:0s;
 }
 
 .dash-content::-webkit-scrollbar {
@@ -166,6 +178,23 @@ aside.sidebar * {
     background-color: #968f8f;
 }
 
+.dash *::-moz-selection {
+    background-color: rgb(33, 82, 187);
+    color: white;
+}
+
+.dash *::selection {
+    background-color: rgb(33, 82, 187);
+    color: white;
+}
+
+.dash img::-moz-selection {
+    background-color: transparent;
+}
+
+.dash img::selection {
+    background-color: transparent;
+}
 
 /* Preload */
 
@@ -283,7 +312,7 @@ aside.sidebar * {
     bottom: -100%;
     right: 15px;
     visibility: hidden;
-    transition: opacity .3s, bottom 1s, visibility .5s;
+    transition: opacity 0.3s, bottom 1s, visibility 0.5s;
 }
 
 .bounce-link {
@@ -294,21 +323,34 @@ aside.sidebar * {
     bottom: 70px;
     align-items: center;
     gap: 5px;
+    font-size: 20px;
     background-color: rgb(33, 82, 187);
 }
 
+form.bounce-link {
+    padding: 0;
+}
+
+button.bounce-link {
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
 
 #bounce-button {
     display: none;
 }
 
-#bounce-button:checked~.bounce-menu {
+#bounce-button:checked ~ .bounce-menu {
     visibility: visible;
     opacity: 1;
     bottom: 70px;
 }
 
-.bounceButton>i {
+.bounceButton > i {
     background-color: rgb(33, 82, 187);
     width: 100%;
     height: 100%;
@@ -320,12 +362,10 @@ aside.sidebar * {
     transition: transform 1s, font-size 1s;
 }
 
-#bounce-button:checked~i {
+#bounce-button:checked ~ i {
     font-size: 30px;
     transform: rotate(360deg);
 }
-
-
 
 @media screen and (max-width: 768px) {
     .container {
@@ -364,5 +404,22 @@ aside.sidebar * {
     }
 }
 
+.btnExit {
+    background-color: transparent;
+    width: 100%;
+    cursor: pointer;
+    border: none;
+}
 
+.exit-link {
+    padding: 0;
+}
+
+[title] {
+    position: relative;
+}
+
+[title]:hover:after {
+    content: none !important;
+}
 
