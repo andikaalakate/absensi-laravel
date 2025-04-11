@@ -45,11 +45,16 @@ class SiswaAbsensiController extends Controller
 
             if ($siswaAbsensi) {
                 // Jika data absensi sudah ada, lakukan update jam pulang
-                $siswaAbsensi->update(['jam_pulang' => now()]);
+                $siswaAbsensi->update(['jam_pulang' => $today]);
                 return redirect()->back()->with('success', 'Data absensi berhasil ditambahkan.');
             } else {
                 // Jika belum ada data absensi, buat data baru
-                $siswaAbsensi = SiswaAbsensi::create($request->all());
+                $siswaAbsensi = SiswaAbsensi::create($request->only(
+                    'nis',
+                    'lokasi_masuk',
+                    'jam_masuk',
+                    'status'
+                ));
                 $siswaAbsensi->save();
                 // return new SiswaAbsensiResource(
                 //     status: true,

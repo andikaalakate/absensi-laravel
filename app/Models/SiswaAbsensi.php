@@ -20,7 +20,9 @@ class SiswaAbsensi extends Model
         'jam_masuk',
         'jam_pulang',
         'lokasi_masuk',
-        'status'
+        'status',
+        'created_at',
+        'updated_at',
     ];
 
     public function siswaAbsensi()

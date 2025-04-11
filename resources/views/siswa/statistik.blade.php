@@ -10,6 +10,54 @@
     <div class="dash" id="dashBoard">
         <div class="dash-content" id="dashContent">
             <h1 class="content-head">Statistik</h1>
+            <div class="data-statistik">
+                <div class="img-statistik">
+                    <img src="@if ($siswas->siswaBio->image) /images/siswa/{{ $siswas->siswaBio->image }}
+                @else
+                    {{ asset('images/siswa/avatar1.webp') }} @endif"
+                        alt="{{ $siswas->siswaData->nama_lengkap }}" />
+                </div>
+                <div class="table-data">
+                    <table>
+                        <tr>
+                            <td>Nama</td>
+                            <td>=</td>
+                            <td>{{ $siswas->siswaData->nama_lengkap }}</td>
+                        </tr>
+                        <tr>
+                            <td>tanggal</td>
+                            <td>=</td>
+                            <td>{{ \Carbon\Carbon::now()->format('d F Y') }}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Masuk</span></td>
+                            <td>=</td>
+                            <td>
+                                <span>
+                                    @if (isset($siswaAbsensi2['data']['jam_masuk']))
+                                        Telah Masuk
+                                    @else
+                                        Tidak Masuk
+                                    @endif
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>Pulang</span></td>
+                            <td>=</td>
+                            <td>
+                                <span>
+                                    @if (isset($siswaAbsensi2['data']['jam_pulang']))
+                                        Telah Pulang
+                                    @else
+                                        Belum Pulang
+                                    @endif
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
             <div class="chart-card">
                 <div class="chart">
                     <canvas id="myDoughnutChart" width="400" height="400"></canvas>

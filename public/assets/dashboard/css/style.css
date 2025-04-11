@@ -93,7 +93,7 @@ aside.sidebar * {
     display: block;
 }
 
-.sidebutton > .list-link:nth-child(5) {
+.sidebutton>.list-link:nth-child(5) {
     height: 40px;
     overflow: hidden;
 }
@@ -344,13 +344,13 @@ button.bounce-link {
     display: none;
 }
 
-#bounce-button:checked ~ .bounce-menu {
+#bounce-button:checked~.bounce-menu {
     visibility: visible;
     opacity: 1;
     bottom: 70px;
 }
 
-.bounceButton > i {
+.bounceButton>i {
     background-color: rgb(33, 82, 187);
     width: 100%;
     height: 100%;
@@ -362,7 +362,7 @@ button.bounce-link {
     transition: transform 1s, font-size 1s;
 }
 
-#bounce-button:checked ~ i {
+#bounce-button:checked~i {
     font-size: 30px;
     transform: rotate(360deg);
 }
@@ -393,6 +393,7 @@ button.bounce-link {
     }
 
     .dash-content {
+        left: 5px;
         width: 100%;
         height: 100%;
         max-height: calc(100vh - 10px);
@@ -422,4 +423,3 @@ button.bounce-link {
 [title]:hover:after {
     content: none !important;
 }
-

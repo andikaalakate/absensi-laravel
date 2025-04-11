@@ -7,6 +7,7 @@ use App\Models\SiswaAbsensi;
 use App\Models\SiswaBio;
 use App\Models\SiswaData;
 use App\Models\SiswaLogin;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -38,6 +39,14 @@ class SiswaController extends Controller
         ini_set('max_execution_time', 120);
         $theUrl = config('app.guzzle_test_url') . '/api/absensi2/siswa/' . Auth::user()->nis;
         $siswaAbsensi = Http::get($theUrl)->json();
+
+        // Convert $siswaAbsensi into a collection
+        $siswaAbsensiCollection = collect($siswaAbsensi);
+
+        // Use the where() method on the collection
+        $absensiToday = $siswaAbsensiCollection->where('created_at', Carbon::now()->format('Y-m-d'))->first();
+
+        dd($siswaAbsensiCollection);
         $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin', 'siswaJurusan')->where('nis', Auth::user()->nis)->first();
         // $siswaAbsensi = Http::withoutVerifying()->acceptJson()->get(route('siswa.absensi.show2', Auth::user()->nis))->json();
         // dd($siswaAbsensi);
@@ -101,9 +110,13 @@ class SiswaController extends Controller
     }
     public function statistik(Request $request)
     {
+        $siswas = SiswaData::with('siswaData', 'siswaBio', 'siswaLogin')->where('nis', Auth::user()->nis)->first();
         $nis = Auth::user()->nis;
         $absensiUrl = config('app.guzzle_test_url') . "/api/absensi/siswa/" . $nis;
         $statistik_url = route('siswa.statistik');
+
+        $absensiUrl2 = config('app.guzzle_test_url') . '/api/absensi2/siswa/' . $nis;
+        $siswaAbsensi2 = Http::get($absensiUrl2)->json();
 
         if ($request->input('page') != '') {
             $absensiUrl .= "?page=" . $request->input('page');
@@ -111,6 +124,10 @@ class SiswaController extends Controller
 
         $siswaAbsensiArray = Http::get($absensiUrl)->json();
         $siswaAbsensi = $siswaAbsensiArray['data'];
+
+        $absensiCount = SiswaAbsensi::where('nis', $nis)->get();
+
+        // dd($siswaAbsensi2);
 
         foreach ($siswaAbsensi['links'] as &$link) {
             if ($link['label'] == 'pagination.previous') {
@@ -128,7 +145,6 @@ class SiswaController extends Controller
 
         $siswaData = $siswaAbsensi;
 
-        $absensiCount = SiswaAbsensi::where('nis', $nis)->get();
 
         // dd($siswaData);
 
@@ -155,7 +171,9 @@ class SiswaController extends Controller
 
         return view('siswa.statistik', [
             'title' => "Statistik",
+            'siswas' => $siswas,
             'siswaAbsensi' => $siswaAbsensi,
+            'siswaAbsensi2' => $siswaAbsensi2,
             'siswaData' => $siswaData,
             'hadirCount' => $hadirCount,
             'sakitCount' => $sakitCount,
